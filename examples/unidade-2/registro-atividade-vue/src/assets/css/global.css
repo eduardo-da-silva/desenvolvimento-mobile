@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  background: #f4f4f6;
+  color: #111;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+/* Espaçamento para conteúdo abaixo do header fixo */
+.page {
+  padding: 72px 16px 16px;
+  max-width: 600px;
+  margin: 0 auto;
+}

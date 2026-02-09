@@ -1,0 +1,181 @@
+site_name: Desenvolvimento para Dispositivos Móveis
+site_author: Eduardo da Silva
+site_description: Curso de desenvolvimento mobile com Vue.js 3, PWA e tecnologias web modernas
+site_url: https://eduardo-da-silva.github.io/desenvolvimento-mobile
+repo_url: https://github.com/eduardo-da-silva/desenvolvimento-mobile
+repo_name: eduardo-da-silva/desenvolvimento-mobile
+copyright: Copyright &copy; 2026 Eduardo da Silva
+
+plugins:
+  - search:
+      lang: 
+        - pt
+        - en
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+          remove_comments: true
+      cache_safe: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/eduardo-da-silva
+      name: GitHub
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/eduardo-da-silva
+      name: LinkedIn
+  generator: false
+  
+  # Tags para adicionar metadados
+  tags:
+    Mobile: mobile
+    PWA: pwa
+    Vue.js: vuejs
+    JavaScript: javascript
+  
+  # Versão do curso
+  version:
+    provider: mike
+    default: latest
+  
+  # Analytics (descomente se quiser adicionar)
+  # analytics:
+  #   provider: google
+  #   property: G-XXXXXXXXXX
+
+theme:
+  name: material
+  favicon: images/favicon.svg
+  logo: images/logo.svg
+  language: pt-BR
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+    - content.tooltips
+    - navigation.expand
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+  palette: 
+    # Modo claro (tema moderno com roxo/azul)
+    - scheme: default
+      primary: deep purple
+      accent: cyan
+      toggle:
+        icon: material/brightness-7 
+        name: Mudar para modo escuro
+    # Modo escuro
+    - scheme: slate
+      primary: deep purple
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Mudar para modo claro
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+    view: material/eye
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra_css:
+  - assets/css/extra.css
+
+extra_javascript:
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+  - assets/js/tablesort.js
+
+nav:
+  - Início: index.md
+  - Unidade 1 - Panorama do Desenvolvimento Mobile:
+    - Apresentação: unidade1/index.md
+    - O que é desenvolvimento mobile?: unidade1/o-que-e-mobile.md
+    - Abordagens para desenvolvimento mobile: unidade1/abordagens.md
+    - Progressive Web Apps (PWA): unidade1/pwa.md
+    - O navegador como plataforma: unidade1/navegador-plataforma.md
+    - Primeiros cuidados com UX mobile: unidade1/ux-mobile.md
+    - Exemplo prático inicial: unidade1/exemplo-pratico.md
+    - Resumo e exercícios: unidade1/resumo-exercicios.md
+    - Projeto prático: unidade1/projeto-pratico.md
+  - Unidade 2 - Estruturação com Vue.js 3:
+    - Apresentação: unidade2/index.md
+    - Criando projeto com Vite: unidade2/criando-projeto-vite.md
+    - Composition API: unidade2/composition-api.md
+    - Componentes reutilizáveis: unidade2/componentes-reutilizaveis.md
+    - Props e eventos: unidade2/props-eventos.md
+    - Organização de projeto: unidade2/organizacao-projeto.md
+    - Vue Router: unidade2/vue-router.md
+    - Projeto Prático:
+      - Visão Geral: unidade2/projeto/index.md
+      - 1. Configuração do Projeto: unidade2/projeto/01-setup.md
+      - 2. Composable useRecords: unidade2/projeto/02-composable.md
+      - 3. Componentes Reutilizáveis: unidade2/projeto/03-componentes.md
+      - 4. Views (Páginas): unidade2/projeto/04-views.md
+      - 5. Configuração de Rotas: unidade2/projeto/05-router.md
+      - 6. Finalização e Testes: unidade2/projeto/06-finalizacao.md
