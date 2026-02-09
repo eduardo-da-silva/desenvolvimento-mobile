@@ -85,16 +85,52 @@ Telas mínimas sugeridas:
 - Lista de registros (home)
 - Tela de criação de novo registro (formulário simples)
 
-O que desenhar:
+#### Tela 1 — Lista de registros (Home)
 
-1. Um wireframe de baixa fidelidade para a tela principal mostrando a lista (cada item com título e duração).
-2. Um wireframe para a tela de criação com os campos definidos no escopo.
+<figure style="text-align: center; margin: 2em 0;">
+  <img src="../../assets/images/wireframe-lista.svg" alt="Wireframe da tela de lista de registros" style="max-width: 260px; width: 100%;">
+  <figcaption style="margin-top: 0.5em; font-size: 0.9em; color: #888;">Tela principal — lista de atividades registradas</figcaption>
+</figure>
 
-Cuidados com UX mobile (lembre-se do que aprendeu na unidade):
+**Elementos e justificativas:**
 
-- Mantenha os botões grandes e no alcance do polegar
-- Priorize o conteúdo essencial
-- Use estados visuais para indicar toques
+| Elemento                     | Posição         | Por quê?                                                            |
+| ---------------------------- | --------------- | ------------------------------------------------------------------- |
+| **Header fixo**              | Topo            | Identifica a tela; sempre visível ao rolar                          |
+| **Cards de registro**        | Centro (scroll) | Cada card exibe título e duração; área de scroll para listas longas |
+| **Botão "+ Nova Atividade"** | Rodapé fixo     | Ação principal ao alcance do polegar (zona fácil)                   |
+
+!!! tip "Lembre-se"
+
+    O botão de ação principal fica na parte inferior da tela — a zona mais fácil de alcançar com o polegar, conforme estudamos na seção de UX mobile.
+
+#### Tela 2 — Formulário de criação
+
+<figure style="text-align: center; margin: 2em 0;">
+  <img src="../../assets/images/wireframe-formulario.svg" alt="Wireframe da tela de criação de registro" style="max-width: 260px; width: 100%;">
+  <figcaption style="margin-top: 0.5em; font-size: 0.9em; color: #888;">Tela de formulário — criar nova atividade</figcaption>
+</figure>
+
+**Elementos e justificativas:**
+
+| Elemento                 | Posição        | Por quê?                                                            |
+| ------------------------ | -------------- | ------------------------------------------------------------------- |
+| **Header com "Voltar"**  | Topo           | Indica contexto e permite retornar à lista                          |
+| **Campos de entrada**    | Centro         | Labels acima dos campos; placeholders para orientar o preenchimento |
+| **Campo de observações** | Centro (maior) | Área de texto opcional para detalhes extras                         |
+| **Botão "Salvar"**       | Rodapé fixo    | Ação de confirmação ao alcance do polegar                           |
+
+#### O que observar nos wireframes:
+
+1. **Layout fixo no topo e na base:** header e footer não rolam junto com o conteúdo
+2. **Conteúdo central com scroll:** a lista de cards cresce conforme os registros aumentam
+3. **Botões grandes e largos:** ocupam toda a largura para facilitar o toque
+4. **Campos de entrada claros:** labels visíveis e placeholders descritivos
+5. **Navegação simples:** "Voltar" no header e ação principal no footer
+
+!!! info "Sobre os wireframes"
+
+    Esses wireframes são uma **referência visual** para guiar a implementação. Na seção 6, vamos implementar a tela de lista usando HTML e CSS. O formulário será simplificado com `prompt()` nesta etapa e evoluirá nas próximas unidades.
 
 ---
 
@@ -136,7 +172,7 @@ O que fazer (passo a passo):
 
 Exemplo mínimo de `index.html` (copie para o arquivo):
 
-```html
+```html title="./index.html" linenums="1"
 <!doctype html>
 <html lang="pt-BR">
   <head>
@@ -168,7 +204,7 @@ Exemplo mínimo de `index.html` (copie para o arquivo):
 
 Exemplo mínimo de `css/styles.css` (copie para o arquivo):
 
-```css
+```css title="./css/styles.css" linenums="1"
 /* Reset básico */
 * {
   box-sizing: border-box;
@@ -253,7 +289,7 @@ O que fazer (passo a passo):
 
 Exemplo mínimo de `js/app.js` (copie para o arquivo):
 
-```javascript
+```javascript title="./js/app.js" linenums="1"
 // Array em memória para armazenar registros
 const records = [];
 
@@ -294,10 +330,10 @@ btnAdd.addEventListener('click', () => {
 render();
 ```
 
-Observações:
+!!! tipo "Observações"
 
-- O uso de `prompt` é intencional aqui para manter o exemplo simples e focado em manipulação de DOM e eventos. Em projetos reais, vamos substituir por formulários melhores.
-- Não há persistência; ao recarregar a página, os registros desaparecem.
+    - O uso de `prompt` é intencional aqui para manter o exemplo simples e focado em manipulação de DOM e eventos. Em projetos reais, vamos substituir por formulários melhores.
+    - Não há persistência; ao recarregar a página, os registros desaparecem.
 
 ---
 

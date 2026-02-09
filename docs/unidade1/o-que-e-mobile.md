@@ -6,42 +6,44 @@ Desenvolvimento mobile é o processo de criar aplicações para dispositivos mó
 
 Vamos comparar três tipos de aplicações:
 
-### Aplicações Desktop
+!!! tip "Tipos de aplicações"
 
-São instaladas diretamente no computador. Exemplos: Word, Photoshop, VLC Player.
+    === "Aplicações Desktop"
 
-**Características:**
+        São instaladas diretamente no computador. Exemplos: Word, Photoshop, VLC Player.
 
-- Instalação local via arquivo executável
-- Acesso total aos recursos do sistema operacional
-- Funciona offline por padrão
-- Interface otimizada para teclado e mouse
-- Tela grande (geralmente 13" ou mais)
+        **Características:**
 
-### Aplicações Web
+        - Instalação local via arquivo executável
+        - Acesso total aos recursos do sistema operacional
+        - Funciona offline por padrão
+        - Interface otimizada para teclado e mouse
+        - Tela grande (geralmente 13" ou mais)
 
-Rodam no navegador e são acessadas por URL. Exemplos: Gmail, Google Docs, Netflix.
+    === "Aplicações Web"
 
-**Características:**
+        Rodam no navegador e são acessadas por URL. Exemplos: Gmail, Google Docs, Netflix.
 
-- Não precisa instalar (só acessar a URL)
-- Roda em qualquer sistema operacional com navegador
-- Depende de conexão com internet (geralmente)
-- Interface pensada para mouse/trackpad
-- Tela grande
+        **Características:**
 
-### Aplicações Mobile
+        - Não precisa instalar (só acessar a URL)
+        - Roda em qualquer sistema operacional com navegador
+        - Depende de conexão com internet (geralmente)
+        - Interface pensada para mouse/trackpad
+        - Tela grande
 
-São feitas para smartphones e tablets. Exemplos: WhatsApp, Instagram, iFood.
+    === "Aplicações Mobile"
 
-**Características:**
+        São feitas para smartphones e tablets. Exemplos: WhatsApp, Instagram, iFood.
 
-- Instaladas via loja de aplicativos (Play Store, App Store)
-- Interface otimizada para toque
-- Tela pequena (geralmente entre 4" e 7")
-- Uso em contextos variados (andando, deitado, em movimento)
-- Pode funcionar offline
-- Acesso a recursos específicos: GPS, câmera, acelerômetro, etc.
+        **Características:**
+
+        - Instaladas via loja de aplicativos (Play Store, App Store)
+        - Interface otimizada para toque
+        - Tela pequena (geralmente entre 4" e 7")
+        - Uso em contextos variados (andando, deitado, em movimento)
+        - Pode funcionar offline
+        - Acesso a recursos específicos: GPS, câmera, acelerômetro, etc.
 
 ## Particularidades do uso em dispositivos móveis
 
@@ -56,7 +58,9 @@ O usuário mobile está frequentemente:
 - Usando apenas uma mão
 - Lidando com conexões instáveis
 
-**Implicação:** A aplicação deve ser rápida, objetiva e funcionar bem mesmo com conexão ruim.
+!!! note "Implicação"
+
+    A aplicação deve ser rápida, objetiva e funcionar bem mesmo com conexão ruim.
 
 ### 2. **Tamanho da tela**
 
@@ -66,7 +70,9 @@ Telas de celular variam de 4 a 7 polegadas, em média. Isso afeta:
 - Necessidade de navegação por níveis (menus, abas)
 - Tamanho dos elementos tocáveis
 
-**Implicação:** O design deve priorizar informações e ações principais.
+!!! note "Implicação"
+
+    O design deve priorizar informações e ações principais.
 
 ### 3. **Forma de interação**
 
@@ -79,7 +85,9 @@ Diferenças práticas:
 - Gestos como deslizar (swipe) e pinçar (pinch) são comuns
 - É possível tocar com múltiplos dedos ao mesmo tempo
 
-**Implicação:** Botões devem ser grandes o suficiente. Feedback visual é essencial.
+!!! note "Implicação"
+
+    Botões devem ser grandes o suficiente. Feedback visual é essencial.
 
 ### 4. **Recursos do hardware**
 
@@ -91,13 +99,17 @@ Smartphones têm recursos que computadores não têm (ou têm limitados):
 - Notificações push
 - Vibração
 
-**Implicação:** É possível criar experiências contextuais e interativas únicas.
+!!! note "Implicação"
+
+    É possível criar experiências contextuais e interativas únicas.
 
 ### 5. **Consumo de bateria e dados**
 
 Dispositivos móveis dependem de bateria e dados móveis limitados.
 
-**Implicação:** Aplicações devem ser otimizadas para consumir menos recursos.
+!!! note "Implicação"
+
+    Aplicações devem ser otimizadas para consumir menos recursos.
 
 ## Por que isso importa?
 
