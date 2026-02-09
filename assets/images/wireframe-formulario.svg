@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 560" width="300" height="560">
+  <defs>
+    <filter id="sombra2">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+    <filter id="input-focus">
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#0b5cff" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Corpo do celular -->
+  <rect x="10" y="6" width="280" height="548" rx="32" ry="32" fill="#1a1a2e" filter="url(#sombra2)" stroke="#333" stroke-width="1.5"/>
+
+  <!-- Tela -->
+  <rect x="22" y="44" width="256" height="472" rx="4" ry="4" fill="#f4f4f6"/>
+
+  <!-- Câmera frontal -->
+  <circle cx="150" cy="26" r="5" fill="#222" stroke="#444" stroke-width="1"/>
+  <circle cx="150" cy="26" r="2" fill="#1a1a2e"/>
+
+  <!-- Home indicator -->
+  <rect x="110" y="528" width="80" height="4" rx="2" fill="#444"/>
+
+  <!-- ===== HEADER ===== -->
+  <rect x="22" y="44" width="256" height="48" rx="4" ry="0" fill="#0b5cff"/>
+
+  <!-- Botão voltar -->
+  <text x="38" y="74" font-family="system-ui, sans-serif" font-size="18" fill="#fff" opacity="0.9">‹</text>
+  <text x="52" y="74" font-family="system-ui, sans-serif" font-size="13" fill="#fff" opacity="0.8">Voltar</text>
+
+  <!-- Título -->
+  <text x="150" y="74" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">Nova Atividade</text>
+
+  <!-- ===== FORMULÁRIO ===== -->
+
+  <!-- Título do formulário -->
+  <text x="38" y="120" font-family="system-ui, sans-serif" font-size="10" fill="#888" font-weight="600" letter-spacing="0.5">DADOS DA ATIVIDADE</text>
+
+  <!-- Campo: Título da atividade -->
+  <text x="38" y="148" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#444">Título da atividade</text>
+  <rect x="30" y="155" width="240" height="44" rx="8" ry="8" fill="#fff" stroke="#ddd" stroke-width="1.5" filter="url(#input-focus)"/>
+  <text x="44" y="182" font-family="system-ui, sans-serif" font-size="13" fill="#bbb">Ex: Estudo de JavaScript</text>
+
+  <!-- Campo: Duração -->
+  <text x="38" y="224" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#444">Duração (minutos)</text>
+  <rect x="30" y="231" width="240" height="44" rx="8" ry="8" fill="#fff" stroke="#ddd" stroke-width="1.5"/>
+  <text x="44" y="258" font-family="system-ui, sans-serif" font-size="13" fill="#bbb">Ex: 45</text>
+
+  <!-- Campo: Observações (textarea) -->
+  <text x="38" y="300" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#444">Observações (opcional)</text>
+  <rect x="30" y="307" width="240" height="80" rx="8" ry="8" fill="#fff" stroke="#ddd" stroke-width="1.5"/>
+  <text x="44" y="334" font-family="system-ui, sans-serif" font-size="13" fill="#bbb">Notas sobre a atividade...</text>
+
+  <!-- ===== FOOTER COM BOTÃO ===== -->
+  <rect x="22" y="440" width="256" height="76" rx="0" ry="4" fill="#fff" stroke="#eee" stroke-width="1"/>
+
+  <!-- Botão Salvar -->
+  <rect x="34" y="454" width="232" height="48" rx="10" ry="10" fill="#0b5cff"/>
+  <text x="150" y="484" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">✓  Salvar Atividade</text>
+
+</svg>

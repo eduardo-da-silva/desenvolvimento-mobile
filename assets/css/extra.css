@@ -1,0 +1,146 @@
+/* Estilos customizados para o curso de Desenvolvimento Mobile */
+
+/* Melhorias no estilo geral */
+:root {
+  --md-primary-fg-color: #673ab7;
+  --md-accent-fg-color: #00bcd4;
+}
+
+/* Destaque para títulos importantes */
+.md-typeset h1 {
+  font-weight: 700;
+  color: var(--md-primary-fg-color);
+  border-bottom: 3px solid var(--md-primary-fg-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.md-typeset h2 {
+  font-weight: 600;
+  color: var(--md-primary-fg-color);
+  margin-top: 2rem;
+}
+
+/* Cards modernos para admonitions */
+.md-typeset .admonition {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Destaque para código inline */
+.md-typeset code {
+  background-color: rgba(103, 58, 183, 0.1);
+  color: var(--md-primary-fg-color);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Blocos de código mais modernos */
+.md-typeset pre > code {
+  border-radius: 8px;
+}
+
+/* Tabelas mais atraentes */
+.md-typeset table:not([class]) {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--md-primary-fg-color);
+  color: white;
+  font-weight: 600;
+}
+
+.md-typeset table:not([class]) tr:hover {
+  background-color: rgba(103, 58, 183, 0.05);
+}
+
+/* Emojis maiores para melhor visualização */
+.md-typeset img.twemoji {
+  height: 1.3em;
+  width: 1.3em;
+}
+
+/* Botões de navegação mais destacados */
+.md-footer__link {
+  transition: transform 0.2s;
+}
+
+.md-footer__link:hover {
+  transform: translateY(-2px);
+}
+
+/* Animação suave para links */
+.md-typeset a {
+  transition: color 0.2s;
+}
+
+/* Cards para listas de navegação */
+.md-typeset ul li {
+  margin-bottom: 0.5em;
+}
+
+/* Destaque para informações importantes */
+.md-typeset strong {
+  color: var(--md-primary-fg-color);
+  font-weight: 600;
+}
+
+/* Melhor espaçamento para listas */
+.md-typeset ol,
+.md-typeset ul {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+/* Badges customizados */
+.md-typeset .badge {
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  font-size: 0.85em;
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 12px;
+  background-color: var(--md-primary-fg-color);
+}
+
+/* Responsividade aprimorada */
+@media screen and (max-width: 76.1875em) {
+  .md-typeset h1 {
+    font-size: 1.8em;
+  }
+}
+
+/* Melhorias para modo escuro */
+[data-md-color-scheme='slate'] {
+  --md-primary-fg-color: #9575cd;
+  --md-accent-fg-color: #26c6da;
+}
+
+[data-md-color-scheme='slate'] .md-typeset code {
+  background-color: rgba(149, 117, 205, 0.2);
+  color: #b39ddb;
+}
+
+[data-md-color-scheme='slate'] .md-typeset table:not([class]) tr:hover {
+  background-color: rgba(149, 117, 205, 0.1);
+}
+
+/* Destaque para citações */
+.md-typeset blockquote {
+  border-left: 4px solid var(--md-primary-fg-color);
+  background-color: rgba(103, 58, 183, 0.05);
+  border-radius: 0 8px 8px 0;
+  padding: 1em 1.5em;
+}
+
+[data-md-color-scheme='slate'] .md-typeset blockquote {
+  background-color: rgba(149, 117, 205, 0.1);
+}
