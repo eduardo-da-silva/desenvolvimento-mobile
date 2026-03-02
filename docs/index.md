@@ -48,6 +48,12 @@ Fundamentos do Vue.js 3 aplicados ao desenvolvimento mobile: Composition API, co
 
 **[Ir para a Unidade 2](unidade2/index.md)**
 
+### Unidade 3 - Experiência do Usuário em Aplicações Mobile
+
+Princípios de UX e UI aplicados ao mobile, com foco em usabilidade, feedback visual, estados de interface, acessibilidade e simplicidade.
+
+**[Ir para a Unidade 3](unidade3/index.md)**
+
 ---
 
 ## Configurando o ambiente
