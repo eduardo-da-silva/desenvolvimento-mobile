@@ -4,7 +4,7 @@ Nesta atividade, você vai receber do professor um app propositalmente mal plane
 
 ## Descrição do projeto
 
-Os projetos de exemplo estão [aqui](../../assets/docs/unit3_projetos_ruins.zip), e foram desenvolvidos de propósito com decisões ruins. São dois projetos: uma que simula um projeto de gorjetas e divisão de contas e outro um gerenciamento de gastos financeiros simples. Eles foram pensados para que você encontre problemas de **estrutura do código** (Unidade 2) e de **experiência do usuário** (Unidade 3).
+Os projetos de exemplo estão [aqui](../../assets/docs/unit3_projetos_ruins.zip), e foram desenvolvidos de propósito com decisões ruins. São dois projetos: um que simula um projeto de gorjetas e divisão de contas e outro um gerenciamento de gastos financeiros simples. Eles foram pensados para que você encontre problemas de **estrutura do código** (Unidade 2) e de **experiência do usuário** (Unidade 3).
 
 ### O que deve ser melhorado
 
