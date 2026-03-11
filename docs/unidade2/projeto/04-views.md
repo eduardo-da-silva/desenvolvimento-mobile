@@ -706,30 +706,30 @@ Valida campos obrigatórios antes de salvar. Em produção, seria melhor usar bi
 
 ## Conceitos Aplicados
 
-### ✅ Composition API
+### Composition API
 
 - `ref()` para estado local
 - `computed()` para valores derivados
 - `onMounted()` para lifecycle hooks
 
-### ✅ Vue Router
+### Vue Router
 
 - `useRouter()` para navegação programática
 - `useRoute()` para acessar parâmetros
 - `RouterLink` para navegação declarativa
 
-### ✅ Composables
+### Composables
 
 - Integração com `useRecords()`
 - Estado compartilhado entre views
 
-### ✅ Formulários
+### Formulários
 
 - v-model bidirecional
 - Validação de campos
 - Submit handling
 
-### ✅ UX Mobile
+### UX Mobile
 
 - FAB para ação primária
 - Feedback visual em interações

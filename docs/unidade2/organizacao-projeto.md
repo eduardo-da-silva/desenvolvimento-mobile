@@ -10,7 +10,7 @@ Em aplicações mobile, você lidará com:
 - Integrações com APIs
 - Gerenciamento de estado
 
-Sem organização clara, o projeto vira um caos rapidamente.
+Sem organização clara, o projeto torna-se difícil de manter.
 
 ## Estrutura recomendada
 
@@ -486,12 +486,12 @@ registro-atividades-vue/
 
 Nesta seção você aprendeu:
 
-- ✅ Estrutura recomendada para projetos Vue mobile
-- ✅ Convenções de nomenclatura
-- ✅ Como usar composables para lógica reutilizável
-- ✅ Como organizar services e utils
-- ✅ Configurar alias de importação
-- ✅ Boas práticas de organização
+- Estrutura recomendada para projetos Vue mobile
+- Convenções de nomenclatura
+- Como usar composables para lógica reutilizável
+- Como organizar services e utils
+- Configurar alias de importação
+- Boas práticas de organização
 
 Na próxima seção, vamos implementar **navegação entre páginas com Vue Router**.
 

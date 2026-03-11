@@ -169,6 +169,10 @@ Uma vez registrado, o Service Worker continua funcionando mesmo quando você fec
 
 Vamos estudar Service Workers em detalhes nas próximas unidades. Por enquanto, entenda que eles são essenciais para funcionalidades offline e notificações.
 
+!!! info "Aprofundamento"
+
+    Na [Unidade 4](../unidade4/index.md), você vai configurar Service Workers na prática, incluindo estratégias de cache (Cache First, Network First, Stale While Revalidate) e funcionalidade offline completa.
+
 ## Resumo
 
 O navegador é uma plataforma completa para desenvolvimento mobile:

@@ -56,11 +56,11 @@ VITE v5.0.0  ready in 250 ms
 - **Desktop**: http://localhost:5173/
 - **Mobile**: Use o IP da rede (ex: http://192.168.1.100:5173/)
 
-> 💡 **Dica**: Abra o DevTools do navegador (F12) e use o modo responsivo para simular dispositivos móveis.
+> **Dica**: Abra o DevTools do navegador (F12) e use o modo responsivo para simular dispositivos móveis.
 
 ## Testando Funcionalidades
 
-### ✅ Checklist de Testes
+### Checklist de Testes
 
 #### 1. Página Inicial (HomeView)
 
@@ -270,15 +270,15 @@ location.reload();
 
 ## Revisão de Conceitos
 
-### 📚 Vue.js 3 - Composition API
+### Vue.js 3 - Composition API
 
 **Aplicado no projeto:**
 
-- ✅ `ref()` para valores reativos simples (ex: `const record = ref(null)`)
-- ✅ `reactive()` para objetos reativos (ex: `const form = ref({ title: '', duration: '' })`)
-- ✅ `computed()` para valores derivados (ex: `totalRecords`, `isEditMode`)
-- ✅ `onMounted()` para lifecycle hooks (ex: carregar dados ao montar)
-- ✅ `watch()` poderia ser usado para reagir a mudanças
+- `ref()` para valores reativos simples (ex: `const record = ref(null)`)
+- `ref()` para objetos reativos (ex: `const form = ref({ title: '', duration: '' })`)
+- `computed()` para valores derivados (ex: `totalRecords`, `isEditMode`)
+- `onMounted()` para lifecycle hooks (ex: carregar dados ao montar)
+- `watch()` poderia ser usado para reagir a mudanças
 
 **Por que usar?**
 
@@ -287,7 +287,7 @@ location.reload();
 - Melhor TypeScript support
 - Código mais limpo e testável
 
-### 🧩 Componentes Reutilizáveis
+### Componentes Reutilizáveis
 
 **Criados:**
 
@@ -310,7 +310,7 @@ location.reload();
 <AppHeader @back="handleBack" />
 ```
 
-### 🗂️ Composables
+### Composables
 
 **Criado:**
 
@@ -330,7 +330,7 @@ location.reload();
 - Integração com APIs externas
 - Funcionalidades reutilizáveis
 
-### 🧭 Vue Router
+### Vue Router
 
 **Conceitos aplicados:**
 
@@ -353,7 +353,7 @@ router.push('/records');
 router.back();
 ```
 
-### 💾 Persistência com LocalStorage
+### Persistência com LocalStorage
 
 **Implementado:**
 
@@ -372,7 +372,7 @@ router.back();
 
 Integrar com backend para persistência real e sincronização.
 
-### 🎨 Design Mobile-First
+### Design Mobile-First
 
 **Aplicado:**
 
@@ -385,7 +385,7 @@ Integrar com backend para persistência real e sincronização.
 
 ## Melhorias Sugeridas
 
-### 🚀 Nível Básico
+### Nível Básico
 
 #### 1. Adicionar categorias
 
@@ -454,7 +454,7 @@ function handleSubmit() {
 }
 ```
 
-### 🎨 Nível Intermediário
+### Nível Intermediário
 
 #### 5. Dark mode
 
@@ -531,7 +531,7 @@ const chartData = computed(() => ({
 </template>
 ```
 
-### 🔥 Nível Avançado
+### Nível Avançado
 
 #### 8. Gerenciamento de estado com Pinia
 
@@ -656,15 +656,15 @@ Ver seção de configuração para produção em [05-router.md](05-router.md)
 
 ## Conclusão
 
-Parabéns! 🎉 Você completou um projeto completo de aplicação Vue.js 3 com:
+Ao completar este projeto, você construiu uma aplicação Vue.js 3 completa com:
 
-- ✅ **12 arquivos criados** organizados profissionalmente
-- ✅ **4 views** com funcionalidades completas
-- ✅ **4 componentes reutilizáveis** bem estruturados
-- ✅ **1 composable** com lógica de negócio
-- ✅ **Roteamento completo** com Vue Router
-- ✅ **Persistência de dados** com LocalStorage
-- ✅ **Design mobile-first** responsivo
+- **12 arquivos criados** organizados profissionalmente
+- **4 views** com funcionalidades completas
+- **4 componentes reutilizáveis** bem estruturados
+- **1 composable** com lógica de negócio
+- **Roteamento completo** com Vue Router
+- **Persistência de dados** com LocalStorage
+- **Design mobile-first** responsivo
 
 ### O que você aprendeu
 
@@ -678,13 +678,14 @@ Parabéns! 🎉 Você completou um projeto completo de aplicação Vue.js 3 com:
 
 ### Próximos estudos
 
-Na **Unidade 3**, você aprenderá:
+Na **Unidade 3**, você estudará princípios de design e UX mobile:
 
-- **Pinia**: Gerenciamento de estado global avançado
-- **API REST**: Integração com backend
-- **PWA**: Transformar aplicação em Progressive Web App
-- **Testes**: Unit tests e E2E tests
-- **Deploy**: Publicar aplicação em produção
+- **Mobile-first**: abordagem de design responsivo
+- **Fluxos de navegação**: padrões de navegação para dispositivos móveis
+- **Feedback visual**: indicadores de estado e resposta ao usuário
+- **Acessibilidade**: práticas para aplicações acessíveis
+
+Na **Unidade 4**, você aprenderá a transformar aplicações Vue.js em Progressive Web Apps (PWAs) com instalação e funcionamento offline.
 
 ---
 

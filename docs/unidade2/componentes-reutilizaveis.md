@@ -12,10 +12,10 @@ Em aplicações mobile, você frequentemente usa os mesmos elementos visuais em 
 
 Criar componentes reutilizáveis:
 
-- ✅ Evita duplicação de código
-- ✅ Garante consistência visual
-- ✅ Facilita manutenção (muda em um lugar, atualiza em todos)
-- ✅ Acelera o desenvolvimento
+- Evita duplicação de código
+- Garante consistência visual
+- Facilita manutenção (muda em um lugar, atualiza em todos)
+- Acelera o desenvolvimento
 
 ## Anatomia de um componente Vue
 
@@ -412,11 +412,11 @@ src/
 
 Nesta seção você aprendeu:
 
-- ✅ Por que criar componentes reutilizáveis
-- ✅ Estrutura básica de um SFC
-- ✅ Usar `<slot>` para conteúdo customizável
-- ✅ Criar componentes mobile-friendly
-- ✅ Organizar componentes por categoria
+- Por que criar componentes reutilizáveis
+- Estrutura básica de um SFC
+- Usar `<slot>` para conteúdo customizável
+- Criar componentes mobile-friendly
+- Organizar componentes por categoria
 
 Na próxima seção, vamos aprofundar em **props e eventos** para comunicação entre componentes.
 

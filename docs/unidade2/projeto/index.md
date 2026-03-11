@@ -8,13 +8,13 @@ Neste projeto prático, vamos desenvolver um **Sistema de Gestão de Registros**
 
 Ao concluir este projeto, você será capaz de:
 
-- ✅ Criar e estruturar um projeto Vue.js 3 com Vite
-- ✅ Utilizar a Composition API com `setup()`, `ref()` e `reactive()`
-- ✅ Desenvolver composables reutilizáveis para lógica de negócio
-- ✅ Criar componentes reutilizáveis com props e eventos
-- ✅ Implementar navegação com Vue Router
-- ✅ Gerenciar estado local com LocalStorage
-- ✅ Aplicar boas práticas de organização de código
+- Criar e estruturar um projeto Vue.js 3 com Vite
+- Utilizar a Composition API com `setup()`, `ref()` e `reactive()`
+- Desenvolver composables reutilizáveis para lógica de negócio
+- Criar componentes reutilizáveis com props e eventos
+- Implementar navegação com Vue Router
+- Gerenciar estado local com LocalStorage
+- Aplicar boas práticas de organização de código
 
 ## Funcionalidades do Sistema
 
@@ -93,10 +93,10 @@ Para facilitar o aprendizado, o projeto está dividido em etapas sequenciais:
 
 Cada seção do projeto contém:
 
-- 📖 **Explicação conceitual**: O que está sendo implementado e por quê
-- 💻 **Código completo**: Implementação detalhada de cada arquivo
-- 🔍 **Análise do código**: Explicação das partes mais relevantes
-- 💡 **Dicas e boas práticas**: Orientações para melhorar seu código
+- **Explicação conceitual**: O que está sendo implementado e por quê
+- **Código completo**: Implementação detalhada de cada arquivo
+- **Análise do código**: Explicação das partes mais relevantes
+- **Dicas e boas práticas**: Orientações para melhorar seu código
 
 ## Conceitos Chave do Projeto
 
@@ -123,5 +123,3 @@ Armazena dados no navegador do usuário, permitindo persistência simples sem ne
 ## Próximos Passos
 
 Comece pela **[Configuração do Projeto](01-setup.md)** e siga as etapas sequencialmente. Cada seção constrói sobre a anterior, então é importante seguir a ordem recomendada.
-
-Bons estudos! 🚀

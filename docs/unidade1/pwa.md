@@ -4,7 +4,7 @@ Agora que você conhece as diferentes abordagens para desenvolvimento mobile, va
 
 ## O que caracteriza um PWA?
 
-Um PWA é, essencialmente, um **site turbinado**. Ele parece e funciona como um aplicativo nativo, mas é construído com tecnologias web.
+Um PWA é, essencialmente, um **site avançado**. Ele parece e funciona como um aplicativo nativo, mas é construído com tecnologias web.
 
 Para ser considerado um PWA, uma aplicação precisa ter três elementos principais:
 
@@ -79,7 +79,7 @@ Facilmente compartilhado via URL.
 
 Vamos ser honestos: PWAs são ótimos, mas não são perfeitos.
 
-### ✅ Vantagens
+### Vantagens
 
 **1. Desenvolvimento mais rápido e barato**
 Um único código para todas as plataformas (iOS, Android, desktop).
@@ -96,7 +96,7 @@ Como é web, pode ser indexado pelo Google e compartilhado via link.
 **5. Menos espaço no celular**
 PWAs ocupam menos espaço que apps nativos equivalentes.
 
-### ❌ Limitações
+### Limitações
 
 **1. Acesso limitado ao hardware**
 Alguns recursos não estão disponíveis via API web, especialmente no iOS:
@@ -122,7 +122,7 @@ PWAs não aparecem em listas de compartilhamento, não podem ser apps padrão pa
 
 PWAs são ideais para:
 
-### ✅ Quando usar
+### Quando usar
 
 - **Apps de conteúdo:** notícias, blogs, portfólios
 - **E-commerces:** compras online
@@ -132,7 +132,7 @@ PWAs são ideais para:
 - **MVPs:** validar ideias rapidamente
 - **Quando o público usa muito o navegador mobile**
 
-### ❌ Quando evitar
+### Quando evitar
 
 - **Jogos 3D complexos**
 - **Apps que precisam de integração profunda com o sistema**
@@ -160,7 +160,7 @@ Exemplo: o Twitter tem o app nativo (completo) e o Twitter Lite (PWA, mais leve)
 
 ## Resumo
 
-PWAs são aplicações web com superpoderes:
+PWAs são aplicações web com funcionalidades avançadas:
 
 - Funcionam offline
 - Podem ser instalados
@@ -170,6 +170,10 @@ PWAs são aplicações web com superpoderes:
 São ideais para a maioria dos casos de uso, especialmente quando desenvolvimento rápido, custo reduzido e alcance multiplataforma são importantes.
 
 Nas próximas seções, vamos entender melhor a tecnologia por trás dos PWAs e como o navegador se comporta como uma plataforma de desenvolvimento.
+
+!!! info "Aprofundamento"
+
+    Na [Unidade 4](../unidade4/index.md), você vai implementar um PWA completo com Vue.js, incluindo Service Workers, estratégias de cache, funcionalidade offline e instalação.
 
 ---
 

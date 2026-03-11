@@ -14,14 +14,14 @@ Chegamos ao final da Unidade 1! Vamos recapitular o que aprendemos e propor algu
 
 ### 2. Existem diferentes abordagens para criar apps mobile
 
-| Abordagem          | Código único?                    | Performance          | Custo       |
-| ------------------ | -------------------------------- | -------------------- | ----------- |
-| **Nativo**         | ❌ Não (iOS e Android separados) | ⭐⭐⭐⭐⭐ Excelente | 💰💰💰 Alto |
-| **Híbrido**        | ✅ Sim (tecnologias web)         | ⭐⭐⭐ Bom           | 💰💰 Médio  |
-| **Web Responsivo** | ✅ Sim                           | ⭐⭐⭐⭐ Muito bom   | 💰 Baixo    |
-| **PWA**            | ✅ Sim                           | ⭐⭐⭐⭐ Muito bom   | 💰 Baixo    |
+| Abordagem          | Código único?                 | Performance | Custo |
+| ------------------ | ----------------------------- | ----------- | ----- |
+| **Nativo**         | Não (iOS e Android separados) | Excelente   | Alto  |
+| **Híbrido**        | Sim (tecnologias web)         | Bom         | Médio |
+| **Web Responsivo** | Sim                           | Muito bom   | Baixo |
+| **PWA**            | Sim                           | Muito bom   | Baixo |
 
-### 3. PWAs são sites com superpoderes
+### 3. PWAs oferecem funcionalidades avançadas
 
 Um PWA precisa de:
 
@@ -161,7 +161,7 @@ Na **Unidade 2**, vamos:
 - Implementar funcionalidades offline
 - Adicionar a aplicação à tela inicial
 
-Prepare-se para colocar a mão na massa!
+Prepare-se para a parte prática!
 
 ---
 

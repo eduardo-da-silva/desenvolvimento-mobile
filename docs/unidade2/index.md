@@ -2,9 +2,9 @@
 
 ## Apresentação da Unidade
 
-Na Unidade 1, você conheceu o panorama do desenvolvimento mobile com tecnologias web e criou sua primeira interface mobile usando HTML, CSS e JavaScript puro. Agora é hora de evoluir para uma abordagem mais profissional e escalável.
+Na Unidade 1, você conheceu o panorama do desenvolvimento mobile com tecnologias web e criou sua primeira interface mobile usando HTML, CSS e JavaScript puro. Esta unidade apresenta uma abordagem mais profissional e escalável.
 
-Nesta unidade, vamos utilizar o **Vue.js 3** para estruturar aplicações mobile de forma organizada, reutilizável e mantível. Você já conhece o Vue.js do desenvolvimento web tradicional — agora vamos adaptá-lo para o contexto mobile.
+Nesta unidade, utilizaremos o **Vue.js 3** para estruturar aplicações mobile de forma organizada, reutilizável e mantível. Você já conhece o Vue.js do desenvolvimento web tradicional — aqui o foco é adaptá-lo para o contexto mobile.
 
 **Objetivos de aprendizagem:**
 
@@ -62,7 +62,7 @@ Com Vue.js, você vai escrever:
 </template>
 ```
 
-Bem mais limpo, reutilizável e fácil de manter!
+O resultado é um código mais limpo, reutilizável e fácil de manter.
 
 ## Por que Vue.js para aplicações mobile?
 
@@ -70,11 +70,11 @@ O Vue.js traz benefícios importantes para o desenvolvimento mobile:
 
 ### 1. **Componentes reutilizáveis**
 
-Crie uma vez, use em várias telas. Perfeito para manter consistência visual em apps.
+Crie uma vez, use em várias telas. Isso mantém consistência visual entre as telas da aplicação.
 
 ### 2. **Reatividade automática**
 
-Os dados mudam, a interface atualiza sozinha. Sem manipulação manual do DOM.
+Quando os dados mudam, a interface se atualiza automaticamente, sem manipulação manual do DOM.
 
 ### 3. **Single File Components (SFC)**
 
@@ -98,19 +98,19 @@ Ao longo desta unidade, vamos evoluir o projeto da Unidade 1 (App de Registro de
 
 **Funcionalidades que implementaremos:**
 
-- ✅ Tela inicial (Home) com lista de registros
-- ✅ Tela de criação de novo registro
-- ✅ Tela de detalhes de um registro
-- ✅ Componentes reutilizáveis (Header, Card, Button)
-- ✅ Navegação entre telas
-- ✅ Dados reativos (ainda em memória)
+- Tela inicial (Home) com lista de registros
+- Tela de criação de novo registro
+- Tela de detalhes de um registro
+- Componentes reutilizáveis (Header, Card, Button)
+- Navegação entre telas
+- Dados reativos (ainda em memória)
 
 **O que fica para unidades futuras:**
 
-- ⏭️ Estado global com Pinia
-- ⏭️ Persistência com localStorage
-- ⏭️ Integração com API backend
-- ⏭️ Transformação em PWA
+- Estado global com Pinia
+- Persistência com localStorage
+- Integração com API backend
+- Transformação em PWA (ver [Unidade 4](../unidade4/index.md))
 
 ## Pré-requisitos
 
@@ -120,8 +120,6 @@ Antes de começar, certifique-se de ter:
 - **npm** ou **yarn** para gerenciar pacotes
 - Editor de código (VS Code recomendado)
 - Conhecimento básico de Vue.js (como aprendeu em disciplinas anteriores)
-
-Vamos começar!
 
 ---
 

@@ -175,7 +175,7 @@ function handleLongPress() {
 ```vue
 <!-- RecordCard.vue -->
 <script setup>
-defineProps({
+const props = defineProps({
   id: Number,
   title: String,
 });
@@ -505,7 +505,7 @@ const emit = defineEmits({
 
 ## Boas práticas
 
-### ✅ Fazer
+### Fazer
 
 - Validar props sempre
 - Usar nomes descritivos para eventos
@@ -513,7 +513,7 @@ const emit = defineEmits({
 - Manter componentes pequenos e focados
 - Emitir eventos específicos (não reutilizar nomes genéricos)
 
-### ❌ Evitar
+### Evitar
 
 - Modificar props diretamente no filho
 - Emitir muitos eventos do mesmo componente
@@ -524,11 +524,11 @@ const emit = defineEmits({
 
 Nesta seção você aprendeu:
 
-- ✅ Props passam dados de pai para filho
-- ✅ Eventos comunicam mudanças de filho para pai
-- ✅ v-model é um atalho para props + eventos
-- ✅ Como validar props e eventos
-- ✅ Padrões de comunicação entre componentes
+- Props passam dados de pai para filho
+- Eventos comunicam mudanças de filho para pai
+- v-model é um atalho para props + eventos
+- Como validar props e eventos
+- Padrões de comunicação entre componentes
 
 Na próxima seção, vamos ver como **organizar um projeto mobile** com Vue.js.
 

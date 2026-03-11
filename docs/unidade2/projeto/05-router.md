@@ -106,9 +106,9 @@ Ao invés de carregar todos os componentes ao iniciar a aplicação, cada view �
 
 #### Vantagens:
 
-- ✅ **Bundle inicial menor**: Aplicação carrega mais rápido
-- ✅ **Performance otimizada**: Código carregado sob demanda
-- ✅ **Experiência melhor**: Especialmente importante em mobile com conexões lentas
+- **Bundle inicial menor**: Aplicação carrega mais rápido
+- **Performance otimizada**: Código carregado sob demanda
+- **Experiência melhor**: Especialmente importante em mobile com conexões lentas
 
 #### Como funciona:
 
@@ -266,10 +266,10 @@ createApp(App).use(router).mount('#app');
 
 #### Vantagens do RouterLink:
 
-- ✅ Não recarrega página (SPA)
-- ✅ Adiciona classe `router-link-active` quando rota está ativa
-- ✅ Funciona com teclas de atalho (Ctrl+Click para nova aba)
-- ✅ Intercepta cliques e usa navegação client-side
+- Não recarrega página (SPA)
+- Adiciona classe `router-link-active` quando rota está ativa
+- Funciona com teclas de atalho (Ctrl+Click para nova aba)
+- Intercepta cliques e usa navegação client-side
 
 ### Navegação Programática
 
@@ -306,7 +306,7 @@ router.replace('/home');
 
 **IMPORTANTE**: Rotas mais específicas devem vir **antes** de rotas genéricas.
 
-### ❌ Ordem incorreta:
+### Ordem incorreta:
 
 ```javascript
 // Esta ordem causa problema!
@@ -314,7 +314,7 @@ router.replace('/home');
 { path: '/records/:id/edit', ... },  // Nunca será alcançada!
 ```
 
-### ✅ Ordem correta:
+### Ordem correta:
 
 ```javascript
 // Mais específico primeiro
@@ -400,22 +400,22 @@ location / {
 
 ## Conceitos Aplicados
 
-### ✅ Single Page Application (SPA)
+### Single Page Application (SPA)
 
 - Navegação sem reload da página
 - Experiência fluida como app nativo
 
-### ✅ Lazy Loading
+### Lazy Loading
 
 - Componentes carregados sob demanda
 - Performance otimizada
 
-### ✅ Rotas Dinâmicas
+### Rotas Dinâmicas
 
 - Parâmetros variáveis na URL
 - Acesso via `route.params`
 
-### ✅ História do Navegador
+### História do Navegador
 
 - Botões voltar/avançar funcionam
 - URLs compartilháveis
@@ -432,11 +432,11 @@ location / {
 
 ### Verificações:
 
-- ✅ Cada URL renderiza a view correta
-- ✅ Navegação entre páginas funciona
-- ✅ Botão voltar do navegador funciona
-- ✅ URLs mudam ao navegar
-- ✅ Atualizar página mantém rota atual
+- Cada URL renderiza a view correta
+- Navegação entre páginas funciona
+- Botão voltar do navegador funciona
+- URLs mudam ao navegar
+- Atualizar página mantém rota atual
 
 ## Próximos Passos
 

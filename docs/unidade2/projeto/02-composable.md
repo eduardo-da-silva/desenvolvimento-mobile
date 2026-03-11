@@ -359,24 +359,24 @@ Quando qualquer componente modifica os dados:
 
 ## Conceitos Aplicados
 
-### ✅ Composition API
+### Composition API
 
 - `ref()` para estado reativo
 - `computed()` para valores calculados
 - Função que retorna recursos reativos
 
-### ✅ Padrão de Estado Global
+### Padrão de Estado Global
 
 - Estado compartilhado fora da função
 - Sincronização automática entre componentes
 
-### ✅ Persistência de Dados
+### Persistência de Dados
 
 - LocalStorage para armazenamento local
 - Carregamento automático na inicialização
 - Salvamento após cada operação
 
-### ✅ Operações CRUD Completas
+### Operações CRUD Completas
 
 - Create, Read, Update, Delete
 - Validações básicas

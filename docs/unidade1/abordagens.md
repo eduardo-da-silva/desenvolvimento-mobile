@@ -157,12 +157,12 @@ São **aplicações web avançadas** que oferecem funcionalidades típicas de ap
 
 ## Comparativo Rápido
 
-| Abordagem      | Código único? | Performance          | Acesso ao hardware   | Custo/Tempo |
-| -------------- | ------------- | -------------------- | -------------------- | ----------- |
-| Nativo         | ❌ Não        | ⭐⭐⭐⭐⭐ Excelente | ⭐⭐⭐⭐⭐ Total     | 💰💰💰 Alto |
-| Híbrido        | ✅ Sim        | ⭐⭐⭐ Bom           | ⭐⭐⭐⭐ Quase total | 💰💰 Médio  |
-| Web Responsivo | ✅ Sim        | ⭐⭐⭐⭐ Muito bom   | ⭐⭐ Limitado        | 💰 Baixo    |
-| PWA            | ✅ Sim        | ⭐⭐⭐⭐ Muito bom   | ⭐⭐⭐ Bom           | 💰 Baixo    |
+| Abordagem      | Código único? | Performance | Acesso ao hardware | Custo/Tempo |
+| -------------- | ------------- | ----------- | ------------------ | ----------- |
+| Nativo         | Não           | Excelente   | Total              | Alto        |
+| Híbrido        | Sim           | Bom         | Quase total        | Médio       |
+| Web Responsivo | Sim           | Muito bom   | Limitado           | Baixo       |
+| PWA            | Sim           | Muito bom   | Bom                | Baixo       |
 
 ## Qual escolher?
 

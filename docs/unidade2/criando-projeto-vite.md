@@ -8,7 +8,7 @@
 
 | Característica        | Vite                    | Vue CLI (antigo) |
 | --------------------- | ----------------------- | ---------------- |
-| **Velocidade**        | ⚡ Extremamente rápido  | 🐢 Mais lento    |
+| **Velocidade**        | Extremamente rápido     | Mais lento       |
 | **Servidor de dev**   | Inicia em milissegundos | Leva segundos    |
 | **Hot reload**        | Instantâneo             | Perceptível      |
 | **Build de produção** | Otimizado com Rollup    | Webpack          |
@@ -239,10 +239,10 @@ O Vite já vem configurado para desenvolvimento mobile:
 
 Nesta seção você:
 
-- ✅ Criou um projeto Vue.js 3 com Vite
-- ✅ Entendeu a estrutura de pastas inicial
-- ✅ Limpou o projeto para começar do zero
-- ✅ Executou o servidor de desenvolvimento
+- Criou um projeto Vue.js 3 com Vite
+- Entendeu a estrutura de pastas inicial
+- Limpou o projeto para começar do zero
+- Executou o servidor de desenvolvimento
 
 Na próxima seção, vamos entender a **Composition API**, que é a forma moderna de escrever componentes Vue.
 

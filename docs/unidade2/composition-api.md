@@ -369,12 +369,12 @@ function reset() {
 
 Nesta seção você aprendeu:
 
-- ✅ Composition API é a forma moderna de escrever Vue
-- ✅ `<script setup>` elimina boilerplate
-- ✅ `ref()` para valores primitivos (use `.value` no JS)
-- ✅ `reactive()` para objetos e arrays
-- ✅ `computed()` para valores derivados
-- ✅ `watch()` para reagir a mudanças
+- Composition API é a forma moderna de escrever Vue
+- `<script setup>` elimina boilerplate
+- `ref()` para valores primitivos (use `.value` no JS)
+- `reactive()` para objetos e arrays
+- `computed()` para valores derivados
+- `watch()` para reagir a mudanças
 
 Na próxima seção, vamos criar **componentes reutilizáveis** que serão a base do nosso app mobile.
 

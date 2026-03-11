@@ -588,30 +588,30 @@ Note que o card é envolvido por `RouterLink` para torná-lo clicável e navegá
 
 ## Conceitos Aplicados
 
-### ✅ Componentização
+### Componentização
 
 - Componentes pequenos e focados
 - Reutilizáveis em múltiplos contextos
 - Fácil manutenção e teste
 
-### ✅ Props e Eventos
+### Props e Eventos
 
 - Props para passar dados para o componente
 - Eventos para comunicar ações ao pai
 - v-model customizado para two-way binding
 
-### ✅ Scoped CSS
+### Scoped CSS
 
 - Estilos não vazam para outros componentes
 - Nomes de classes podem se repetir sem conflito
 
-### ✅ Design Mobile-First
+### Design Mobile-First
 
 - Tamanhos adequados para toque (min 48px)
 - Fonte ≥ 16px para evitar zoom em iOS
 - Feedback visual em interações
 
-### ✅ Acessibilidade
+### Acessibilidade
 
 - Labels associados aos inputs
 - Indicação visual de campos obrigatórios

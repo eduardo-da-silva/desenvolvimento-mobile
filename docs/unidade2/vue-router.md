@@ -643,16 +643,18 @@ Isso cria chunks separados que são carregados sob demanda.
 
 Nesta seção você aprendeu:
 
-- ✅ Instalar e configurar Vue Router
-- ✅ Criar rotas e views
-- ✅ Navegar com `RouterLink` e `router.push()`
-- ✅ Acessar parâmetros com `useRoute()`
-- ✅ Criar rotas dinâmicas
-- ✅ Adicionar transições entre páginas
-- ✅ Usar guards para controle de acesso
-- ✅ Implementar lazy loading
+- Instalar e configurar Vue Router
+- Criar rotas e views
+- Navegar com `RouterLink` e `router.push()`
+- Acessar parâmetros com `useRoute()`
+- Criar rotas dinâmicas
+- Adicionar transições entre páginas
+- Usar guards para controle de acesso
+- Implementar lazy loading
 
 Na próxima seção, vamos juntar tudo em um **projeto prático completo**.
+
+Para aprofundar os padrões de navegação no contexto mobile, consulte também [Fluxo de navegação em aplicações mobile](../unidade3/fluxo-navegacao-mobile.md) na Unidade 3.
 
 ---
 

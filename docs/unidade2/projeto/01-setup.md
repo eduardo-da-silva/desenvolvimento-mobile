@@ -34,10 +34,10 @@ npm install
 
 O **Vite** é a ferramenta de build moderna recomendada para Vue.js 3. Principais vantagens:
 
-- ⚡ **Extremamente rápido**: Inicia em milissegundos
-- 🔥 **Hot Module Replacement (HMR)**: Atualizações instantâneas durante o desenvolvimento
-- 📦 **Build otimizado**: Produz bundles menores para produção
-- 🎯 **Configuração mínima**: Funciona out-of-the-box
+- **Extremamente rápido**: Inicia em milissegundos
+- **Hot Module Replacement (HMR)**: Atualizações instantâneas durante o desenvolvimento
+- **Build otimizado**: Produz bundles menores para produção
+- **Configuração mínima**: Funciona out-of-the-box
 
 ## Estrutura de Pastas
 
@@ -73,11 +73,11 @@ src/
 
 ### Entendendo a organização
 
-#### 📁 `assets/css/`
+#### `assets/css/`
 
 Contém recursos estáticos como estilos CSS e imagens. Aqui colocamos o `global.css` com estilos que serão aplicados em toda a aplicação.
 
-#### 📁 `components/`
+#### `components/`
 
 Componentes reutilizáveis organizados por categoria:
 
@@ -85,15 +85,15 @@ Componentes reutilizáveis organizados por categoria:
 - **forms/**: Componentes de formulário (inputs, botões, selects)
 - **records/**: Componentes específicos de registros (cards, listas)
 
-#### 📁 `views/`
+#### `views/`
 
 Páginas completas da aplicação. Cada view representa uma rota e utiliza os componentes para construir a interface.
 
-#### 📁 `composables/`
+#### `composables/`
 
 Funções JavaScript que encapsulam lógica reutilizável usando a Composition API. No projeto, `useRecords` gerencia todas as operações CRUD.
 
-#### 📁 `router/`
+#### `router/`
 
 Configuração das rotas da aplicação com Vue Router.
 
@@ -263,7 +263,7 @@ VITE v5.0.0  ready in 250 ms
 - **No computador**: Acesse http://localhost:5173/
 - **No celular**: Use o endereço da rede (ex: http://192.168.1.100:5173/)
 
-> 💡 **Dica**: Certifique-se de que o computador e o celular estão na mesma rede Wi-Fi.
+> **Dica**: Certifique-se de que o computador e o celular estão na mesma rede Wi-Fi.
 
 ## Próximos Passos
 

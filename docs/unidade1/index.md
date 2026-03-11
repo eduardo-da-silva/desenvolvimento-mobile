@@ -13,7 +13,7 @@ Nesta primeira unidade, vamos entender o contexto do desenvolvimento mobile mode
 
 ## Por que estudar mobile com tecnologias web?
 
-O mercado mobile é enorme. Bilhões de pessoas usam smartphones diariamente, e a tendência é que esse número só aumente. Para um desenvolvedor, entender como criar aplicações para esse público é essencial.
+O mercado mobile é expressivo. Bilhões de pessoas usam smartphones diariamente, e a tendência é que esse número continue crescendo. Para um desenvolvedor, entender como criar aplicações para esse público é essencial.
 
 Tradicionalmente, criar apps para celular significava aprender linguagens e ferramentas específicas para cada plataforma: Swift/Objective-C para iOS, Kotlin/Java para Android. Mas há uma alternativa: **usar as tecnologias web que você já conhece**.
 
