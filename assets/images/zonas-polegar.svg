@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 560" width="320" height="560">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16213e"/>
+    </linearGradient>
+    <linearGradient id="zonaDificil" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ef5350" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ef5350" stop-opacity="0.08"/>
+    </linearGradient>
+    <linearGradient id="zonaMedia" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffa726" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#66bb6a" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="zonaFacil" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#66bb6a" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#66bb6a" stop-opacity="0.4"/>
+    </linearGradient>
+    <filter id="sombra">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Corpo do celular -->
+  <rect x="30" y="10" width="260" height="540" rx="36" ry="36" fill="url(#bgGrad)" filter="url(#sombra)" stroke="#333" stroke-width="2"/>
+
+  <!-- Borda interna (tela) -->
+  <rect x="44" y="50" width="232" height="460" rx="4" ry="4" fill="#0d1117" stroke="#2a2a4a" stroke-width="1"/>
+
+  <!-- Câmera frontal -->
+  <circle cx="160" cy="30" r="6" fill="#222" stroke="#444" stroke-width="1"/>
+  <circle cx="160" cy="30" r="2.5" fill="#1a1a2e"/>
+
+  <!-- Barra inferior (home indicator) -->
+  <rect x="120" y="522" width="80" height="4" rx="2" fill="#444"/>
+
+  <!-- === ZONAS === -->
+
+  <!-- Zona difícil (topo) -->
+  <rect x="44" y="50" width="232" height="140" rx="4" ry="0" fill="url(#zonaDificil)"/>
+
+  <!-- Zona intermediária (meio) -->
+  <rect x="44" y="190" width="232" height="130" fill="url(#zonaMedia)"/>
+
+  <!-- Zona fácil (inferior) -->
+  <rect x="44" y="320" width="232" height="190" rx="0" ry="4" fill="url(#zonaFacil)"/>
+
+  <!-- === LINHAS DIVISÓRIAS === -->
+  <line x1="44" y1="190" x2="276" y2="190" stroke="#ef5350" stroke-width="1" stroke-dasharray="6,4" opacity="0.6"/>
+  <line x1="44" y1="320" x2="276" y2="320" stroke="#66bb6a" stroke-width="1" stroke-dasharray="6,4" opacity="0.6"/>
+
+  <!-- === ÍCONES E TEXTOS === -->
+
+  <!-- Zona difícil -->
+  <text x="160" y="105" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#ef5350" opacity="0.9">🔴</text>
+  <text x="160" y="135" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#ef5350">Difícil de alcançar</text>
+  <text x="160" y="155" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#ef5350" opacity="0.7">Informações secundárias</text>
+
+  <!-- Zona intermediária -->
+  <text x="160" y="245" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#ffa726" opacity="0.9">🟡</text>
+  <text x="160" y="275" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#ffa726">Alcance médio</text>
+  <text x="160" y="295" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#ffa726" opacity="0.7">Conteúdo principal (scroll)</text>
+
+  <!-- Zona fácil -->
+  <text x="160" y="390" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#66bb6a" opacity="0.9">🟢</text>
+  <text x="160" y="420" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#66bb6a">Fácil de alcançar</text>
+  <text x="160" y="440" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#66bb6a" opacity="0.7">Ações principais e navegação</text>
+
+  <!-- Ícone de polegar (mão direita, canto inferior direito) -->
+  <g transform="translate(225, 450) scale(0.7)" opacity="0.5">
+    <text font-size="48" fill="#aaa" font-family="system-ui, sans-serif">👆</text>
+  </g>
+
+</svg>
