@@ -25,7 +25,7 @@ Esse comportamento é seguro (evita inconsistências), mas pode ser frustrante p
 
 É a estratégia que configuramos no nosso projeto com `registerType: 'autoUpdate'`. O novo Service Worker pula a fase de espera e assume o controle imediatamente. A página é atualizada automaticamente.
 
-```javascript
+```javascript title="vite.config.js (parte do arquivo para ilustrar)"
 VitePWA({
   registerType: 'autoUpdate',
   // ...
@@ -45,7 +45,7 @@ VitePWA({
 
 Nesta estratégia, quando uma nova versão é detectada, a aplicação exibe uma mensagem perguntando se o usuário deseja atualizar. O Service Worker novo só é ativado quando o usuário aceita.
 
-```javascript
+```javascript title="vite.config.js (parte do arquivo para ilustrar)"
 VitePWA({
   registerType: 'prompt',
   // ...
@@ -62,7 +62,7 @@ Vamos modificar a configuração do projeto para usar a estratégia de prompt e 
 
 Atualize o `vite.config.js`:
 
-```javascript
+```javascript title="vite.config.js" linenums='8' hl_lines='2'
 VitePWA({
   registerType: 'prompt',
   workbox: {
@@ -80,7 +80,7 @@ Para usar a estratégia de prompt, precisamos do pacote `virtual:pwa-register/vu
 
 Crie o componente `src/components/UpdatePrompt.vue`:
 
-```vue
+```vue title='./src/components/UpdatePrompt.vue' linenums='1'
 <template>
   <div v-if="needRefresh" class="update-prompt">
     <p>Uma nova versão está disponível.</p>
@@ -191,7 +191,7 @@ O callback `onRegisteredSW` é chamado quando o Service Worker é registrado. Us
 
 Adicione o componente `UpdatePrompt` no `App.vue`:
 
-```vue
+```vue title='./src/App.vue' linenums='1' hl_lines="7 13"
 <template>
   <OfflineBanner />
   <AppHeader />

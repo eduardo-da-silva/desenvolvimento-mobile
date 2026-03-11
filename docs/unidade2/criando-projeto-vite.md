@@ -137,7 +137,7 @@ Este é um **Single File Component (SFC)** — toda a lógica, template e estilo
 Inicie o servidor de desenvolvimento:
 
 ```bash
-npm run dev
+npm run dev -- --host
 ```
 
 Você verá algo como:
@@ -218,13 +218,13 @@ Durante o desenvolvimento, você usará:
 
 ```bash
 # Inicia servidor de desenvolvimento
-npm run dev
+npm run dev -- --host
 
 # Cria build de produção
 npm run build
 
 # Preview do build
-npm run preview
+npm run preview -- --host
 ```
 
 ## Estrutura mobile-first no Vite

@@ -168,7 +168,8 @@ O Lighthouse gera um relatório com pontuação e sugestões de melhoria. Para P
 - Ícones nos tamanhos corretos
 
 !!! tip "Dica"
-Execute o Lighthouse no build de produção (`npm run build` + `npm run preview`), não no servidor de desenvolvimento. Os resultados serão mais precisos.
+
+    Execute o Lighthouse no build de produção (`npm run build` + `npm run preview`), não no servidor de desenvolvimento. Os resultados serão mais precisos.
 
 ## 7. Manter o Service Worker simples
 

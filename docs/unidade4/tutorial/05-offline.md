@@ -10,7 +10,7 @@ O Service Worker só funciona no build de produção. Vamos gerar o build e serv
 
 ```bash
 npm run build
-npm run preview
+npm run preview -- --host
 ```
 
 Acesse `http://localhost:4173` no navegador. Navegue pela aplicação normalmente para que o Service Worker faça o precache dos arquivos.
@@ -71,7 +71,7 @@ Uma boa prática é informar ao usuário quando ele está offline. Vamos criar u
 
 Crie o arquivo `src/components/OfflineBanner.vue`:
 
-```vue
+```vue title='./src/components/OfflineBanner.vue' linenums='1'
 <template>
   <div v-if="!isOnline" class="offline-banner">
     Você está offline. Algumas funcionalidades podem estar indisponíveis.
@@ -118,7 +118,7 @@ O componente usa a API `navigator.onLine` do navegador e escuta os eventos `onli
 
 Agora, adicione o componente no `App.vue`:
 
-```vue
+```vue title='./src/App.vue' linenums='1' hl_lines="2 11"
 <template>
   <OfflineBanner />
   <AppHeader />
@@ -147,7 +147,7 @@ Se você precisar verificar o estado de conexão em outros componentes, pode cri
 
 Crie o arquivo `src/composables/useOnlineStatus.js`:
 
-```javascript
+```javascript title='./src/composables/useOnlineStatus.js' linenums='1'
 import { ref, onMounted, onUnmounted } from 'vue';
 
 export function useOnlineStatus() {
@@ -173,7 +173,7 @@ export function useOnlineStatus() {
 
 Agora, qualquer componente pode usar:
 
-```vue
+```vue title='É apenas um exemplo de uso'
 <script setup>
 import { useOnlineStatus } from '../composables/useOnlineStatus';
 
@@ -204,7 +204,7 @@ Para manter os dados entre sessões, mesmo offline, podemos usar o **localStorag
 
 Atualize o composable `src/composables/useTasks.js`:
 
-```javascript
+```javascript title='./src/composables/useTasks.js' linenums='1'
 import { ref, computed, watch } from 'vue';
 
 const STORAGE_KEY = 'tarefas-pwa-tasks';

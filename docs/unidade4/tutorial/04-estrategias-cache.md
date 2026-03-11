@@ -36,8 +36,8 @@ O Workbox oferece cinco estratégias de cache. Cada uma define uma política dif
 ### 1. Cache First (cache primeiro)
 
 ```
-Requisição → Cache existe? → Sim → Retorna do cache
-                            → Não → Busca na rede → Armazena no cache
+Requisição -> Cache existe? -> Sim -> Retorna do cache
+                            -> Não -> Busca na rede -> Armazena no cache
 ```
 
 O Service Worker verifica primeiro o cache. Se o recurso estiver armazenado, retorna do cache sem acessar a rede. Se não estiver, busca na rede e armazena para uso futuro.
@@ -51,8 +51,8 @@ O Service Worker verifica primeiro o cache. Se o recurso estiver armazenado, ret
 ### 2. Network First (rede primeiro)
 
 ```
-Requisição → Rede disponível? → Sim → Retorna da rede → Atualiza cache
-                               → Não → Retorna do cache
+Requisição -> Rede disponível? -> Sim -> Retorna da rede -> Atualiza cache
+                               -> Não -> Retorna do cache
 ```
 
 O Service Worker tenta buscar o recurso na rede primeiro. Se a rede estiver disponível, retorna a resposta da rede e atualiza o cache. Se não houver rede, retorna do cache.
@@ -66,8 +66,8 @@ O Service Worker tenta buscar o recurso na rede primeiro. Se a rede estiver disp
 ### 3. Stale While Revalidate (cache com revalidação)
 
 ```
-Requisição → Retorna do cache imediatamente
-           → Ao mesmo tempo, busca na rede → Atualiza cache para a próxima vez
+Requisição -> Retorna do cache imediatamente
+           -> Ao mesmo tempo, busca na rede -> Atualiza cache para a próxima vez
 ```
 
 O Service Worker retorna o recurso do cache imediatamente (se disponível) e, ao mesmo tempo, faz uma requisição à rede para atualizar o cache. Na próxima requisição, o usuário receberá a versão atualizada.
@@ -106,7 +106,7 @@ Vamos configurar estratégias de runtime cache no nosso `vite.config.js`. Imagin
 
 Atualize a configuração:
 
-```javascript
+```javascript title='./vite.config.js' linenums='1' hl_lines="14-58"
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -201,23 +201,24 @@ export default defineConfig({
 
 ### Entendendo a configuração de runtime cache
 
-Cada entrada no array `runtimeCaching` define uma regra:
+Cada entrada no array `runtimeCaching` (linhas 14 a 58) define uma regra:
 
-```javascript
+```javascript title='./vite.config.js' linenums='15'
 {
-  urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,  // (1)
-  handler: 'CacheFirst',                                  // (2)
-  options: {
-    cacheName: 'google-fonts-cache',                       // (3)
+    urlPattern: /^https:\/\/fonts\.googleapis\.com\/._/i, // (1)
+    handler: 'CacheFirst', // (2)
+    options: {
+    cacheName: 'google-fonts-cache', // (3)
     expiration: {
-      maxEntries: 10,                                      // (4)
-      maxAgeSeconds: 60 * 60 * 24 * 365,                   // (5)
+        maxEntries: 10, // (4)
+        maxAgeSeconds: 60 _ 60 _ 24 _ 365, // (5)
     },
-    cacheableResponse: {
-      statuses: [0, 200],                                  // (6)
+        cacheableResponse: {
+            statuses: [0, 200], // (6)
+        },
     },
-  },
 }
+
 ```
 
 1. **`urlPattern`**: expressão regular que define quais URLs essa regra cobre
@@ -236,9 +237,11 @@ Na regra da API, usamos `networkTimeoutSeconds: 10`. Isso significa: se a rede n
 Após o build e o preview, abra o DevTools e navegue até **Application > Cache Storage**. Você verá os caches criados:
 
 ```
-workbox-precache-v2-...       → arquivos estáticos (precache)
-google-fonts-cache            → fontes do Google (se utilizadas)
-api-cache                     → dados da API (se houver requisições)
+
+workbox-precache-v2-... -> arquivos estáticos (precache)
+google-fonts-cache -> fontes do Google (se utilizadas)
+api-cache -> dados da API (se houver requisições)
+
 ```
 
 Cada cache pode ser expandido para ver os recursos armazenados, com detalhes como URL, tamanho e data de armazenamento.
@@ -269,3 +272,7 @@ Neste passo, você:
 ---
 
 **Anterior:** [Passo 3 – Service Worker](03-service-worker.md) | **Próximo:** [Passo 5 – Funcionamento offline](05-offline.md)
+
+```
+
+```

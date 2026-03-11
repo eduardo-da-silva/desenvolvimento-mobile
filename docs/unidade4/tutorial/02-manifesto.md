@@ -55,7 +55,8 @@ A URL que será aberta quando o usuário iniciar a aplicação instalada. Geralm
 ```
 
 !!! note "Observação"
-Se você hospedar a aplicação em um subdiretório (ex: `https://meusite.com/tarefas/`), o `start_url` deve refletir isso: `"/tarefas/"`.
+
+    Se você hospedar a aplicação em um subdiretório (ex: `https://meusite.com/tarefas/`), o `start_url` deve refletir isso: `"/tarefas/"`.
 
 ### `scope`
 
@@ -153,7 +154,7 @@ Para funcionar bem como maskable, o ícone deve ter uma **zona segura**: o conte
 
 Veja a configuração completa do manifesto no nosso projeto:
 
-```javascript
+```javascript title='./vite.config.js' linenums='1'
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -209,7 +210,7 @@ Para conferir se o manifesto está correto:
 2. Sirva os arquivos de produção localmente:
 
    ```bash
-   npm run preview
+   npm run preview -- --host
    ```
 
 3. Abra o DevTools (F12) no navegador
@@ -230,7 +231,7 @@ Se algum campo estiver ausente ou incorreto, o navegador mostrará um aviso ness
 
 O Safari no iOS tem suporte parcial ao manifesto padrão. Para garantir uma boa experiência em dispositivos Apple, é recomendado adicionar as seguintes meta tags no `index.html`:
 
-```html
+```html title='index.html' linenums='1'
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>

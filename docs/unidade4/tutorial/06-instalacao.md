@@ -81,7 +81,8 @@ O processo de instalação no iOS é diferente, pois o Safari não exibe banners
 4. Confirmar o nome e tocar em "Adicionar"
 
 !!! note "Suporte no iOS"
-O suporte a PWA no iOS tem melhorado ao longo dos anos, mas ainda possui algumas limitações em relação ao Android. Notificações push, por exemplo, só foram adicionadas a partir do iOS 16.4.
+
+    O suporte a PWA no iOS tem melhorado ao longo dos anos, mas ainda possui algumas limitações em relação ao Android. Notificações push, por exemplo, só foram adicionadas a partir do iOS 16.4.
 
 ## Diferença entre navegador e app instalado
 
@@ -106,7 +107,7 @@ Para isso, usamos o evento `beforeinstallprompt` do navegador.
 
 Crie o arquivo `src/components/InstallButton.vue`:
 
-```vue
+```vue title='./src/components/InstallButton.vue' linenums='1'
 <template>
   <button v-if="showInstallButton" class="install-button" @click="installApp">
     Instalar aplicativo
@@ -184,7 +185,7 @@ Vamos entender o que acontece:
 
 Adicione o componente na `HomeView.vue`:
 
-```vue
+```vue title='./src/views/HomeView.vue' linenums='1' hl_lines="30-31 38"
 <template>
   <div>
     <TaskForm @add="addTask" />
@@ -247,14 +248,15 @@ const { tasks, pendingTasks, completedTasks, addTask, toggleTask, removeTask } =
 ```
 
 !!! warning "Atenção"
-O evento `beforeinstallprompt` **não é disparado no Safari (iOS)**. No iOS, a única forma de instalar é pelo menu de compartilhamento do Safari. Por isso, é comum exibir uma instrução manual para usuários de iPhone.
+
+    O evento `beforeinstallprompt` **não é disparado no Safari (iOS)**. No iOS, a única forma de instalar é pelo menu de compartilhamento do Safari. Por isso, é comum exibir uma instrução manual para usuários de iPhone.
 
 ## Testando a instalação
 
 ### No desktop
 
 1. Faça o build: `npm run build`
-2. Sirva: `npm run preview`
+2. Sirva: `npm run preview -- --host`
 3. Acesse `http://localhost:4173`
 4. Observe o ícone de instalação na barra de endereço do Chrome
 5. Clique para instalar
@@ -267,7 +269,7 @@ Para testar no celular, a aplicação precisa estar acessível na rede local ou 
 **Opção para rede local:**
 
 1. Descubra o IP da sua máquina (ex: `192.168.1.100`)
-2. Após o `npm run preview`, acesse `http://192.168.1.100:4173` no celular
+2. Após o `npm run preview -- --host`, acesse `http://192.168.1.100:4173` no celular
 3. O Service Worker pode não funcionar sem HTTPS. Para testes locais, o Chrome permite usar a flag `chrome://flags/#unsafely-treat-insecure-origin-as-secure`
 
 **Opção com hospedagem:**

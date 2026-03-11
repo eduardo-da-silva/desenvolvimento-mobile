@@ -33,7 +33,7 @@ npm install
 Verifique se o projeto funciona:
 
 ```bash
-npm run dev
+npm run dev -- --host
 ```
 
 Acesse `http://localhost:5173` no navegador. Você deve ver a página inicial padrão do Vue.js.
@@ -531,7 +531,7 @@ app.mount('#app');
 
 ### Verificando a aplicação
 
-Execute `npm run dev` e verifique se a aplicação funciona corretamente:
+Execute `npm run dev -- --host` e verifique se a aplicação funciona corretamente:
 
 - A lista de tarefas aparece na tela inicial
 - É possível adicionar novas tarefas
@@ -639,7 +639,7 @@ public/
 Inicie o servidor novamente:
 
 ```bash
-npm run dev
+npm run dev -- --host
 ```
 
 !!! warning "Atenção"

@@ -246,7 +246,7 @@ Define a lógica do componente usando Composition API. Por enquanto está vazio,
 ### Executando o servidor de desenvolvimento
 
 ```bash
-npm run dev
+npm run dev -- --host
 ```
 
 Você verá uma saída similar a:

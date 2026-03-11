@@ -55,7 +55,8 @@ self.addEventListener('install', (event) => {
 ```
 
 !!! note "Importante"
-No nosso projeto, **não precisamos escrever esse código manualmente**. O `vite-plugin-pwa` usa a biblioteca **Workbox** (desenvolvida pelo Google) para gerar o Service Worker automaticamente, incluindo a lista de arquivos para cache.
+
+    No nosso projeto, **não precisamos escrever esse código manualmente**. O `vite-plugin-pwa` usa a biblioteca **Workbox** (desenvolvida pelo Google) para gerar o Service Worker automaticamente, incluindo a lista de arquivos para cache.
 
 ### 3. Ativação (`activate`)
 
@@ -137,7 +138,7 @@ Para o nosso projeto, usamos `generateSW` (que é o padrão), pois o Workbox já
 
 Vamos atualizar o `vite.config.js` para incluir configurações específicas do Service Worker:
 
-```javascript
+```javascript title='./vite.config.js' linenums='1' hl_lines="10-14"
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -185,7 +186,7 @@ export default defineConfig({
 });
 ```
 
-As novas opções dentro de `workbox`:
+As novas opções dentro de `workbox` (linhas 10-14) configuram o comportamento do Service Worker:
 
 | Opção                   | Descrição                                                                |
 | ----------------------- | ------------------------------------------------------------------------ |

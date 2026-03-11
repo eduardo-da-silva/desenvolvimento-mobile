@@ -39,7 +39,7 @@ src/
 ### Passo 2: Iniciar servidor de desenvolvimento
 
 ```bash
-npm run dev
+npm run dev -- --host
 ```
 
 Você verá algo como:
