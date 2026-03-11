@@ -54,6 +54,18 @@ Princípios de UX e UI aplicados ao mobile, com foco em usabilidade, feedback vi
 
 **[Ir para a Unidade 3](unidade3/index.md)**
 
+### Unidade 4 - Progressive Web Apps (PWA)
+
+Transformação de aplicações Vue.js em PWAs instaláveis: manifesto, Service Worker, estratégias de cache, funcionamento offline, instalação e atualização de versão.
+
+**[Ir para a Unidade 4](unidade4/index.md)**
+
+---
+
+## Recursos de apoio
+
+Consulte a seção **[Recursos](recursos/index.md)** para ferramentas recomendadas, links úteis e um glossário com os termos técnicos do curso.
+
 ---
 
 ## Configurando o ambiente

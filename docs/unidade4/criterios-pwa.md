@@ -13,7 +13,8 @@ O primeiro requisito é que a aplicação seja servida via **HTTPS** (Hypertext 
 - Os navegadores não permitem registrar um Service Worker em páginas sem HTTPS.
 
 !!! note "Exceção para desenvolvimento"
-Durante o desenvolvimento local, o navegador permite usar `http://localhost` como se fosse HTTPS. Isso facilita o desenvolvimento e os testes. Em produção, HTTPS é obrigatório.
+
+    Durante o desenvolvimento local, o navegador permite usar `http://localhost` como se fosse HTTPS. Isso facilita o desenvolvimento e os testes. Em produção, HTTPS é obrigatório.
 
 Na prática, a maioria das hospedagens modernas já oferece HTTPS gratuitamente. Serviços como GitHub Pages, Netlify e Vercel configuram certificados SSL automaticamente.
 
@@ -29,7 +30,7 @@ O manifesto é referenciado no `index.html` da aplicação:
 
 ### Campos principais do manifesto
 
-```json
+```json title='exemplo-arquivo-manifesto'
 {
   "name": "Gerenciador de Tarefas",
   "short_name": "Tarefas",
@@ -95,7 +96,7 @@ O Service Worker atua como um intermediário entre a aplicação e a rede. Ele p
 O Service Worker possui um ciclo de vida bem definido:
 
 ```
-Registro → Instalação → Ativação → Funcionamento
+Registro -> Instalação -> Ativação -> Funcionamento
 ```
 
 **1. Registro**  
@@ -114,13 +115,14 @@ Uma vez ativo, o Service Worker intercepta todas as requisições de rede feitas
 
 ```
 ┌──────────┐     ┌──────────────┐     ┌───────────┐     ┌──────────────┐
-│ Registro │ ──▶ │  Instalação  │ ──▶ │ Ativação  │ ──▶ │Funcionamento │
-└──────────┘     │ (cache init) │     │ (limpeza) │     │  (fetch)     │
-                 └──────────────┘     └───────────┘     └──────────────┘
+│ Registro │ ──▶│  Instalação  │ ──▶│ Ativação  │ ──▶│Funcionamento │
+│          │     │ (cache init) │     │ (limpeza) │     │  (fetch)     │
+└──────────┘     └──────────────┘     └───────────┘     └──────────────┘
 ```
 
 !!! info "Importante"
-O Service Worker **não tem acesso ao DOM**. Ele roda em uma thread separada. A comunicação com a página é feita por meio de mensagens (`postMessage`).
+
+    O Service Worker **não tem acesso ao DOM**. Ele roda em uma thread separada. A comunicação com a página é feita por meio de mensagens (`postMessage`).
 
 ## 4. Capacidade de instalação
 
@@ -160,7 +162,8 @@ O Chrome DevTools oferece uma forma simples de simular offline:
 4. Marque a opção **Offline**
 
 !!! tip "Dica"
-Outra forma de testar é desligar o Wi-Fi ou colocar o celular em modo avião. Isso simula uma situação real de perda de conexão.
+
+    Outra forma de testar é desligar o Wi-Fi ou colocar o celular em modo avião. Isso simula uma situação real de perda de conexão.
 
 ## Resumo dos requisitos
 

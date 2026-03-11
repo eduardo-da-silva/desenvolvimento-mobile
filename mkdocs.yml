@@ -59,13 +59,11 @@ theme:
     - content.code.copy
     - content.code.select
     - content.tooltips
-    - navigation.expand
     - navigation.footer
     - navigation.indexes
     - navigation.instant
     - navigation.instant.prefetch
     - navigation.instant.progress
-    - navigation.sections
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.top
@@ -153,54 +151,61 @@ extra_javascript:
 
 nav:
   - Início: index.md
-  - Unidade 1 - Panorama do Desenvolvimento Mobile:
-    - Apresentação: unidade1/index.md
-    - O que é desenvolvimento mobile?: unidade1/o-que-e-mobile.md
-    - Abordagens para desenvolvimento mobile: unidade1/abordagens.md
-    - Progressive Web Apps (PWA): unidade1/pwa.md
-    - O navegador como plataforma: unidade1/navegador-plataforma.md
-    - Primeiros cuidados com UX mobile: unidade1/ux-mobile.md
-    - Exemplo prático inicial: unidade1/exemplo-pratico.md
-    - Resumo e exercícios: unidade1/resumo-exercicios.md
-    - Projeto prático: unidade1/projeto-pratico.md
-  - Unidade 2 - Estruturação com Vue.js 3:
-    - Apresentação: unidade2/index.md
-    - Criando projeto com Vite: unidade2/criando-projeto-vite.md
-    - Composition API: unidade2/composition-api.md
-    - Componentes reutilizáveis: unidade2/componentes-reutilizaveis.md
-    - Props e eventos: unidade2/props-eventos.md
-    - Organização de projeto: unidade2/organizacao-projeto.md
-    - Vue Router: unidade2/vue-router.md
-    - Projeto Prático:
-      - Visão Geral: unidade2/projeto/index.md
-      - 1. Configuração do Projeto: unidade2/projeto/01-setup.md
-      - 2. Composable useRecords: unidade2/projeto/02-composable.md
-      - 3. Componentes Reutilizáveis: unidade2/projeto/03-componentes.md
-      - 4. Views (Páginas): unidade2/projeto/04-views.md
-      - 5. Configuração de Rotas: unidade2/projeto/05-router.md
-      - 6. Finalização e Testes: unidade2/projeto/06-finalizacao.md
-  - Unidade 3 - Experiência do Usuário em Aplicações Mobile:
-    - Apresentação: unidade3/index.md
-    - Mobile-first na prática: unidade3/mobile-first-na-pratica.md
-    - Fluxo de navegação em aplicações mobile: unidade3/fluxo-navegacao-mobile.md
-    - Feedback visual para o usuário: unidade3/feedback-visual-usuario.md
-    - Acessibilidade básica em aplicações web/mobile: unidade3/acessibilidade-basica.md
-    - Design simples e funcional: unidade3/design-simples-funcional.md
-    - "Uso com uma mão: zonas de alcance": unidade3/uso-uma-mao.md
-    - "Exercício prático: melhorando um app \"ruim\"": unidade3/exercicio-app-ruim.md
-    - "Checklist final de UX no projeto": unidade3/checklist-ux-projeto.md
-  - Unidade 4 - Progressive Web Apps (PWA):
-    - Apresentação: unidade4/index.md
-    - Introdução a Progressive Web Apps: unidade4/o-que-e-pwa.md
-    - Critérios e requisitos de um PWA: unidade4/criterios-pwa.md
-    - Tutorial Prático:
-      - Visão Geral: unidade4/tutorial/index.md
-      - 1. Configuração do suporte a PWA: unidade4/tutorial/01-setup-pwa.md
-      - 2. Configuração do manifesto: unidade4/tutorial/02-manifesto.md
-      - 3. Service Worker: unidade4/tutorial/03-service-worker.md
-      - 4. Estratégias de cache: unidade4/tutorial/04-estrategias-cache.md
-      - 5. Funcionamento offline: unidade4/tutorial/05-offline.md
-      - 6. Instalação do aplicativo: unidade4/tutorial/06-instalacao.md
-      - 7. Atualização de versão: unidade4/tutorial/07-atualizacao.md
-    - Atividades práticas: unidade4/atividades-praticas.md
-    - Boas práticas para PWAs: unidade4/boas-praticas.md
+  - Conteúdo do Curso:
+    - conteudo/index.md
+    - Unidade 1 – Panorama do Desenvolvimento Mobile:
+      - unidade1/index.md
+      - O que é desenvolvimento mobile?: unidade1/o-que-e-mobile.md
+      - Abordagens para desenvolvimento mobile: unidade1/abordagens.md
+      - Progressive Web Apps (PWA): unidade1/pwa.md
+      - O navegador como plataforma: unidade1/navegador-plataforma.md
+      - Primeiros cuidados com UX mobile: unidade1/ux-mobile.md
+      - Exemplo prático inicial: unidade1/exemplo-pratico.md
+      - Resumo e exercícios: unidade1/resumo-exercicios.md
+      - Projeto prático: unidade1/projeto-pratico.md
+    - Unidade 2 – Estruturação com Vue.js 3:
+      - unidade2/index.md
+      - Criando projeto com Vite: unidade2/criando-projeto-vite.md
+      - Composition API: unidade2/composition-api.md
+      - Componentes reutilizáveis: unidade2/componentes-reutilizaveis.md
+      - Props e eventos: unidade2/props-eventos.md
+      - Organização de projeto: unidade2/organizacao-projeto.md
+      - Vue Router: unidade2/vue-router.md
+      - Projeto Prático:
+        - Visão Geral: unidade2/projeto/index.md
+        - 1. Configuração do Projeto: unidade2/projeto/01-setup.md
+        - 2. Composable useRecords: unidade2/projeto/02-composable.md
+        - 3. Componentes Reutilizáveis: unidade2/projeto/03-componentes.md
+        - 4. Views (Páginas): unidade2/projeto/04-views.md
+        - 5. Configuração de Rotas: unidade2/projeto/05-router.md
+        - 6. Finalização e Testes: unidade2/projeto/06-finalizacao.md
+    - Unidade 3 – Experiência do Usuário em Aplicações Mobile:
+      - unidade3/index.md
+      - Mobile-first na prática: unidade3/mobile-first-na-pratica.md
+      - Fluxo de navegação em aplicações mobile: unidade3/fluxo-navegacao-mobile.md
+      - Feedback visual para o usuário: unidade3/feedback-visual-usuario.md
+      - Acessibilidade básica em aplicações web/mobile: unidade3/acessibilidade-basica.md
+      - Design simples e funcional: unidade3/design-simples-funcional.md
+      - "Uso com uma mão: zonas de alcance": unidade3/uso-uma-mao.md
+      - "Exercício prático: melhorando um app \"ruim\"": unidade3/exercicio-app-ruim.md
+      - "Checklist final de UX no projeto": unidade3/checklist-ux-projeto.md
+    - Unidade 4 – Progressive Web Apps (PWA):
+      - unidade4/index.md
+      - Introdução a Progressive Web Apps: unidade4/o-que-e-pwa.md
+      - Critérios e requisitos de um PWA: unidade4/criterios-pwa.md
+      - Tutorial Prático:
+        - Visão Geral: unidade4/tutorial/index.md
+        - 1. Configuração do suporte a PWA: unidade4/tutorial/01-setup-pwa.md
+        - 2. Configuração do manifesto: unidade4/tutorial/02-manifesto.md
+        - 3. Service Worker: unidade4/tutorial/03-service-worker.md
+        - 4. Estratégias de cache: unidade4/tutorial/04-estrategias-cache.md
+        - 5. Funcionamento offline: unidade4/tutorial/05-offline.md
+        - 6. Instalação do aplicativo: unidade4/tutorial/06-instalacao.md
+        - 7. Atualização de versão: unidade4/tutorial/07-atualizacao.md
+      - Atividades práticas: unidade4/atividades-praticas.md
+      - Boas práticas para PWAs: unidade4/boas-praticas.md
+  - Recursos:
+    - recursos/index.md
+    - Ferramentas recomendadas: recursos/ferramentas.md
+    - Links úteis: recursos/links-uteis.md
+    - Glossário: recursos/glossario.md

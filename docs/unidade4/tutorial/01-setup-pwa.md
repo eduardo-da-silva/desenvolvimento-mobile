@@ -9,7 +9,7 @@ Neste passo, vamos criar um novo projeto Vue.js 3 com Vite, implementar uma inte
 Abra o terminal e execute:
 
 ```bash
-npm create vue@latest tarefas-pwa
+npm init vue@latest tarefas-pwa
 ```
 
 Durante a configuração, escolha as seguintes opções:
@@ -19,9 +19,9 @@ Durante a configuração, escolha as seguintes opções:
 - **Add Vue Router?** → Yes
 - **Add Pinia?** → No
 - **Add Vitest?** → No
-- **Add an End-to-End Testing Solution?** → No
-- **Add ESLint for code quality?** → No
-- **Add Vue DevTools browser extension?** → No
+- **Add an End-to-End Testing Solution?** → Yes
+- **Add ESLint for code quality?** → Yes
+- **Add Vue DevTools browser extension?** → Yes
 
 Em seguida, entre na pasta do projeto e instale as dependências:
 
@@ -70,7 +70,7 @@ src/
 
 Crie o arquivo `src/assets/css/global.css`:
 
-```css
+```css title='./src/assets/css/global.css' linenums='1'
 * {
   margin: 0;
   padding: 0;
@@ -93,9 +93,9 @@ body {
 
 ### Composable para gerenciar tarefas
 
-Crie o arquivo `src/composables/useTasks.js`. Este composable centraliza a lógica de gerenciamento das tarefas:
+Crie o arquivo `./src/composables/useTasks.js`. Este composable centraliza a lógica de gerenciamento das tarefas:
 
-```javascript
+```javascript title='src/composables/useTasks.js' linenums='1'
 import { ref, computed } from 'vue';
 
 const tasks = ref([
@@ -145,7 +145,7 @@ export function useTasks() {
 
 **`src/components/AppHeader.vue`**
 
-```vue
+```vue title='src/components/AppHeader.vue' linenums='1'
 <template>
   <header class="app-header">
     <h1>Tarefas</h1>
@@ -191,7 +191,7 @@ nav a.router-link-active {
 
 **`src/components/TaskForm.vue`**
 
-```vue
+```vue title='src/components/TaskForm.vue' linenums='1'
 <template>
   <form class="task-form" @submit.prevent="handleSubmit">
     <input
@@ -258,7 +258,7 @@ function handleSubmit() {
 
 **`src/components/TaskItem.vue`**
 
-```vue
+```vue title='src/components/TaskItem.vue' linenums='1'
 <template>
   <div class="task-item" :class="{ done: task.done }">
     <label class="task-label">
@@ -345,7 +345,7 @@ defineEmits(['toggle', 'remove']);
 
 **`src/views/HomeView.vue`**
 
-```vue
+```vue title='src/views/HomeView.vue' linenums='1'
 <template>
   <div>
     <TaskForm @add="addTask" />
@@ -406,7 +406,7 @@ const { tasks, pendingTasks, completedTasks, addTask, toggleTask, removeTask } =
 
 **`src/views/AboutView.vue`**
 
-```vue
+```vue title='src/views/AboutView.vue' linenums='1'
 <template>
   <div class="about">
     <h2>Sobre o aplicativo</h2>
@@ -467,7 +467,7 @@ const { tasks, pendingTasks, completedTasks, addTask, toggleTask, removeTask } =
 
 Edite o arquivo `src/router/index.js`:
 
-```javascript
+```javascript title='src/router/index.js' linenums='1'
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import AboutView from '../views/AboutView.vue';
@@ -497,7 +497,7 @@ export default router;
 
 **`src/App.vue`**
 
-```vue
+```vue title='src/App.vue' linenums='1'
 <template>
   <AppHeader />
   <main>
@@ -518,7 +518,7 @@ main {
 
 **`src/main.js`**
 
-```javascript
+```javascript title='src/main.js' linenums='1'
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
@@ -562,7 +562,7 @@ Este plugin cuida de:
 
 Abra o arquivo `vite.config.js` e adicione a configuração do plugin:
 
-```javascript
+```javascript title='vite.config.js' linenums='1'
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -625,10 +625,11 @@ public/
 ```
 
 !!! tip "Gerando ícones"
-Você pode criar ícones simples usando ferramentas online como:
+
+    Você pode criar ícones simples usando ferramentas online como:
 
     - [Favicon.io](https://favicon.io/) — gerador de favicons e ícones
-    - [PWA Asset Generator](https://github.com/nicedoc/pwa-asset-generator) — ferramenta de linha de comando
+    - [PWA Builder Asset Generator](https://www.pwabuilder.com/imageGenerator) — ferramenta da PWA Builder para gerar ícones e splash screens
     - [RealFaviconGenerator](https://realfavicongenerator.net/) — gerador completo de ícones para PWA
 
     Para fins de estudo, você pode usar qualquer imagem PNG quadrada redimensionada para 192x192 e 512x512 pixels.
@@ -642,7 +643,8 @@ npm run dev
 ```
 
 !!! warning "Atenção"
-O Service Worker e o manifesto só funcionam completamente no **build de produção**. Durante o desenvolvimento (`npm run dev`), o plugin gera apenas o manifesto. Para testar o Service Worker, é necessário fazer o build e servir os arquivos estáticos. Veremos isso nos próximos passos.
+
+    O Service Worker e o manifesto só funcionam completamente no **build de produção**. Durante o desenvolvimento (`npm run dev`), o plugin gera apenas o manifesto. Para testar o Service Worker, é necessário fazer o build e servir os arquivos estáticos. Veremos isso nos próximos passos.
 
 Para verificar que o manifesto está sendo gerado, abra o DevTools (F12), vá até a aba **Application** e clique em **Manifest** no menu lateral. Você deve ver as informações configuradas.
 
