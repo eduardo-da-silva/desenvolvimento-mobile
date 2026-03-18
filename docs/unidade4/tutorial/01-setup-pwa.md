@@ -562,7 +562,7 @@ Este plugin cuida de:
 
 Abra o arquivo `vite.config.js` e adicione a configuração do plugin:
 
-```javascript title='vite.config.js' linenums='1'
+```javascript title='vite.config.js' linenums='1' hl_lines='6 11-45'
 import { fileURLToPath, URL } from 'node:url';
 
 import { defineConfig } from 'vite';
