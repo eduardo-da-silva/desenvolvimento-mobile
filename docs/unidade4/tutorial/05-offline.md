@@ -143,28 +143,74 @@ Quando o usuário perder a conexão, uma barra vermelha aparecerá no topo da te
 
 ### Usando um composable para o estado de conexão
 
-Se você precisar verificar o estado de conexão em outros componentes, pode criar um composable reutilizável.
+O método acima é simples e funciona, mas se você precisar verificar o estado de conexão em vários componentes, pode ser útil criar um composable reutilizável. Além disso, a API `navigator.onLine` nem sempre é confiável, pois pode indicar "online" mesmo quando a conexão real com a internet está indisponível. Para melhorar isso, podemos implementar uma verificação ativa de conectividade.
+
+Nesse caso, vamos criar um composable que não apenas monitora os eventos de conexão, mas também faz requisições periódicas para verificar se a internet está realmente acessível.
 
 Crie o arquivo `src/composables/useOnlineStatus.js`:
 
 ```javascript title='./src/composables/useOnlineStatus.js' linenums='1'
 import { ref, onMounted, onUnmounted } from 'vue';
 
+const HEARTBEAT_INTERVAL = 10_000; // 10 segundos
+const FETCH_TIMEOUT = 5_000; // 5 segundos
+
 export function useOnlineStatus() {
   const isOnline = ref(navigator.onLine);
+  let intervalId = null;
 
   function updateStatus() {
     isOnline.value = navigator.onLine;
   }
 
+  async function checkConnectivity() {
+    if (!navigator.onLine) {
+      isOnline.value = false;
+      return;
+    }
+
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
+
+      // Faz HEAD request para um recurso pequeno do próprio domínio
+      // O cache-bust via query string evita resposta do cache HTTP
+      await fetch(
+        `${window.location.origin}/icons/icon-192x192.png?_=${Date.now()}`,
+        {
+          method: 'HEAD',
+          mode: 'no-cors',
+          cache: 'no-store',
+          signal: controller.signal,
+        },
+      );
+
+      clearTimeout(timeoutId);
+      isOnline.value = true;
+    } catch {
+      isOnline.value = false;
+    }
+  }
+
   onMounted(() => {
     window.addEventListener('online', updateStatus);
     window.addEventListener('offline', updateStatus);
+
+    // Verificação inicial real de conectividade
+    checkConnectivity();
+
+    // Heartbeat periódico
+    intervalId = setInterval(checkConnectivity, HEARTBEAT_INTERVAL);
   });
 
   onUnmounted(() => {
     window.removeEventListener('online', updateStatus);
     window.removeEventListener('offline', updateStatus);
+
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
   });
 
   return { isOnline };
@@ -185,8 +231,6 @@ const { isOnline } = useOnlineStatus();
 </template>
 ```
 
-### Desabilitando funcionalidades que dependem de rede
-
 No exemplo acima, o botão "Enviar dados" é desabilitado quando o usuário está offline. Essa é uma prática importante: em vez de permitir ações que vão falhar, informe o usuário e desabilite os controles.
 
 Exemplos de funcionalidades que podem ser desabilitadas offline:
@@ -195,6 +239,37 @@ Exemplos de funcionalidades que podem ser desabilitadas offline:
 - Busca por dados remotos
 - Upload de arquivos
 - Sincronização de dados
+
+No caso do componente `OfflineBanner.vue`, você pode substituir a lógica interna pelo uso do composable:
+
+```vue title='./src/components/OfflineBanner.vue' linenums='1'
+<template>
+  <div v-if="!isOnline" class="offline-banner">
+    Você está offline. Algumas funcionalidades podem estar indisponíveis.
+  </div>
+</template>
+
+<script setup>
+import { useOnlineStatus } from '@/composables/useOnlineStatus';
+
+const { isOnline } = useOnlineStatus();
+</script>
+
+<style scoped>
+.offline-banner {
+  background-color: #e74c3c;
+  color: white;
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+</style>
+```
 
 ## Persistência de dados offline
 
