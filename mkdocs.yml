@@ -204,6 +204,17 @@ nav:
         - 7. Atualização de versão: unidade4/tutorial/07-atualizacao.md
       - Atividades práticas: unidade4/atividades-praticas.md
       - Boas práticas para PWAs: unidade4/boas-praticas.md
+    - Unidade 5 – Integração com Backend:
+      - unidade5/index.md
+      - REST e HTTP: unidade5/rest-e-http.md
+      - Arquitetura em camadas: unidade5/arquitetura-camadas.md
+      - Tutorial Prático:
+        - Visão Geral: unidade5/tutorial/index.md
+        - 1. Preparação do ambiente: unidade5/tutorial/01-preparacao.md
+        - 2. Camada de acesso à API: unidade5/tutorial/02-camada-api.md
+        - 3. Store com Pinia: unidade5/tutorial/03-pinia-store.md
+        - 4. Integrando os componentes: unidade5/tutorial/04-integrando-componentes.md
+      - Atividades práticas: unidade5/atividades-praticas.md
   - Recursos:
     - recursos/index.md
     - Ferramentas recomendadas: recursos/ferramentas.md
