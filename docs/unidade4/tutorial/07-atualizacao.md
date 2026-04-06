@@ -54,6 +54,42 @@ VitePWA({
 
 Essa abordagem dá mais controle ao usuário e evita recarregamentos inesperados.
 
+### 3. Registro programático via `registerSW`
+
+Nessa abordagem, o registro do Service Worker é feito diretamente no `main.js`, usando a função `registerSW` importada de `virtual:pwa-register`. Ela é compatível com `registerType: 'autoUpdate'` — ou seja, não exige nenhuma mudança no `vite.config.js`.
+
+```javascript title="src/main.js (trecho ilustrativo)"
+import { registerSW } from 'virtual:pwa-register';
+
+registerSW({
+  immediate: true,
+  onRegisteredSW(swUrl, registration) {
+    if (registration) {
+      setInterval(() => {
+        registration.update();
+      }, 60 * 1000); // verifica a cada 60 segundos
+    }
+  },
+});
+```
+
+O parâmetro `immediate: true` faz com que a verificação ocorra logo no carregamento da página, sem esperar pela próxima visita. O `onRegisteredSW` recebe o objeto `registration` do Service Worker, que permite chamar `registration.update()` periodicamente via `setInterval`.
+
+**Vantagens:**
+
+- Nenhum componente extra ou alteração no `App.vue`
+- Implementação mínima, todo o código fica em um único lugar (`main.js`)
+- Verificação proativa de atualizações com controle preciso do intervalo
+- Funciona com qualquer framework (não depende de reatividade Vue)
+
+**Desvantagens:**
+
+- Sem feedback visual: a atualização ocorre de forma silenciosa
+- O usuário não pode adiar ou recusar a atualização
+
+!!! note "Essa é a abordagem do nosso projeto"
+No `registro-atividades-pwa`, o `main.js` já usa exatamente essa estratégia, com verificação a cada 60 segundos. Ela foi escolhida por ser simples e adequada para um app de registro de atividades, onde não há formulários longos ou sessões críticas em andamento.
+
 ## Implementando atualização com prompt
 
 Vamos modificar a configuração do projeto para usar a estratégia de prompt e criar um componente que notifica o usuário.
@@ -214,17 +250,73 @@ main {
 </style>
 ```
 
+## Alternativa: Usando `registerSW` no `main.js`
+
+Se você não precisa dar controle de atualização ao usuário, há uma abordagem mais simples: usar a função `registerSW` importada diretamente de `virtual:pwa-register` e colocá-la no `main.js`. Essa é a abordagem que adotamos no `registro-atividades-pwa`.
+
+Ela é compatível com `registerType: 'autoUpdate'` — o `vite.config.js` não precisa ser alterado.
+
+### Atualizando o `main.js`
+
+```javascript title="src/main.js" linenums='1'
+import './assets/css/global.css';
+
+import { registerSW } from 'virtual:pwa-register';
+
+registerSW({
+  immediate: true,
+  onRegisteredSW(swUrl, registration) {
+    if (registration) {
+      setInterval(() => {
+        registration.update();
+      }, 60 * 1000); // verifica a cada 60 segundos
+    }
+  },
+});
+
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+
+const app = createApp(App);
+app.use(router);
+app.mount('#app');
+```
+
+### Entendendo cada parte
+
+| Parâmetro / Callback          | O que faz                                                                                 |
+| ----------------------------- | ----------------------------------------------------------------------------------------- |
+| `immediate: true`             | Verifica por atualização imediatamente ao registrar o SW, sem esperar pelo próximo acesso |
+| `onRegisteredSW`              | Chamado logo após o Service Worker ser registrado com sucesso                             |
+| `registration.update()`       | Solicita ao navegador que verifique se há uma nova versão do `sw.js` no servidor          |
+| `setInterval(..., 60 * 1000)` | Repete a verificação a cada 60 segundos enquanto a aba estiver aberta                     |
+
+Quando uma nova versão é encontrada, o Service Worker é atualizado e a página é recarregada automaticamente — sem nenhuma interação do usuário.
+
+### Comparando as abordagens
+
+| Critério                           | `registerSW` no `main.js`        | `UpdatePrompt` com `useRegisterSW`          |
+| ---------------------------------- | -------------------------------- | ------------------------------------------- |
+| `registerType` no `vite.config.js` | `autoUpdate`                     | `prompt`                                    |
+| Arquivos modificados               | Apenas `main.js`                 | Novo componente + `App.vue`                 |
+| Feedback visual ao usuário         | Nenhum (silencioso)              | Banner com botão de confirmação             |
+| Controle do usuário                | Nenhum                           | Pode adiar ou recusar                       |
+| Complexidade                       | Baixa                            | Média                                       |
+| Recomendado para                   | Apps simples, dados não críticos | Sessões longas, formulários, dados críticos |
+
+Para um app de registro de atividades como o `registro-atividades-pwa`, a abordagem silenciosa é suficiente. Se a aplicação tivesse formulários longos ou um fluxo de trabalho que o usuário não pode interromper, o `UpdatePrompt` seria mais adequado.
+
 ## Como funciona a atualização na prática
 
 1. Você faz uma alteração no código e publica uma nova versão (`npm run build` + deploy)
 2. O usuário acessa a aplicação (ou a verificação periódica dispara)
 3. O navegador detecta que o arquivo `sw.js` mudou
 4. O novo Service Worker é baixado e instalado (em segundo plano)
-5. O composable `useRegisterSW` define `needRefresh.value = true`
-6. O componente `UpdatePrompt` exibe a notificação
-7. O usuário clica em "Atualizar agora"
-8. A função `updateServiceWorker()` ativa o novo Service Worker
-9. A página é recarregada com a nova versão
+5. Dependendo da abordagem escolhida:
+   - **`registerSW` no `main.js`**: o novo SW é ativado automaticamente e a página é recarregada
+   - **`UpdatePrompt`**: o composable `useRegisterSW` define `needRefresh.value = true`, o banner aparece e o usuário decide quando atualizar
+6. A nova versão é exibida
 
 ## Limpeza de caches antigos
 
@@ -250,11 +342,13 @@ Você pode forçar a atualização clicando em "Update" na seção de Service Wo
 Neste passo, você:
 
 - Entendeu como o Service Worker gerencia atualizações de versão
-- Conheceu as estratégias `autoUpdate` e `prompt`
-- Implementou um componente de notificação de atualização
+- Conheceu as estratégias `autoUpdate`, `prompt` e o registro programático via `registerSW`
+- Implementou um componente de notificação de atualização (`UpdatePrompt`)
+- Conheceu a abordagem programática com `registerSW` diretamente no `main.js`
+- Comparou as duas abordagens e identificou quando usar cada uma
 - Configurou verificação periódica de novas versões
 - Aprendeu a monitorar o processo de atualização no DevTools
 
 ---
 
-**Anterior:** [Passo 6 – Instalação do aplicativo](06-instalacao.md) | **Próximo:** [Atividades práticas](../atividades-praticas.md)
+**Anterior:** [Passo 6 – Instalação do aplicativo](06-instalacao.md) | **Próximo:** [Unidade 5 – Integração com Backend](../../unidade5/index.md)
