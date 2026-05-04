@@ -225,6 +225,17 @@ nav:
         - 3. Atualizando o store: unidade6/tutorial/03-store.md
         - 4. Atualizando os componentes: unidade6/tutorial/04-componentes.md
       - Atividades práticas: unidade6/atividades-praticas.md
+    - Unidade 7 – Autenticação com JWT:
+      - unidade7/index.md
+      - Autenticação com JWT: unidade7/autenticacao-jwt.md
+      - Onde guardar o token: unidade7/armazenamento-cliente.md
+      - Tutorial Prático:
+        - Visão Geral: unidade7/tutorial/index.md
+        - 1. Preparação do ambiente: unidade7/tutorial/01-preparacao.md
+        - 2. A store de autenticação: unidade7/tutorial/02-auth-store.md
+        - 3. Interceptors e Axios: unidade7/tutorial/03-interceptors.md
+        - 4. Login, guards e logout: unidade7/tutorial/04-login-e-guards.md
+      - Atividades práticas: unidade7/atividades-praticas.md
   - Recursos:
     - recursos/index.md
     - Ferramentas recomendadas: recursos/ferramentas.md
