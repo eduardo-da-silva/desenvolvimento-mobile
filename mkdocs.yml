@@ -236,6 +236,18 @@ nav:
         - 3. Interceptors e Axios: unidade7/tutorial/03-interceptors.md
         - 4. Login, guards e logout: unidade7/tutorial/04-login-e-guards.md
       - Atividades práticas: unidade7/atividades-praticas.md
+    - Unidade 8 – Notificações Push:
+      - unidade8/index.md
+      - Como funciona o Web Push: unidade8/web-push.md
+      - VAPID – Autenticação do servidor: unidade8/vapid.md
+      - Tutorial Prático:
+        - Visão Geral: unidade8/tutorial/index.md
+        - 1. Preparação do ambiente: unidade8/tutorial/01-preparacao.md
+        - 2. Service Worker customizado: unidade8/tutorial/02-service-worker.md
+        - 3. Permissão e subscription: unidade8/tutorial/03-subscribe.md
+        - 4. Integração com autenticação: unidade8/tutorial/04-integracao.md
+        - 5. Interface de notificação: unidade8/tutorial/05-notificacao-ui.md
+      - Atividades práticas: unidade8/atividades-praticas.md
   - Recursos:
     - recursos/index.md
     - Ferramentas recomendadas: recursos/ferramentas.md
