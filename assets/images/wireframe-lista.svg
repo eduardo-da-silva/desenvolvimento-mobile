@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 560" width="300" height="560">
+  <defs>
+    <filter id="sombra1">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+    <filter id="card-shadow">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Corpo do celular -->
+  <rect x="10" y="6" width="280" height="548" rx="32" ry="32" fill="#1a1a2e" filter="url(#sombra1)" stroke="#333" stroke-width="1.5"/>
+
+  <!-- Tela -->
+  <rect x="22" y="44" width="256" height="472" rx="4" ry="4" fill="#f4f4f6"/>
+
+  <!-- Câmera frontal -->
+  <circle cx="150" cy="26" r="5" fill="#222" stroke="#444" stroke-width="1"/>
+  <circle cx="150" cy="26" r="2" fill="#1a1a2e"/>
+
+  <!-- Home indicator -->
+  <rect x="110" y="528" width="80" height="4" rx="2" fill="#444"/>
+
+  <!-- ===== HEADER (fixo no topo) ===== -->
+  <rect x="22" y="44" width="256" height="48" rx="4" ry="0" fill="#0b5cff"/>
+  <text x="38" y="74" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#fff">Registro de Atividades</text>
+
+  <!-- ===== ÁREA DE CONTEÚDO ===== -->
+
+  <!-- Rótulo da seção -->
+  <text x="38" y="115" font-family="system-ui, sans-serif" font-size="10" fill="#888" font-weight="600" letter-spacing="0.5">ATIVIDADES REGISTRADAS</text>
+
+  <!-- Card 1 -->
+  <rect x="30" y="125" width="240" height="56" rx="8" ry="8" fill="#fff" filter="url(#card-shadow)"/>
+  <rect x="38" y="133" width="4" height="40" rx="2" fill="#0b5cff"/>
+  <text x="52" y="150" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#222">Estudo de JavaScript</text>
+  <text x="52" y="166" font-family="system-ui, sans-serif" font-size="11" fill="#888">45 min</text>
+  <!-- Indicador de seta -->
+  <text x="252" y="158" font-family="system-ui, sans-serif" font-size="14" fill="#ccc" text-anchor="end">›</text>
+
+  <!-- Card 2 -->
+  <rect x="30" y="191" width="240" height="56" rx="8" ry="8" fill="#fff" filter="url(#card-shadow)"/>
+  <rect x="38" y="199" width="4" height="40" rx="2" fill="#0b5cff"/>
+  <text x="52" y="216" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#222">Leitura de artigo</text>
+  <text x="52" y="232" font-family="system-ui, sans-serif" font-size="11" fill="#888">20 min</text>
+  <text x="252" y="224" font-family="system-ui, sans-serif" font-size="14" fill="#ccc" text-anchor="end">›</text>
+
+  <!-- Card 3 -->
+  <rect x="30" y="257" width="240" height="56" rx="8" ry="8" fill="#fff" filter="url(#card-shadow)"/>
+  <rect x="38" y="265" width="4" height="40" rx="2" fill="#0b5cff"/>
+  <text x="52" y="282" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#222">Exercícios de CSS</text>
+  <text x="52" y="298" font-family="system-ui, sans-serif" font-size="11" fill="#888">30 min</text>
+  <text x="252" y="290" font-family="system-ui, sans-serif" font-size="14" fill="#ccc" text-anchor="end">›</text>
+
+  <!-- Card 4 (parcial, indicando scroll) -->
+  <rect x="30" y="323" width="240" height="56" rx="8" ry="8" fill="#fff" opacity="0.5" filter="url(#card-shadow)"/>
+  <rect x="38" y="331" width="4" height="40" rx="2" fill="#0b5cff" opacity="0.5"/>
+  <text x="52" y="348" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#222" opacity="0.4">Revisão de HTML</text>
+  <text x="52" y="364" font-family="system-ui, sans-serif" font-size="11" fill="#888" opacity="0.4">15 min</text>
+
+  <!-- Indicador de scroll -->
+  <text x="150" y="400" font-family="system-ui, sans-serif" font-size="10" fill="#bbb" text-anchor="middle">↕ rolar para ver mais</text>
+
+  <!-- ===== FOOTER (fixo na base) ===== -->
+  <rect x="22" y="440" width="256" height="76" rx="0" ry="4" fill="#fff" stroke="#eee" stroke-width="1"/>
+
+  <!-- Botão de adicionar -->
+  <rect x="34" y="454" width="232" height="48" rx="10" ry="10" fill="#0b5cff"/>
+  <text x="150" y="484" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">+ Nova Atividade</text>
+
+  <!-- ===== ANOTAÇÕES (fora da tela) ===== -->
+
+  <!-- Seta e legenda do header -->
+  <!-- Seta e legenda do botão -->
+</svg>
