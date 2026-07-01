@@ -248,6 +248,17 @@ nav:
         - 4. Integração com autenticação: unidade8/tutorial/04-integracao.md
         - 5. Interface de notificação: unidade8/tutorial/05-notificacao-ui.md
       - Atividades práticas: unidade8/atividades-praticas.md
+    - Unidade 9 – Captura de Imagens pela Câmera:
+      - unidade9/index.md
+      - Captura a partir do dispositivo: unidade9/captura-dispositivo.md
+      - Tutorial Prático:
+        - Visão Geral: unidade9/tutorial/index.md
+        - 1. Preparação do ambiente: unidade9/tutorial/01-preparacao.md
+        - 2. Adicionando o atributo capture: unidade9/tutorial/02-captura-camera.md
+        - 3. Pré-visualização e upload: unidade9/tutorial/03-preview-e-upload.md
+        - 4. Integração visual e feedback: unidade9/tutorial/04-integracao-visual.md
+        - 5. Captura com getUserMedia: unidade9/tutorial/05-camera-nativa.md
+      - Atividades práticas: unidade9/atividades-praticas.md
   - Recursos:
     - recursos/index.md
     - Ferramentas recomendadas: recursos/ferramentas.md

@@ -4,6 +4,11 @@
 
 Neste passo, vamos criar um novo projeto Vue.js 3 com Vite, implementar uma interface básica de gerenciamento de tarefas e então adicionar o suporte a PWA usando o plugin `vite-plugin-pwa`.
 
+!!! info "Transição para as próximas unidades"
+
+  Este passo usa um projeto introdutório (`tarefas-pwa`) para ensinar os fundamentos.
+  A partir da Unidade 5, os tutoriais passam a evoluir o projeto de referência do curso (`registro-atividades-pwa`), que inclui backend, autenticação JWT e push notifications.
+
 ## Criando o projeto Vue.js
 
 Abra o terminal e execute:

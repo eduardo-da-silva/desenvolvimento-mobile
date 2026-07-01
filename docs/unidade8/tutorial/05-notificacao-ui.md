@@ -114,7 +114,7 @@ function dismiss() {
 1. `"default"` significa que o usuário ainda não respondeu — nem concedeu, nem negou. Se for `"denied"`, não adianta pedir.
 2. O atraso de 2 segundos evita que o banner apareça ao mesmo tempo que a tela carrega, o que seria invasivo.
 3. Passamos a registration do Service Worker diretamente para `subscribe()` — assim não precisamos chamar `navigator.serviceWorker.ready` de novo.
-4. Uma vez que o usuário dispensa o banner, não mostramos novamente. Apenas o logout + login apagaria esse flag (intencionalmente — um usuário que dispensou não quer ser perguntado de novo na mesma sessão).
+4. Uma vez que o usuário dispensa o banner, não mostramos novamente enquanto o `push_prompt_dismissed` existir no localStorage. No código atual, esse valor não é limpo automaticamente no logout.
 
 ## 5.2 Atualizando o App.vue
 

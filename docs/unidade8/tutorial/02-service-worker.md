@@ -161,12 +161,12 @@ self.addEventListener('push', (event) => {
     payload = { event: 'unknown', message: event.data.text() }
   }
 
-  const { title, body } = buildNotificationContent(payload)
+  const { title, body, icon } = buildNotificationContent(payload)
 
   event.waitUntil(
     self.registration.showNotification(title, {
       body,
-      icon: '/icons/icon-192x192.png',
+      icon: icon || '/icons/icon-192x192.png',
       badge: '/icons/icon-192x192.png',
       data: payload,          // (4)
       vibrate: [200, 100, 200],
@@ -191,7 +191,10 @@ function buildNotificationContent(payload) {
     case 'task_deleted':
       return { title: 'Tarefa removida', body: 'Uma tarefa foi excluída.' }
     default:
-      return { title: 'Gerenciador de Tarefas', body: 'Você tem uma atualização.' }
+      return {
+        title: 'Gerenciador de Tarefas',
+        body: payload.message ?? 'Você tem uma atualização.',
+      }
   }
 }
 

@@ -4,6 +4,11 @@
 
 Neste passo, vamos entender como o Service Worker lida com atualizações, como gerenciar o cache de versões antigas e como notificar o usuário sobre novas versões disponíveis.
 
+!!! info "No projeto de referência"
+
+  No `registro-atividades-pwa`, a estratégia adotada é `registerSW` no `main.js` com `registerType: 'autoUpdate'`.
+  A abordagem com `UpdatePrompt` apresentada abaixo é alternativa didática para cenários em que você quer confirmar a atualização com o usuário.
+
 ## O problema da atualização
 
 Quando você publica uma nova versão da aplicação, os usuários que já instalaram o PWA podem continuar vendo a versão antiga. Isso acontece porque o Service Worker serve os arquivos do cache — e o cache contém a versão anterior.
@@ -275,10 +280,12 @@ registerSW({
 });
 
 import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
 
 const app = createApp(App);
+app.use(createPinia());
 app.use(router);
 app.mount('#app');
 ```
@@ -343,7 +350,7 @@ Neste passo, você:
 
 - Entendeu como o Service Worker gerencia atualizações de versão
 - Conheceu as estratégias `autoUpdate`, `prompt` e o registro programático via `registerSW`
-- Implementou um componente de notificação de atualização (`UpdatePrompt`)
+- Viu como implementar um componente de notificação de atualização (`UpdatePrompt`) como alternativa
 - Conheceu a abordagem programática com `registerSW` diretamente no `main.js`
 - Comparou as duas abordagens e identificou quando usar cada uma
 - Configurou verificação periódica de novas versões
