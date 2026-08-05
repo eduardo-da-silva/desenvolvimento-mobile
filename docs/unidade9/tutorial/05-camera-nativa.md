@@ -312,6 +312,10 @@ Para usar este componente no `TaskForm.vue`, você pode exibi-lo como alternativ
 A função `handleCameraCapture` recebe o `File` do `CameraCapture` e o envia para o upload:
 
 ```javascript
+
+import CameraCapture from './CameraCapture.vue'
+const showCameraCapture = ref(false)
+
 function handleCameraCapture(file) {
   previewUrl.value = URL.createObjectURL(file);
   uploading.value = true;
