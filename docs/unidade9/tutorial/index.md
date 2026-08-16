@@ -8,7 +8,7 @@ Neste tutorial, vamos evoluir o projeto `registro-atividades-pwa` a partir do es
 sequenceDiagram
     participant U as Usuário
     participant TF as TaskForm.vue
-    participant API as Backend (Docker 2.0)
+    participant API as Backend (Docker 4.0)
     participant S as Servidor
 
     U->>TF: Clica em "Adicionar imagem"

@@ -60,6 +60,12 @@ Transformação de aplicações Vue.js em PWAs instaláveis: manifesto, Service 
 
 **[Ir para a Unidade 4](unidade4/index.md)**
 
+### Unidade 10 - GPS, endereço e mapas
+
+Captura opcional de localização, exibição de rua, mapa Leaflet e persistência dos dados geográficos nas atividades.
+
+**[Ir para a Unidade 10](unidade10/index.md)**
+
 ---
 
 ## Recursos de apoio

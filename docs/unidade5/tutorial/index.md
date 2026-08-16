@@ -2,7 +2,7 @@
 
 ## Visão geral
 
-Neste tutorial, vamos evoluir o projeto `registro-atividades-pwa` criado na Unidade 4. O aplicativo já tem interface, roteamento e suporte a PWA. O que falta é persistência real: as tarefas somem ao recarregar a página porque ficam em memória.
+Neste tutorial, vamos evoluir o projeto `registro-atividades-pwa`, iniciado como `tarefas-pwa` na Unidade 4. O aplicativo já tem interface, roteamento e suporte a PWA. O que falta é persistência real: as tarefas somem ao recarregar a página porque ficam em memória.
 
 Ao conectar o frontend a um backend via API REST, as tarefas passarão a ser salvas num banco de dados. O comportamento do usuário não muda — o que muda é como os dados são armazenados e recuperados.
 

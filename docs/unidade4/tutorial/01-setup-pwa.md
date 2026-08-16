@@ -662,7 +662,7 @@ npm run dev -- --host
 
 !!! warning "Atenção"
 
-    O Service Worker e o manifesto só funcionam completamente no **build de produção**. Durante o desenvolvimento (`npm run dev`), o plugin gera apenas o manifesto. Para testar o Service Worker, é necessário fazer o build e servir os arquivos estáticos. Veremos isso nos próximos passos.
+    O build de produção continua sendo a verificação mais próxima do ambiente publicado. Nesta configuração, `devOptions.enabled: true` também permite registrar o Service Worker durante `npm run dev`; se essa opção estiver desativada, o desenvolvimento fornecerá apenas a aplicação sem o Service Worker. O comportamento final deve ser conferido com build e preview.
 
 Para verificar que o manifesto está sendo gerado, abra o DevTools (F12), vá até a aba **Application** e clique em **Manifest** no menu lateral. Você deve ver as informações configuradas.
 

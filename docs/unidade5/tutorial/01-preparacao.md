@@ -18,6 +18,8 @@ Para verificar que o servidor está rodando, acesse `http://localhost:8001/docs`
 
 ## Instalando as dependências
 
+O projeto usado a partir desta unidade chama-se `registro-atividades-pwa` — é a evolução do projeto introdutório `tarefas-pwa` criado na Unidade 4. Se você seguiu a Unidade 4, renomeie a pasta do projeto (ou crie/clone o projeto já com esse nome) antes de continuar.
+
 Acesse a pasta do projeto frontend e instale o **axios** e o **Pinia**:
 
 ```bash

@@ -11,7 +11,7 @@ Imagine que o usuário cria uma tarefa no browser A. O backend envia push para t
 A solução é simples: o frontend envia o endpoint da própria subscription em cada request. O backend compara e exclui esse endpoint ao distribuir os pushs.
 
 ```
-PATCH /api/tasks/42
+PATCH /tasks/42
 Authorization: Bearer eyJ...
 X-Push-Endpoint: https://fcm.googleapis.com/fcm/send/abc123...
 ```

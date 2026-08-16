@@ -132,7 +132,7 @@ Essa é a opção mais simples e adequada para a maioria dos projetos.
 
 Você escreve seu próprio Service Worker e o plugin injeta a lista de arquivos para precache. Essa opção dá mais controle, mas exige mais conhecimento.
 
-Para o nosso projeto, usamos `generateSW` (que é o padrão), pois o Workbox já cuida de tudo que precisamos.
+No projeto-base desta Unidade 4, usamos `generateSW`, pois o Workbox já cuida do Service Worker sem código manual. Em unidades posteriores, quando o projeto passa a precisar de handlers próprios para Web Push, a configuração migra para `injectManifest`. Essas duas estratégias não devem ser misturadas no mesmo build.
 
 ## Configurando o Service Worker no projeto
 
@@ -198,7 +198,7 @@ O padrão `**/*.{js,css,html,ico,png,svg,woff2}` significa: coloque em cache tod
 
 ## Testando o Service Worker
 
-O Service Worker só funciona no build de produção. Para testar:
+O build de produção é a verificação recomendada. Se `devOptions.enabled` estiver ativo, o Service Worker também poderá aparecer durante o desenvolvimento. Para testar o comportamento publicado:
 
 ### 1. Faça o build
 

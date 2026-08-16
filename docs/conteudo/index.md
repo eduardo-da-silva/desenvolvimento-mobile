@@ -19,3 +19,7 @@ Princípios de UX e UI aplicados ao mobile: mobile-first, fluxo de navegação, 
 ### [Unidade 4 – Progressive Web Apps (PWA)](../unidade4/index.md)
 
 Transformação de aplicações Vue.js em PWAs: manifesto, Service Worker, estratégias de cache, funcionamento offline, instalação e atualização de versão.
+
+### [Unidade 10 – GPS, endereço e mapas](../unidade10/index.md)
+
+Uso da Geolocation API, geocodificação reversa no frontend, mapas Leaflet e persistência de localização nas atividades.

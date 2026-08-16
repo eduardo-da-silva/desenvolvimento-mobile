@@ -154,7 +154,7 @@ Atualize o `src/components/AppHeader.vue`:
 ```vue title="src/components/AppHeader.vue" linenums="1" hl_lines="7-12 20 23 25-28"
 <template>
   <header class="app-header">
-    <h1>Meus gestor de Tarefas!!!!</h1>
+    <h1>Tarefas</h1>
     <nav>
       <router-link to="/">Início</router-link>
       <router-link to="/about">Sobre</router-link>

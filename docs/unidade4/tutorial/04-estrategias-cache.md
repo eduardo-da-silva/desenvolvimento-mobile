@@ -205,13 +205,13 @@ Cada entrada no array `runtimeCaching` (linhas 14 a 58) define uma regra:
 
 ```javascript title='./vite.config.js' linenums='15'
 {
-    urlPattern: /^https:\/\/fonts\.googleapis\.com\/._/i, // (1)
+    urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i, // (1)
     handler: 'CacheFirst', // (2)
     options: {
     cacheName: 'google-fonts-cache', // (3)
     expiration: {
         maxEntries: 10, // (4)
-        maxAgeSeconds: 60 _ 60 _ 24 _ 365, // (5)
+        maxAgeSeconds: 60 * 60 * 24 * 365, // (5)
     },
         cacheableResponse: {
             statuses: [0, 200], // (6)

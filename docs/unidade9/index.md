@@ -35,10 +35,10 @@ Para isso, vamos trabalhar com dois temas:
 ## Pré-requisitos
 
 - Projeto `registro-atividades-pwa` no estado final da **Unidade 8**
-- Backend rodando via Docker (mesma versão da Unidade 6 — `2.0`)
+- Backend rodando via Docker (mesma versão da Unidade 8 — `4.0`)
 - Node.js e npm instalados
 - Um celular ou emulador para testar a captura pela câmera (opcional, mas recomendado)
 
 ---
 
-**Anterior:** [Unidade 8 – Notificações Push](../unidade8/index.md) | **Próximo:** [Captura a partir do dispositivo](captura-dispositivo.md)
+**Anterior:** [Unidade 8 – Notificações Push em PWAs](../unidade8/index.md) | **Próximo:** [Captura a partir do dispositivo](captura-dispositivo.md)

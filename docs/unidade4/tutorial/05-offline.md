@@ -6,7 +6,7 @@ Neste passo, vamos testar o funcionamento offline da nossa aplicação, entender
 
 ## Preparando o build de produção
 
-O Service Worker só funciona no build de produção. Vamos gerar o build e servir localmente:
+Vamos validar o Service Worker com o build de produção e servir os arquivos localmente:
 
 ```bash
 npm run build

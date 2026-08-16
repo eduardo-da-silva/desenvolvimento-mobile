@@ -157,7 +157,7 @@ Estas atividades complementam o tutorial de captura de imagens pela câmera. Ela
 3. No submit, envie os dados de localização junto com o título e a chave da imagem
 4. Exiba a localização como parte dos detalhes da tarefa (opcional)
 
-**Dica:** o `useGeolocation` composable usado no projeto já fornece `requestCurrentLocation()`. Você pode chamá-lo dentro de `handleImageChange`.
+**Dica:** chame `navigator.geolocation.getCurrentPosition()` diretamente dentro de `handleImageChange`, tratando sucesso e erro com callbacks — a API nativa é a mesma usada no restante do curso. Este desafio antecipa o conceito: a Unidade 10 formaliza esse fluxo em um composable reutilizável (`useGeolocation`), com tratamento de permissão, timeout e precisão.
 
 **Resultado esperado:** cada foto anexada a uma tarefa carrega consigo a localização geográfica do momento em que foi capturada.
 

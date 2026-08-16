@@ -86,7 +86,7 @@ Nesta unidade, as mudanças são todas no `TaskForm.vue`:
 
 Neste passo, você:
 
-- Verificou que o backend `2.0` está rodando
+- Verificou que o backend `4.0` está rodando
 - Testou o fluxo atual e identificou a ausência do `capture`
 - Entendeu os pontos que serão alterados no `TaskForm.vue`
 

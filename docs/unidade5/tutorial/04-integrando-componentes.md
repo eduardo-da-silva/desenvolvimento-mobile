@@ -456,7 +456,7 @@ Cada camada tem uma responsabilidade única. Os componentes nunca falam diretame
 
 Antes de considerar a integração completa, verifique cada ponto abaixo:
 
-- [ ] **Backend rodando**: `docker run -p 8001:8001 registro-atividades-backend` (ou `uvicorn main:app --port 8001` localmente)
+- [ ] **Backend rodando**: `docker run -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:1.0` (ou `uvicorn main:app --port 8001` localmente)
 - [ ] **Frontend rodando**: `npm run dev` no diretório `registro-atividades-pwa`
 - [ ] **Carregamento inicial**: ao abrir o app, as tarefas existentes no banco aparecem na tela
 - [ ] **Adicionar tarefa**: digitar um título e clicar "Adicionar" → tarefa aparece na lista "Pendentes"

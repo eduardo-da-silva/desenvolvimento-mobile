@@ -8,17 +8,10 @@ copyright: Copyright &copy; 2026 Eduardo da Silva
 
 plugins:
   - search:
-      lang: 
+      lang:
         - pt
         - en
       separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
-  - minify:
-      minify_html: true
-      minify_js: true
-      minify_css: true
-      htmlmin_opts:
-          remove_comments: true
-      cache_safe: true
 
 extra:
   social:
@@ -36,11 +29,6 @@ extra:
     PWA: pwa
     Vue.js: vuejs
     JavaScript: javascript
-  
-  # Versão do curso
-  version:
-    provider: mike
-    default: latest
   
   # Analytics (descomente se quiser adicionar)
   # analytics:
@@ -64,6 +52,7 @@ theme:
     - navigation.instant
     - navigation.instant.prefetch
     - navigation.instant.progress
+    - navigation.prune
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.top
@@ -259,6 +248,19 @@ nav:
         - 4. Integração visual e feedback: unidade9/tutorial/04-integracao-visual.md
         - 5. Captura com getUserMedia: unidade9/tutorial/05-camera-nativa.md
       - Atividades práticas: unidade9/atividades-praticas.md
+    - Unidade 10 – GPS, endereço e mapas:
+      - unidade10/index.md
+      - A Geolocation API: unidade10/geolocation-api.md
+      - Mapas, Leaflet e OpenStreetMap: unidade10/mapas-openstreetmap.md
+      - Tutorial Prático:
+        - Visão geral: unidade10/tutorial/index.md
+        - 1. Preparação e segurança: unidade10/tutorial/01-preparacao.md
+        - 2. Captura da localização: unidade10/tutorial/02-captura-localizacao.md
+        - 3. Rua e geocodificação reversa: unidade10/tutorial/03-endereco-e-nominatim.md
+        - 4. Mapa com Leaflet: unidade10/tutorial/04-mapa-leaflet.md
+        - 5. Integração com a tarefa: unidade10/tutorial/05-integracao-atividade.md
+        - 6. Testes e limitações: unidade10/tutorial/06-testes-e-limitacoes.md
+      - Atividades práticas: unidade10/atividades-praticas.md
   - Recursos:
     - recursos/index.md
     - Ferramentas recomendadas: recursos/ferramentas.md

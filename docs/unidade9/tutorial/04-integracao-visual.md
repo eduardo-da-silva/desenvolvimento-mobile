@@ -66,7 +66,15 @@ function handleSubmit() {
 }
 ```
 
-Note que `payload` é um objeto com `title` e `imgAttachmentKey`. Isso segue o mesmo padrão já usado na Unidade 6 para o `update` — e o store (`tasks.js`) já trata `addTask` recebendo um objeto via `normalizeTaskInput`.
+Note que `payload` é um objeto com `title` e `imgAttachmentKey`. Isso segue o mesmo padrão já usado na Unidade 6 para o `update`, que já recebe um objeto de dados.
+
+`tasksApi.create`, porém, ainda só aceita um `title` (string) e monta `{ title }` sozinho — se `payload` for passado direto, o backend receberia o objeto inteiro aninhado dentro de `title`. Atualize `src/api/tasksApi.js` para repassar o objeto recebido:
+
+```javascript title="src/api/tasksApi.js" linenums="1" hl_lines="1-3"
+  create(payload) {
+    return apiClient.post('/tasks', payload)
+  },
+```
 
 ## 4.3 Atualizando o `HomeView.vue` para receber payload
 
@@ -78,9 +86,9 @@ function handleAdd(payload) {
 }
 ```
 
-Edite também o `addTask` da store para aceitar o payload como objeto, confome o código abaixo:
+Edite também o `addTask` da store para aceitar o payload como objeto, conforme o código abaixo:
 
-```javascript title="src/store/tasks.js" linenums="1""
+```javascript title="src/stores/tasks.js" linenums="1"
   async function addTask(payload) {
     if (!payload.title?.trim()) return;
     error.value = null;

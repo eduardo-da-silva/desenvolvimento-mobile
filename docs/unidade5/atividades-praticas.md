@@ -84,7 +84,7 @@ const filteredPendingTasks = computed(() =>
 1. Em `api/tasksApi.js`, passe `priority` no corpo da requisição de criação:
    ```js
    create: (title, priority = 'normal') =>
-     api.post('/tasks', { title, priority }),
+     apiClient.post('/tasks', { title, priority }),
    ```
 2. Em `stores/tasks.js`, atualize `addTask` para aceitar `priority`:
    ```js

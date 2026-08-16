@@ -36,7 +36,7 @@ Para isso, vamos trabalhar com três temas:
 ## Pré-requisitos
 
 - Vue.js 3 com Composition API (Unidade 2)
-- Projeto `registro-atividades-pwa` criado e funcionando (Unidade 4)
+- Projeto `registro-atividades-pwa` — evolução do projeto `tarefas-pwa` criado na Unidade 4 — renomeado e funcionando
 - Node.js e npm instalados
 - Docker instalado (para rodar o backend)
 
