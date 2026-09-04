@@ -10,12 +10,12 @@ O frontend envia os dados com nomes correspondentes ao contrato do backend:
 
 ```javascript
 {
-  title: 'Visitar a praça',
-  latitude: -26.9154,
-  longitude: -49.0719,
-  geolocation_accuracy: 12.5,
-  geolocation_timestamp: '2026-08-15T12:30:00.000Z',
-  location_label: 'Rua das Flores, Blumenau'
+  "title": "Visitar a praça",
+  "latitude": -26.9154,
+  "longitude": -49.0719,
+  "geolocation_accuracy": 12.5,
+  "geolocation_timestamp": "2026-08-15T12:30:00.000Z",
+  "location_label": "Rua das Flores, Blumenau"
 }
 ```
 
