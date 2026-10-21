@@ -4,20 +4,20 @@
 
 Neste tutorial, vamos evoluir o projeto `registro-atividades-pwa` a partir do estado final da Unidade 5. O objetivo é permitir que, ao editar uma tarefa, o usuário possa anexar uma imagem. A imagem aparece como miniatura ao lado do título na lista de tarefas.
 
-O backend foi atualizado e já suporta o recurso. No frontend, cinco arquivos serão alterados.
+O backend já suporta o recurso — é a mesma imagem `:latest` de sempre. No frontend, cinco arquivos serão alterados.
 
 ## O backend
 
-A nova versão do backend está disponível como imagem Docker. Pare o container da versão anterior (se estiver rodando) e inicie com a versão `2.0`:
+Continuamos com o mesmo container `registro-atividades-api` criado na Unidade 5. Se ele não estiver rodando, inicie-o:
 
 ```bash
-docker run -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:2.0
+docker start registro-atividades-api
 ```
 
-Acesse `http://localhost:8001/docs` para confirmar que o servidor está no ar. Você verá dois grupos de endpoints:
+Acesse `http://localhost:8001/docs` para confirmar que o servidor está no ar. Entre os grupos de endpoints, dois interessam a esta unidade:
 
-- **tasks** – os mesmos de antes, mas agora `GET /tasks` e `PATCH /tasks/{id}` incluem `img_url` no retorno
-- **uploads** – novo endpoint `POST /uploads/images/` para envio de arquivos
+- **tasks** – `GET /tasks` e `PATCH /tasks/{id}` retornam também o campo `img_url`
+- **uploads** – o endpoint `POST /uploads/images/` para envio de arquivos
 
 ## Estrutura do tutorial
 

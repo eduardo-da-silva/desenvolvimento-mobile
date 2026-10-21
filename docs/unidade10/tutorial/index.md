@@ -8,13 +8,13 @@ Ao final, o usuário poderá clicar em **Usar localização atual**, autorizar o
 
 ## Backend
 
-A unidade usa a imagem Docker `5.0`:
+O backend é o mesmo container `registro-atividades-api` (imagem `:latest`) usado desde a Unidade 5. Se não estiver rodando:
 
 ```bash
-docker run -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:5.0
+docker start registro-atividades-api
 ```
 
-O contrato de tarefa passa a aceitar:
+O contrato de tarefa aceita, além do título:
 
 ```json
 {

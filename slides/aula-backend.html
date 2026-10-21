@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aula Backend</title>
+<style>
+:root{
+  --bg:#0b0f14;--bg2:#121820;--panel:#151c26;--line:#263040;--fg:#e6edf3;--mute:#8b98a9;
+  --accent:#42d392;--accent2:#58a6ff;--warn:#f0b429;--bad:#ff6b6b;--good:#42d392;
+  --code-bg:#0f141b;--code-fg:#d6e0ee;
+  --t-kw:#ff7b9c;--t-str:#9be28f;--t-num:#f0b429;--t-com:#6b7a90;--t-fn:#79c0ff;--t-tag:#7ee0c3;--t-attr:#d2a8ff;--t-var:#ffa657;
+  --mono:'JetBrains Mono','Fira Code','Cascadia Code',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#f4f6f9;--bg2:#ffffff;--panel:#ffffff;--line:#d7dee8;--fg:#17202b;--mute:#5b6a7d;
+  --accent:#0f9d63;--accent2:#0a69da;--warn:#a86a00;--bad:#d1242f;--good:#0f9d63;
+  --code-bg:#f0f3f7;--code-fg:#24292f;
+  --t-kw:#cf222e;--t-str:#0a6b2d;--t-num:#9a5b00;--t-com:#7b8794;--t-fn:#0550ae;--t-tag:#0a7a5a;--t-attr:#8250df;--t-var:#bc4c00;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme]){
+    --bg:#f4f6f9;--bg2:#ffffff;--panel:#ffffff;--line:#d7dee8;--fg:#17202b;--mute:#5b6a7d;
+    --accent:#0f9d63;--accent2:#0a69da;--warn:#a86a00;--bad:#d1242f;--good:#0f9d63;
+    --code-bg:#f0f3f7;--code-fg:#24292f;
+    --t-kw:#cf222e;--t-str:#0a6b2d;--t-num:#9a5b00;--t-com:#7b8794;--t-fn:#0550ae;--t-tag:#0a7a5a;--t-attr:#8250df;--t-var:#bc4c00;
+    color-scheme:light;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--fg);font-family:var(--sans)}
+body{background-image:radial-gradient(circle at 1px 1px,color-mix(in srgb,var(--line) 70%,transparent) 1px,transparent 0);background-size:28px 28px}
+#viewport{position:fixed;inset:0;display:grid;place-items:center}
+#stage{width:1280px;height:720px;position:relative;transform-origin:center center;flex:none}
+.slide{position:absolute;inset:0;padding:56px 72px 64px;display:none;flex-direction:column;gap:22px;
+  background:var(--bg2);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.slide.active{display:flex;animation:in .28s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.slide::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+h1,h2,h3{font-family:var(--mono);letter-spacing:-.02em;line-height:1.15}
+h1{font-size:60px}
+h2{font-size:38px}
+h2::before{content:"## ";color:var(--accent);font-weight:400}
+h3{font-size:22px;color:var(--accent2)}
+p,li{font-size:25px;line-height:1.45}
+p.lead{font-size:29px;color:var(--mute)}
+ul{padding-left:1.1em;display:flex;flex-direction:column;gap:10px}
+li::marker{color:var(--accent)}
+.mute{color:var(--mute)}
+.small,.small li,.small p{font-size:20px}
+.xs,.xs li,.xs p{font-size:17px}
+code:not(pre code){font-family:var(--mono);font-size:.86em;background:var(--code-bg);border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--t-var)}
+kbd{font-family:var(--mono);font-size:.8em;border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:0 6px;background:var(--code-bg)}
+b,strong{color:var(--accent)}
+a{color:var(--accent2)}
+.cols{display:grid;gap:28px;flex:1;min-height:0}
+.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:repeat(3,1fr)}.c32{grid-template-columns:1.7fr 1fr}.c21{grid-template-columns:1.25fr 1fr}.c12{grid-template-columns:1fr 1.25fr}
+.col{display:flex;flex-direction:column;gap:14px;min-width:0;min-height:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px;display:flex;flex-direction:column;gap:8px}
+.card h3{font-size:21px}
+.card p,.card li{font-size:20px}
+.card.good{border-color:color-mix(in srgb,var(--good) 60%,var(--line))}
+.card.bad{border-color:color-mix(in srgb,var(--bad) 60%,var(--line))}
+.tag{display:inline-block;font-family:var(--mono);font-size:15px;padding:3px 10px;border-radius:99px;border:1px solid var(--line);color:var(--mute);width:max-content}
+.tag.good{color:var(--good);border-color:var(--good)}.tag.bad{color:var(--bad);border-color:var(--bad)}.tag.warn{color:var(--warn);border-color:var(--warn)}
+.num{font-family:var(--mono);font-size:15px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase}
+/* cover */
+.cover{justify-content:center;gap:26px;background:
+  radial-gradient(900px 400px at 85% 10%,color-mix(in srgb,var(--accent) 16%,transparent),transparent),
+  radial-gradient(700px 400px at 0% 100%,color-mix(in srgb,var(--accent2) 14%,transparent),transparent),var(--bg2)}
+.cover h1 span{color:var(--accent)}
+.prompt{font-family:var(--mono);font-size:24px;color:var(--mute)}
+.prompt::before{content:"$ ";color:var(--accent)}
+.section{justify-content:center;gap:12px}
+.section .big{font-family:var(--mono);font-size:140px;font-weight:700;color:var(--accent);line-height:1;opacity:.9}
+.section h2::before{content:""}
+.section h2{font-size:54px}
+/* code */
+.codewrap{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--code-bg);display:flex;flex-direction:column;min-height:0;position:relative}
+.codewrap.good{border-color:var(--good)}.codewrap.bad{border-color:var(--bad)}
+.codebar{display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:14px;color:var(--mute);background:color-mix(in srgb,var(--panel) 80%,transparent)}
+.codebar i{width:10px;height:10px;border-radius:50%;background:#ff5f56}.codebar i+i{background:#ffbd2e}.codebar i+i+i{background:#27c93f}
+.codebar .file{margin-left:8px}
+.codebar .badge{margin-left:auto;font-weight:700}
+.codewrap.good .badge{color:var(--good)}.codewrap.bad .badge{color:var(--bad)}
+.codebar button{margin-left:auto;background:none;border:1px solid var(--line);color:var(--mute);border-radius:6px;font:inherit;font-size:12px;padding:2px 8px;cursor:pointer}
+.codebar .badge+button{margin-left:10px}
+pre.code{font-family:var(--mono);font-size:var(--cs,18px);line-height:1.5;color:var(--code-fg);padding:12px 0;overflow:hidden;white-space:pre;tab-size:2}
+pre.code .ln{display:block;padding:0 18px 0 16px;border-left:3px solid transparent}
+pre.code .ln.mark{background:color-mix(in srgb,var(--accent) 14%,transparent);border-left-color:var(--accent)}
+pre.code .ln.del{background:color-mix(in srgb,var(--bad) 16%,transparent);border-left-color:var(--bad)}
+pre.code .ln.add{background:color-mix(in srgb,var(--good) 16%,transparent);border-left-color:var(--good)}
+.k{color:var(--t-kw)}.s{color:var(--t-str)}.n{color:var(--t-num)}.c{color:var(--t-com);font-style:italic}.f{color:var(--t-fn)}.t{color:var(--t-tag)}.a{color:var(--t-attr)}.v{color:var(--t-var)}
+pre.code .p{color:var(--accent);font-weight:700}
+.sz-xs{--cs:14px}.sz-s{--cs:15.5px}.sz-m{--cs:17px}.sz-l{--cs:20px}.sz-xl{--cs:23px}
+/* table */
+table{border-collapse:collapse;width:100%;font-size:20px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line)}
+th{font-family:var(--mono);font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--mute)}
+td code{font-size:.85em}
+/* flow diagram */
+.flow{display:flex;align-items:stretch;gap:0}
+.flow .node{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-align:center;font-family:var(--mono);font-size:19px}
+.flow .node small{display:block;font-family:var(--sans);font-size:15px;color:var(--mute);margin-top:4px}
+.flow .arr{align-self:center;padding:0 10px;color:var(--accent);font-family:var(--mono);font-size:26px}
+.node.hl{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.node.x{border-color:var(--bad);color:var(--bad)}
+.stack{display:flex;flex-direction:column;gap:0;align-items:stretch}
+.stack .node{border-radius:12px}
+.stack .down{text-align:center;color:var(--accent);font-family:var(--mono);font-size:22px;line-height:1.1;padding:4px 0}
+/* steps */
+.steps{display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.steps .st{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.steps .st::before{counter-increment:s;content:counter(s);font-family:var(--mono);font-weight:700;color:var(--bg2);background:var(--accent);width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:19px}
+.steps .st>div{font-size:22px;line-height:1.35}
+.steps .st small{display:block;color:var(--mute);font-size:17px}
+/* fragments */
+.fx{opacity:0;transform:translateY(6px);transition:.25s}
+.fx.on{opacity:1;transform:none}
+/* phone mockup */
+.phone{width:290px;height:430px;border:8px solid #222a36;border-radius:34px;background:#fff;color:#17202b;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.35);font-family:var(--sans);flex:none}
+.phone .bar{background:#42b883;color:#fff;padding:14px 16px;font-weight:700;font-size:18px}
+.phone .body{flex:1;padding:12px;display:flex;flex-direction:column;gap:8px;background:#f4f6f9;font-size:15px;overflow:hidden}
+.phone .row{background:#fff;border:1px solid #dfe5ec;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.phone .row .ck{width:18px;height:18px;border:2px solid #42b883;border-radius:5px;flex:none}
+.phone .row .ck.on{background:#42b883}
+.phone .row .done{text-decoration:line-through;color:#8a97a8}
+.phone input{border:1px solid #cdd6e0;border-radius:8px;padding:9px 10px;font:inherit;width:100%;background:#fff}
+.phone .btn{background:#42b883;color:#fff;text-align:center;border-radius:8px;padding:10px;font-weight:700}
+.phone .err{color:#c62828;font-size:13px}
+.phone .fab{align-self:flex-end;background:#42b883;color:#fff;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:24px;margin-top:auto}
+/* swagger mock */
+.sw{background:#fff;color:#3b4151;border-radius:12px;overflow:hidden;font-family:var(--sans);font-size:17px;border:1px solid #d7dee8}
+.sw .top{background:#1b1b1b;color:#fff;padding:10px 18px;display:flex;gap:12px;align-items:center}
+.sw .top b{color:#89bf04;font-size:20px}
+.sw .ttl{padding:14px 18px 6px}.sw .ttl h4{font-size:26px;font-family:var(--sans);display:flex;gap:8px;align-items:center}
+.sw .ttl small{font-size:13px;background:#7d8492;color:#fff;border-radius:4px;padding:1px 6px}.sw .ttl small.ok{background:#89bf04}
+.sw .grp{padding:4px 18px 4px;font-weight:700;font-size:19px;border-bottom:1px solid #ebebeb;margin-top:6px}
+.sw .op{display:flex;align-items:center;gap:12px;margin:8px 18px;padding:7px 10px;border-radius:5px;border:1px solid;font-size:16px}
+.sw .op b{color:#fff;border-radius:4px;min-width:72px;text-align:center;padding:4px 0;font-size:15px}
+.sw .get{background:#61affe1a;border-color:#61affe}.sw .get b{background:#61affe}
+.sw .post{background:#49cc901a;border-color:#49cc90}.sw .post b{background:#49cc90}
+.sw .patch{background:#50e3c21a;border-color:#50e3c2}.sw .patch b{background:#50e3c2}
+.sw .del{background:#f93e3e1a;border-color:#f93e3e}.sw .del b{background:#f93e3e}
+.sw .op span{font-family:var(--mono);font-weight:700}.sw .op em{margin-left:auto;font-style:normal;color:#6b7280;font-size:14px}
+.sw .tryout{margin:0 18px 10px;background:#fafafa;border:1px solid #ebebeb;border-radius:6px;padding:8px 12px;font-family:var(--mono);font-size:14px;color:#222;white-space:pre}
+/* chrome */
+#hud{position:fixed;left:0;right:0;bottom:0;height:3px;background:transparent;z-index:9}
+#bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .25s}
+#ctl{position:fixed;right:14px;top:12px;z-index:10;display:flex;gap:8px;font-family:var(--mono);font-size:13px}
+#ctl button,#ctl a{background:var(--panel);color:var(--mute);border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer;font:inherit}
+#ctl a{text-decoration:none;display:inline-block}
+#ctl button:hover,#ctl a:hover{color:var(--fg);border-color:var(--accent)}
+#count{position:fixed;left:14px;bottom:10px;font-family:var(--mono);font-size:13px;color:var(--mute);z-index:10}
+#help{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);font-family:var(--mono);font-size:12px;color:var(--mute);z-index:10;opacity:.8}
+/* overview */
+body.ov #stage{transform:none!important;width:auto;height:auto;position:static;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding:60px 24px 24px;overflow:auto;max-height:100vh;width:100vw}
+body.ov #viewport{display:block;overflow:auto}
+body.ov html,body.ov{overflow:auto}
+body.ov .slide{display:flex;position:relative;width:1280px;height:720px;zoom:.23;cursor:pointer;animation:none}
+body.ov .fx{opacity:1;transform:none}
+body.ov .slide.active{outline:6px solid var(--accent)}
+@media print{
+  @page{size:1280px 720px;margin:0}
+  html,body{overflow:visible;height:auto;background:#fff}
+  #viewport{position:static;display:block}#stage{transform:none!important;width:1280px;height:auto}
+  .slide{display:flex!important;position:relative;break-after:page;height:720px;animation:none!important;opacity:1!important;border-radius:0;border:0}
+  .fx{opacity:1!important;transform:none!important}
+  #ctl,#hud,#count,#help{display:none}
+}
+
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+<!-- 1 capa -->
+<section class="slide cover">
+  <div class="prompt">desenvolvimento-mobile / aula-02</div>
+  <h1>Conversando com o <span>backend</span></h1>
+  <p class="lead">Swagger, camadas, plugin do axios, store e telas de listagem e cadastro.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag">FastAPI + Swagger</span><span class="tag">axios</span><span class="tag">Pinia</span><span class="tag">Vue 3</span></div>
+  <p class="small mute">Prof. Eduardo da Silva · IFC</p>
+</section>
+
+<!-- 2 arquitetura -->
+<section class="slide">
+  <div class="num">visão geral</div>
+  <h2>Quem fala com quem</h2>
+  <div class="cols c2" style="align-items:center">
+    <div class="stack">
+      <div class="node hl">Componentes / Views<small>exibem dados e capturam cliques</small></div><div class="down">↓</div>
+      <div class="node">Store (Pinia)<small>estado: lista, loading, erro</small></div><div class="down">↓</div>
+      <div class="node">Serviço de API <code>tasksApi.js</code><small>endpoints: método + URL</small></div><div class="down">↓</div>
+      <div class="node">Cliente HTTP <code>axios</code> + plugin<small>baseURL, headers, erros</small></div><div class="down">↓</div>
+      <div class="node" style="border-style:dashed">Backend REST · <code>/docs</code></div>
+    </div>
+    <div class="col">
+      <div class="card good"><h3>Regra de ouro</h3><p>Componente <b>nunca</b> importa <code>axios</code> nem escreve URL.</p></div>
+      <div class="card"><h3>Cada camada tem um motivo para mudar</h3><ul class="small"><li>Layout muda → componente</li><li>Regra/estado muda → store</li><li>Endpoint muda → serviço</li><li>Servidor muda → plugin</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 secao -->
+<section class="slide section"><div class="big">01</div><h2>O backend e o Swagger</h2><p class="lead">Conhecer o contrato antes de escrever código</p></section>
+
+<!-- 4 docker -->
+<section class="slide">
+  <div class="num">01 · backend</div>
+  <h2>Subindo a API</h2>
+  <div class="cols c21" style="align-items:start">
+    <div class="col">
+      <textarea class="code" data-lang="sh" data-file="terminal" data-size="m">
+# cria o container uma única vez
+$ docker run -d --name registro-atividades-api \
+    -p 8001:8001 \
+    eduardosilvasc/gerenciamento-tarefas-2026:latest
+
+# nas próximas aulas
+$ docker start registro-atividades-api
+</textarea>
+      <p class="small">Abra <b>http://localhost:8001/docs</b>: a documentação interativa (Swagger UI) é gerada pela própria API a partir do código.</p>
+    </div>
+    <table class="small">
+      <tr><th>Verbo</th><th>URL</th><th>Faz</th></tr>
+      <tr><td><code>GET</code></td><td><code>/tasks</code></td><td>Lista</td></tr>
+      <tr><td><code>POST</code></td><td><code>/tasks</code></td><td>Cria</td></tr>
+      <tr><td><code>PATCH</code></td><td><code>/tasks/{id}</code></td><td>Altera</td></tr>
+      <tr><td><code>DELETE</code></td><td><code>/tasks/{id}</code></td><td>Remove</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 5 swagger mock -->
+<section class="slide">
+  <div class="num">01 · backend</div>
+  <h2>Swagger UI em <code>/docs</code></h2>
+  <div class="cols c12" style="align-items:start">
+    <div class="sw">
+      <div class="top"><b>{ swagger }</b><span>localhost:8001/docs</span></div>
+      <div class="ttl"><h4>Registro de Atividades <small>1.0</small> <small class="ok">OAS 3.1</small></h4></div>
+      <div class="grp">tasks</div>
+      <div class="op get"><b>GET</b><span>/tasks</span><em>Listar tarefas</em></div>
+      <div class="op post"><b>POST</b><span>/tasks</span><em>Criar tarefa</em></div>
+      <div class="op patch"><b>PATCH</b><span>/tasks/{id}</span><em>Atualizar tarefa</em></div>
+      <div class="op del"><b>DELETE</b><span>/tasks/{id}</span><em>Remover tarefa</em></div>
+      <div class="grp">Schemas</div>
+      <div class="tryout">TaskCreate  { title: string* }
+Task        { id: int, title: string, done: bool }</div>
+    </div>
+    <div class="col small">
+      <div class="steps">
+        <div class="st"><div>Expanda <b>POST /tasks</b></div></div>
+        <div class="st"><div><b>Try it out</b> → edite o JSON</div></div>
+        <div class="st"><div><b>Execute</b> e veja status, corpo e o <code>curl</code> equivalente</div></div>
+      </div>
+      <div class="card"><h3>Para que serve na aula</h3><p>É o <b>contrato</b>: o que enviar, o que volta. Teste a API aqui antes de culpar o seu Vue.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 contrato -->
+<section class="slide">
+  <div class="num">01 · backend</div>
+  <h2>O contrato em JSON</h2>
+  <div class="cols c3">
+    <textarea class="code" data-lang="json" data-file="POST /tasks → request" data-size="m">
+{
+  "title": "Estudar PWA"
+}
+</textarea>
+    <textarea class="code" data-lang="json" data-file="201 Created → response" data-size="m">
+{
+  "id": 7,
+  "title": "Estudar PWA",
+  "done": false
+}
+</textarea>
+    <textarea class="code" data-lang="json" data-file="422 → validação" data-size="m">
+{
+  "detail": [{
+    "loc": ["body", "title"],
+    "msg": "Field required",
+    "type": "missing"
+  }]
+}
+</textarea>
+  </div>
+  <table class="small"><tr><th>200</th><th>201</th><th>204</th><th>404</th><th>422</th></tr><tr><td>OK</td><td>Criado</td><td>Sem conteúdo (DELETE)</td><td>Id não existe</td><td>Dados inválidos</td></tr></table>
+</section>
+
+<!-- 7 secao -->
+<section class="slide section"><div class="big">02</div><h2>O que NÃO fazer</h2><p class="lead">axios dentro de arquivo .vue</p></section>
+
+<!-- 8 anti -->
+<section class="slide">
+  <div class="num">02 · anti-padrão</div>
+  <h2>Funciona... e é um problema</h2>
+  <div class="cols c21" style="align-items:start">
+    <textarea class="code" data-kind="bad" data-badge="✗ ERRADO" data-lang="vue" data-file="src/views/TaskListView.vue" data-size="s" data-del="3,9,14">
+&lt;script setup&gt;
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+
+const tasks = ref([])
+const title = ref('')
+
+onMounted(async () =&gt; {
+  const r = await axios.get('http://localhost:8001/tasks')
+  tasks.value = r.data
+})
+
+async function add() {
+  const r = await axios.post('http://localhost:8001/tasks', {
+    title: title.value,
+  })
+  tasks.value.push(r.data)
+}
+&lt;/script&gt;
+</textarea>
+    <div class="col small">
+      <div class="card bad"><h3>① URL espalhada</h3><p>Trocar de servidor = caçar em todos os componentes.</p></div>
+      <div class="card bad"><h3>② Sem estado compartilhado</h3><p>Outra tela precisa das tarefas? Faz outra requisição.</p></div>
+      <div class="card bad"><h3>③ Erro e loading repetidos</h3><p>Cada componente reinventa o <code>try/catch</code>.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 problemas -->
+<section class="slide">
+  <div class="num">02 · anti-padrão</div>
+  <h2>O custo real</h2>
+  <div class="cols c2">
+    <div class="col">
+      <div class="card bad"><h3>④ Difícil de testar</h3><p>Para testar a tela é preciso simular a rede dentro do componente.</p></div>
+      <div class="card bad"><h3>⑤ Impossível mudar de ambiente</h3><p><code>localhost:8001</code> vai para produção junto com o build.</p></div>
+      <div class="card bad"><h3>⑥ No PWA, ainda pior</h3><p>A URL do cache do Workbox e a do código precisam coincidir. Duas fontes de verdade.</p></div>
+    </div>
+    <div class="col">
+      <div class="card"><h3>Teste mental</h3><p>"O servidor mudou de <code>localhost:8001</code> para <code>api.escola.dev</code>. Quantos arquivos eu edito?"</p></div>
+      <div class="flow">
+        <div class="node x">Errado<small>N arquivos .vue</small></div>
+        <div class="arr">vs</div>
+        <div class="node hl">Certo<small>1 linha no main.js</small></div>
+      </div>
+      <textarea class="code" data-lang="sh" data-file="terminal: quantas URLs soltas?" data-size="s">
+$ grep -rn "localhost:8001" src/
+src/views/TaskListView.vue:9
+src/views/TaskListView.vue:14
+src/views/TaskSummaryView.vue:11
+src/components/TaskItem.vue:23
+src/components/TaskForm.vue:17
+</textarea>
+    </div>
+  </div>
+</section>
+
+<!-- 10 secao -->
+<section class="slide section"><div class="big">03</div><h2>Camada de serviço + plugin</h2><p class="lead">Um lugar para o cliente HTTP, outro para os endpoints</p></section>
+
+<!-- 11 client + service -->
+<section class="slide">
+  <div class="num">03 · serviço</div>
+  <h2>Cliente HTTP e serviço de tarefas</h2>
+  <div class="cols c2">
+    <div class="col">
+      <textarea class="code" data-kind="good" data-badge="✓ CERTO" data-lang="js" data-file="src/api/http.js" data-size="m" data-mark="3-6">
+import axios from 'axios'
+
+export const http = axios.create({
+  timeout: 10000,
+  headers: { 'Content-Type': 'application/json' },
+}) // baseURL: definida pelo plugin
+</textarea>
+      <p class="small mute">Uma única instância criada aqui. A <code>baseURL</code> não aparece: quem define é o plugin.</p>
+    </div>
+    <textarea class="code" data-kind="good" data-badge="✓ CERTO" data-lang="js" data-file="src/api/tasksApi.js" data-size="m">
+import { http } from './http.js'
+
+export default {
+  getAll() {
+    return http.get('/tasks')
+  },
+  create(title) {
+    return http.post('/tasks', { title })
+  },
+  update(id, data) {
+    return http.patch(`/tasks/${id}`, data)
+  },
+  remove(id) {
+    return http.delete(`/tasks/${id}`)
+  },
+}
+</textarea>
+  </div>
+</section>
+
+<!-- 12 plugin -->
+<section class="slide">
+  <div class="num">03 · plugin</div>
+  <h2>Plugin: onde a URL base é decidida</h2>
+  <div class="cols c32" style="align-items:start">
+    <textarea class="code" data-lang="js" data-file="src/plugins/api.js" data-size="xs" data-mark="5-6,8-17">
+import { http } from '../api/http.js'
+
+export default {
+  install(app, options = {}) {
+    const baseURL = options.baseURL ?? 'http://localhost:8001'
+    http.defaults.baseURL = baseURL
+
+    // tratamento centralizado de erros
+    http.interceptors.response.use(
+      (response) =&gt; response,
+      (error) =&gt; {
+        if (!error.response) error.userMessage = 'Sem conexão.'
+        else if (error.response.status &gt;= 500)
+          error.userMessage = 'Erro no servidor.'
+        return Promise.reject(error)
+      },
+    )
+
+    // opcional: disponível nos templates como $http
+    app.config.globalProperties.$http = http
+  },
+}
+</textarea>
+    <div class="col small">
+      <div class="card"><h3>Como funciona</h3><p><code>app.use(plugin, opts)</code> chama <code>install(app, opts)</code> uma vez, antes do <code>mount</code>.</p></div>
+      <div class="card good"><h3>Vantagem</h3><p>Config de ambiente, interceptors e (depois) o token JWT ficam em <b>um</b> arquivo.</p></div>
+      <div class="card"><h3>Reuso</h3><p>Em teste: <code>app.use(apiPlugin, { baseURL: mock })</code>.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 main.js -->
+<section class="slide">
+  <div class="num">03 · plugin</div>
+  <h2>main.js: trocando a URL em um lugar só</h2>
+  <div class="cols c2" style="align-items:start">
+    <textarea class="code" data-lang="js" data-file="src/main.js" data-size="m" data-mark="12-14">
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import App from './App.vue'
+import router from './router'
+import apiPlugin from './plugins/api.js'
+
+const app = createApp(App)
+
+app.use(createPinia())
+app.use(router)
+
+app.use(apiPlugin, {
+  baseURL: import.meta.env.VITE_API_BASE_URL,
+})
+
+app.mount('#app')
+</textarea>
+    <div class="col">
+      <textarea class="code" data-lang="env" data-file=".env.development" data-size="m">
+VITE_API_BASE_URL=http://localhost:8001
+</textarea>
+      <textarea class="code" data-lang="env" data-file=".env.production" data-size="m">
+VITE_API_BASE_URL=https://api.escola.dev
+</textarea>
+      <p class="small mute">O Vite substitui <code>import.meta.env.*</code> no build. Só variáveis com prefixo <code>VITE_</code> chegam ao navegador.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 14 runtime override -->
+<section class="slide">
+  <div class="num">03 · plugin</div>
+  <h2>Mais flexível: URL em tempo de execução</h2>
+  <div class="cols c32" style="align-items:start">
+    <textarea class="code" data-lang="js" data-file="src/main.js" data-size="m" data-mark="1-5">
+const saved = localStorage.getItem('api-url') // tela de ajustes
+
+app.use(apiPlugin, {
+  baseURL: saved || import.meta.env.VITE_API_BASE_URL,
+})
+</textarea>
+    <div class="col small">
+      <div class="card"><h3>Para quê?</h3><p>Apresentação em sala: cada aluno aponta para o <code>http://IP-do-professor:8001</code> <b>sem rebuild</b>.</p></div>
+      <div class="card warn"><h3>No celular</h3><p><code>localhost</code> é o próprio aparelho! Use o IP do PC (ou o domínio) no lugar.</p></div>
+    </div>
+  </div>
+  <p class="small mute">E com PWA/APK: a URL do <code>runtimeCaching</code> do Workbox deve cobrir o mesmo host que o plugin usa.</p>
+</section>
+
+<!-- 15 secao -->
+<section class="slide section"><div class="big">04</div><h2>Quem chama o serviço?</h2><p class="lead">Store ou direto: duas opções válidas</p></section>
+
+<!-- 16 duas opcoes -->
+<section class="slide">
+  <div class="num">04 · chamadas</div>
+  <h2>Duas formas de usar a camada de serviço</h2>
+  <div class="cols c2">
+    <div class="card good"><span class="tag good">opção A</span><h3>View → Store → Serviço</h3>
+      <div class="stack"><div class="node">TaskListView</div><div class="down">↓</div><div class="node hl">useTasksStore</div><div class="down">↓</div><div class="node">tasksApi</div></div>
+      <p class="small">Estado <b>compartilhado</b> entre telas, cache em memória, loading/erro centralizados.</p></div>
+    <div class="card"><span class="tag">opção B</span><h3>View → Serviço</h3>
+      <div class="stack"><div class="node">TaskSummaryView</div><div class="down">↓</div><div class="node">tasksApi</div></div>
+      <p class="small">Estado <b>local</b> e descartável: resumo, busca, relatório, formulário avulso.</p></div>
+  </div>
+  <p class="mute small">Nos dois casos o componente continua sem <code>axios</code> e sem URL.</p>
+</section>
+
+<!-- 17 store -->
+<section class="slide">
+  <div class="num">04 · chamadas</div>
+  <h2>Opção A: a store chama o serviço</h2>
+  <div class="cols c32" style="align-items:start"><textarea class="code" data-lang="js" data-file="src/stores/tasks.js" data-size="xs" data-mark="3,12,16">
+import { ref } from 'vue'
+import { defineStore } from 'pinia'
+import tasksApi from '../api/tasksApi.js'
+
+export const useTasksStore = defineStore('tasks', () =&gt; {
+  const tasks = ref([])
+  const loading = ref(false)
+
+  async function fetchTasks() {
+    loading.value = true
+    try {
+      tasks.value = (await tasksApi.getAll()).data
+    } finally { loading.value = false }
+  }
+  async function addTask(title) {
+    const { data } = await tasksApi.create(title.trim())
+    tasks.value.push(data) // estado local atualizado
+  }
+  return { tasks, loading, fetchTasks, addTask }
+})
+</textarea>
+<div class="col small"><div class="card"><h3>Só a store conhece o serviço</h3><p>As views chamam <code>store.fetchTasks()</code>; a store chama <code>tasksApi</code>.</p></div><div class="card good"><h3>Estado único</h3><p>Lista, loading e erro valem para <b>todas</b> as telas.</p></div></div></div>
+</section>
+
+<!-- 18 direto -->
+<section class="slide">
+  <div class="num">04 · chamadas</div>
+  <h2>Opção B: a view chama o serviço</h2>
+  <div class="cols c21" style="align-items:start">
+    <textarea class="code" data-lang="vue" data-file="src/views/TaskSummaryView.vue" data-size="s" data-mark="2,3,9-11">
+&lt;script setup&gt;
+import { ref, onMounted } from 'vue'
+import tasksApi from '../api/tasksApi.js'
+
+const total = ref(0)
+const done = ref(0)
+const error = ref(null)
+
+onMounted(async () =&gt; {
+  try {
+    const { data } = await tasksApi.getAll()
+    total.value = data.length
+    done.value = data.filter((t) =&gt; t.done).length
+  } catch (e) {
+    error.value = e.userMessage ?? 'Erro ao carregar o resumo.'
+  }
+})
+&lt;/script&gt;
+</textarea>
+    <div class="col small">
+      <div class="card"><h3>Bom quando</h3><p>O dado vive e morre com a tela. Não há motivo para guardá-lo na store.</p></div>
+      <div class="card warn"><h3>Cuidado</h3><p>Se duas telas precisarem do mesmo dado, promova para uma <b>store</b>.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 19 tabela -->
+<section class="slide">
+  <div class="num">04 · chamadas</div>
+  <h2>Qual escolher?</h2>
+  <table>
+    <tr><th></th><th>A · Store → Serviço</th><th>B · View → Serviço</th></tr>
+    <tr><td>Estado</td><td>Compartilhado entre telas</td><td>Local ao componente</td></tr>
+    <tr><td>Exemplo</td><td>Lista de tarefas, carrinho, usuário logado</td><td>Resumo, busca, relatório pontual</td></tr>
+    <tr><td>Offline / PWA</td><td>Fácil manter cache em memória</td><td>Refaz a requisição ao reabrir a tela</td></tr>
+    <tr><td>Teste</td><td>Mocka o serviço na store</td><td>Mocka o serviço no componente</td></tr>
+    <tr><td>Quantidade de código</td><td>Mais (state, actions)</td><td>Menos</td></tr>
+  </table>
+  <p class="mute">Na dúvida, comece em <b>B</b> e suba para <b>A</b> quando surgir o segundo consumidor.</p>
+</section>
+
+<!-- 20 secao -->
+<section class="slide section"><div class="big">05</div><h2>Telas: listagem e cadastro</h2><p class="lead">Consumindo a store</p></section>
+
+<!-- 21 listagem -->
+<section class="slide">
+  <div class="num">05 · telas</div>
+  <h2>Listagem</h2>
+  <div class="cols" style="grid-template-columns:1fr 330px;align-items:start">
+    <textarea class="code" data-lang="vue" data-file="src/views/TaskListView.vue" data-size="s" data-mark="2-5,8-12">
+&lt;script setup&gt;
+import { onMounted } from 'vue'
+import { useTasksStore } from '../stores/tasks.js'
+
+const store = useTasksStore()
+onMounted(store.fetchTasks)
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;p v-if="store.loading"&gt;Carregando...&lt;/p&gt;
+  &lt;p v-else-if="store.error" class="erro"&gt;{{ store.error }}&lt;/p&gt;
+  &lt;p v-else-if="!store.tasks.length"&gt;Nenhuma tarefa.&lt;/p&gt;
+  &lt;ul v-else&gt;
+    &lt;li v-for="t in store.tasks" :key="t.id"&gt;
+      {{ t.title }}
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/template&gt;
+</textarea>
+    <div class="phone"><div class="bar">Atividades</div><div class="body">
+      <div class="row"><span class="ck on"></span><span class="done">Instalar o Docker</span></div>
+      <div class="row"><span class="ck"></span><span>Estudar PWA</span></div>
+      <div class="row"><span class="ck"></span><span>Testar no Swagger</span></div>
+      <div class="row"><span class="ck"></span><span>Gerar o APK</span></div>
+      <div class="fab">+</div></div></div>
+  </div>
+</section>
+
+<!-- 22 cadastro -->
+<section class="slide">
+  <div class="num">05 · telas</div>
+  <h2>Cadastro</h2>
+  <div class="cols" style="grid-template-columns:1fr 330px;align-items:start">
+    <textarea class="code" data-lang="vue" data-file="src/components/TaskForm.vue" data-size="xs" data-mark="7-13">
+&lt;script setup&gt;
+import { ref } from 'vue'
+import { useTasksStore } from '../stores/tasks.js'
+const store = useTasksStore()
+const title = ref('')
+const msg = ref('')
+async function submit() {
+  if (!title.value.trim()) return (msg.value = 'Informe o título.')
+  try {
+    await store.addTask(title.value)
+    title.value = ''; msg.value = ''
+  } catch (e) { msg.value = e.userMessage ?? 'Erro.' }
+}
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;form @submit.prevent="submit"&gt;
+    &lt;input v-model="title" placeholder="Nova tarefa" /&gt;
+    &lt;button&gt;Adicionar&lt;/button&gt;
+    &lt;small v-if="msg"&gt;{{ msg }}&lt;/small&gt;
+  &lt;/form&gt;
+&lt;/template&gt;
+</textarea>
+    <div class="phone"><div class="bar">Nova tarefa</div><div class="body">
+      <input value="" placeholder="Título da tarefa">
+      <div class="err">Informe o título.</div>
+      <div class="btn">Adicionar</div>
+      <div class="row" style="margin-top:6px"><span class="ck"></span><span>Estudar PWA</span></div>
+      <div class="row"><span class="ck"></span><span>Testar no Swagger</span></div></div></div>
+  </div>
+</section>
+
+<!-- 23 eslint -->
+<section class="slide">
+  <div class="num">05 · garantir</div>
+  <h2>Faça o ESLint impedir o erro</h2>
+  <div class="cols c32" style="align-items:start">
+    <textarea class="code" data-lang="js" data-file="eslint.config.js" data-size="xs" data-mark="2-14">
+export default [
+  // ...configuração do create-vue
+  {
+    files: ['src/**/*.vue'],
+    rules: {
+      'no-restricted-imports': ['error', {
+        paths: [{
+          name: 'axios',
+          message: 'Use a store ou src/api/, não o axios em .vue.',
+        }],
+      }],
+    },
+  },
+]
+</textarea>
+    <div class="col small">
+      <div class="card good"><h3>Resultado</h3><p><code>import axios</code> em qualquer <code>.vue</code> passa a falhar no <code>npm run lint</code>.</p></div>
+      <div class="card"><h3>Regra vira cultura</h3><p>A turma não precisa lembrar: a ferramenta lembra.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 24 resumo -->
+<section class="slide">
+  <div class="num">resumo</div>
+  <h2>O que levar daqui</h2>
+  <div class="cols c2 small">
+    <ul>
+      <li>Leia o <b>Swagger</b> antes de codar: é o contrato.</li>
+      <li>Nunca <code>axios</code> nem URL em <code>.vue</code>.</li>
+      <li><code>src/api/http.js</code> cria o cliente, <code>tasksApi.js</code> mapeia endpoints.</li>
+    </ul>
+    <ul>
+      <li>O <b>plugin</b> define <code>baseURL</code> e interceptors no <code>main.js</code>.</li>
+      <li>Estado compartilhado → <b>store</b>; local → serviço direto.</li>
+      <li>ESLint trava a regra automaticamente.</li>
+    </ul>
+  </div>
+  <div class="flow"><div class="node">View</div><div class="arr">→</div><div class="node">Store</div><div class="arr">→</div><div class="node">tasksApi</div><div class="arr">→</div><div class="node hl">http + plugin</div><div class="arr">→</div><div class="node">API</div></div>
+</section>
+
+<!-- 25 fim -->
+<section class="slide cover">
+  <div class="prompt">exercício</div>
+  <h1>Sua vez: <span>/tasks</span></h1>
+  <p class="lead">Refatore uma tela com axios dentro do .vue, crie o plugin e troque a URL base só no main.js.</p>
+  <p class="small mute">Referências: fastapi.tiangolo.com · axios-http.com · pinia.vuejs.org</p>
+</section>
+
+</div></div>
+<div id="ctl"><a id="b-menu" href="index.html" title="Menu principal (M)">← menu</a><button id="b-ov" title="Visão geral (O)">▦ visão geral</button><button id="b-theme" title="Tema (T)">◐ tema</button><button id="b-fs" title="Tela cheia (F)">⛶</button></div>
+<div id="count"></div>
+<div id="help">← → navegar · M menu · O visão geral · T tema · F tela cheia</div>
+<div id="hud"><div id="bar"></div></div>
+<script>
+(function(){
+'use strict';
+var KW='const|let|var|function|return|import|from|export|default|async|await|if|else|new|true|false|null|undefined|for|of|in|try|catch|finally|throw|class|extends|this|typeof|def|None|True|False|self|FROM|RUN|COPY|CMD';
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function rules(lang){
+  var markup=(lang==='vue'||lang==='html');
+  var parts=[];
+  if(lang==='sh'||lang==='env'||lang==='yaml'){
+    parts.push(['c','(?:^|(?<=\\s))#.*$']);
+    parts.push(['s','\'(?:\\\\.|[^\'\\\\])*\'|"(?:\\\\.|[^"\\\\])*"']);
+    parts.push(['p','^\\$ ']);
+    if(lang==='sh') parts.push(['a','(?<=\\s)--?[A-Za-z][\\w-]*(?==|\\b)']);
+    if(lang==='env'||lang==='yaml') parts.push(['v','^[A-Za-z_][\\w.-]*(?==|:)']);
+    parts.push(['n','\\b\\d+(?:\\.\\d+)*\\b']);
+    return parts;
+  }
+  if(lang==='json'){
+    parts.push(['a','"(?:\\\\.|[^"\\\\])*"(?=\\s*:)']);
+    parts.push(['s','"(?:\\\\.|[^"\\\\])*"']);
+    parts.push(['n','-?\\b\\d+(?:\\.\\d+)?\\b']);
+    parts.push(['k','\\b(?:true|false|null)\\b']);
+    return parts;
+  }
+  parts.push(['c',markup?'<!--.*?-->|\\/\\/.*$':'\\/\\/.*$']);
+  parts.push(['s','\'(?:\\\\.|[^\'\\\\])*\'|"(?:\\\\.|[^"\\\\])*"|`(?:\\\\.|[^`\\\\])*`']);
+  if(markup){
+    parts.push(['t','<\\/?[A-Za-z][\\w.-]*|\\/?>']);
+    parts.push(['a','(?<=\\s)(?:[:@#]|v-)[\\w:.\\-\\[\\]]+']);
+    parts.push(['v','\\{\\{|\\}\\}']);
+  }
+  parts.push(['n','\\b\\d+(?:\\.\\d+)?\\b']);
+  parts.push(['k','\\b(?:'+KW+')\\b']);
+  parts.push(['f','\\b[A-Za-z_$][\\w$]*(?=\\()']);
+  return parts;
+}
+function hlLine(line,lang){
+  if(lang==='text'||!lang) return esc(line);
+  var r=rules(lang),src=r.map(function(x){return '('+x[1]+')';}).join('|');
+  var re=new RegExp(src,'g'),out='',last=0,m;
+  while((m=re.exec(line))){
+    if(m[0]==='') {re.lastIndex++;continue;}
+    var i=1;while(i<m.length&&m[i]===undefined)i++;
+    out+=esc(line.slice(last,m.index))+'<span class="'+r[i-1][0]+'">'+esc(m[0])+'</span>';
+    last=m.index+m[0].length;
+  }
+  return out+esc(line.slice(last));
+}
+function parseSet(v){var s={};(v||'').split(',').forEach(function(x){x=x.trim();if(!x)return;var r=x.split('-');var a=+r[0],b=+(r[1]||r[0]);for(var i=a;i<=b;i++)s[i]=1;});return s;}
+function buildCode(ta){
+  var lang=ta.dataset.lang||'text',raw=ta.value.replace(/^\n/,'').replace(/\s+$/,'');
+  var mark=parseSet(ta.dataset.mark),add=parseSet(ta.dataset.add),del=parseSet(ta.dataset.del);
+  var lines=raw.split('\n').map(function(l,i){
+    var n=i+1,cls='ln'+(mark[n]?' mark':'')+(add[n]?' add':'')+(del[n]?' del':'');
+    return '<span class="'+cls+'">'+(hlLine(l,lang)||' ')+'</span>';
+  }).join('');
+  var w=document.createElement('div');
+  w.className='codewrap'+(ta.dataset.kind?' '+ta.dataset.kind:'')+(ta.dataset.class?' '+ta.dataset.class:'');
+  var badge=ta.dataset.badge?'<span class="badge">'+esc(ta.dataset.badge)+'</span>':'';
+  w.innerHTML='<div class="codebar"><i></i><i></i><i></i><span class="file">'+esc(ta.dataset.file||lang)+'</span>'+badge+'<button type="button">copiar</button></div><pre class="code sz-'+(ta.dataset.size||'m')+'">'+lines+'</pre>';
+  w.querySelector('button').onclick=function(e){
+    var b=e.currentTarget;
+    try{navigator.clipboard.writeText(raw).then(function(){b.textContent='copiado';setTimeout(function(){b.textContent='copiar';},1200);});}catch(x){}
+  };
+  if(ta.dataset.fx!==undefined) w.classList.add('fx');
+  if(ta.style.cssText) w.style.cssText=ta.style.cssText;
+  ta.replaceWith(w);
+}
+document.querySelectorAll('textarea.code').forEach(buildCode);
+
+var slides=[].slice.call(document.querySelectorAll('.slide')),cur=0;
+var stage=document.getElementById('stage'),bar=document.getElementById('bar'),count=document.getElementById('count');
+function fit(){
+  if(document.body.classList.contains('ov')){stage.style.transform='';return;}
+  var s=Math.min(innerWidth/1280,innerHeight/720)*0.97;
+  stage.style.transform='scale('+s+')';
+}
+function fxs(i){return [].slice.call(slides[i].querySelectorAll('.fx'));}
+function show(i,all){
+  cur=Math.max(0,Math.min(slides.length-1,i));
+  slides.forEach(function(s,k){s.classList.toggle('active',k===cur);});
+  fxs(cur).forEach(function(f){f.classList.toggle('on',!!all);});
+  bar.style.width=((cur+1)/slides.length*100)+'%';
+  count.textContent=(cur+1)+' / '+slides.length;
+  try{history.replaceState(null,'','#'+(cur+1));}catch(e){}
+  document.title=document.title.replace(/ · \d+$/,'');
+}
+function next(){
+  if(document.body.classList.contains('ov'))return;
+  var f=fxs(cur).filter(function(x){return !x.classList.contains('on');});
+  if(f.length){f[0].classList.add('on');return;}
+  if(cur<slides.length-1)show(cur+1,false);
+}
+function prev(){
+  var on=fxs(cur).filter(function(x){return x.classList.contains('on');});
+  if(on.length){on[on.length-1].classList.remove('on');return;}
+  if(cur>0)show(cur-1,true);
+}
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  try{localStorage.setItem('slides-theme',t);}catch(e){}
+}
+function toggleTheme(){
+  var t=document.documentElement.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  setTheme(t==='dark'?'light':'dark');
+}
+function toggleOv(){
+  document.body.classList.toggle('ov');
+  fit();
+  if(document.body.classList.contains('ov')) setTimeout(function(){slides[cur].scrollIntoView({block:'center'});},30);
+}
+function fs(){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}
+try{var st=localStorage.getItem('slides-theme');if(st)document.documentElement.setAttribute('data-theme',st);}catch(e){}
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey||e.metaKey||e.altKey)return;
+  var k=e.key;
+  if(k==='ArrowRight'||k==='ArrowDown'||k==='PageDown'||k===' '||k==='Enter'){e.preventDefault();next();}
+  else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'||k==='Backspace'){e.preventDefault();prev();}
+  else if(k==='Home')show(0,false);
+  else if(k==='End')show(slides.length-1,true);
+  else if(k==='t'||k==='T')toggleTheme();
+  else if(k==='f'||k==='F')fs();
+  else if(k==='o'||k==='O'||k==='Escape'){if(k!=='Escape'||document.body.classList.contains('ov'))toggleOv();}
+});
+var tx=null;
+document.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',function(e){if(tx===null)return;var d=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(d)>50){d<0?next():prev();}});
+slides.forEach(function(s,k){s.addEventListener('click',function(e){
+  if(document.body.classList.contains('ov')){show(k,false);toggleOv();e.stopPropagation();}
+});});
+document.getElementById('b-theme').onclick=toggleTheme;
+document.addEventListener('keydown',function(e){if((e.key==='m'||e.key==='M')&&!e.ctrlKey&&!e.metaKey&&!e.altKey)location.href='index.html';});
+document.getElementById('b-ov').onclick=toggleOv;
+document.getElementById('b-fs').onclick=fs;
+addEventListener('resize',fit);
+var h=parseInt((location.hash||'').slice(1),10);
+fit();show(isNaN(h)?0:h-1,false);
+})();
+
+</script>
+</body>
+</html>

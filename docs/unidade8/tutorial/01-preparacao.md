@@ -2,39 +2,28 @@
 
 ## Objetivo
 
-Neste passo, vamos atualizar o backend para a versão `4.0`, explorar os novos endpoints no Swagger e configurar as variáveis de ambiente do frontend.
+Neste passo, vamos conferir os endpoints de push no Swagger e configurar as variáveis de ambiente do frontend.
 
-## Atualizando o backend
+## Conferindo o backend
 
-A versão `3.0` não tem suporte a notificações push. A versão `4.0` adiciona:
+A imagem `:latest` já traz tudo o que esta unidade precisa:
 
 - A tabela `push_subscriptions` para armazenar os endpoints dos browsers
 - Os endpoints de gerenciamento de subscription
 - O endpoint que expõe a chave pública VAPID
 - Envio automático de push ao criar, editar ou remover tarefas
 
-Se o container anterior ainda estiver rodando, pare-o:
-
-??? warning "Parando o container antigo"
-
-    ```bash
-    docker ps                        # anota o CONTAINER ID
-    docker stop <CONTAINER_ID>
-    ```
-
-Inicie o novo container:
+Não é preciso trocar de container. Se o `registro-atividades-api` não estiver rodando:
 
 ```bash
-docker run -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:4.0
+docker start registro-atividades-api
 ```
 
-!!! warning "Banco de dados zerado"
-
-    A versão `4.0` adiciona a tabela `push_subscriptions`. Por isso, ao iniciar pela primeira vez, o banco é recriado. **Qualquer dado salvo com a versão anterior será perdido.** Recrie seu usuário de teste antes de continuar.
+O banco é o mesmo desde a Unidade 5 — seu usuário e suas tarefas continuam lá.
 
 ## Explorando os novos endpoints no Swagger
 
-Acesse `http://localhost:8001/docs`. Além dos endpoints já conhecidos, você verá um novo grupo:
+Acesse `http://localhost:8001/docs`. Além dos endpoints já conhecidos, o grupo relevante aqui é:
 
 **push**
 
@@ -87,8 +76,8 @@ Nenhuma dependência nova precisa ser instalada — a `vite-plugin-pwa` já incl
 
 Neste passo, você:
 
-- Substituiu o container Docker pela versão `4.0` do backend
-- Explorou os novos endpoints de push no Swagger
+- Confirmou que o backend (imagem `:latest`) está rodando
+- Explorou os endpoints de push no Swagger
 - Confirmou a chave pública VAPID
 - Criou o arquivo `.env` com as variáveis do frontend
 

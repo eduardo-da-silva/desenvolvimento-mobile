@@ -2,28 +2,25 @@
 
 ## Objetivo
 
-Neste passo, vamos trocar a versão do backend, verificar os novos endpoints disponíveis e entender o que vai mudar no projeto.
+Neste passo, vamos confirmar que o backend está no ar, verificar o endpoint de upload no Swagger e entender o que vai mudar no projeto.
 
-## Atualizando o backend
+## Conferindo o backend
 
-O backend da Unidade 5 (`1.0`) não possui suporte a imagens. A versão `2.0` adiciona o módulo de upload e estende o modelo de tarefa com o campo `img_url`.
+Desde a Unidade 5 usamos a imagem `:latest`, que **já inclui** o módulo de upload e o campo `img_url` no modelo de tarefa. Não é preciso trocar de imagem.
 
-Se o container anterior ainda estiver rodando, pare-o:
-
-??? warning "Parando o container antigo"
-
-    ```bash
-    docker ps                          # anota o CONTAINER ID do container rodando
-    docker stop <CONTAINER_ID>
-    ```
-
-Inicie o novo container:
+Se o container `registro-atividades-api` não estiver rodando, inicie-o:
 
 ```bash
-docker run -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:2.0
+docker start registro-atividades-api
 ```
 
-Acesse `http://localhost:8001/docs`. A documentação agora exibe dois grupos de endpoints:
+Se ele não existir mais (`docker ps -a` não o lista), recrie-o:
+
+```bash
+docker run -d --name registro-atividades-api -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:latest
+```
+
+Acesse `http://localhost:8001/docs`. Entre os grupos exibidos, dois interessam a esta unidade:
 
 **tasks**
 
@@ -62,7 +59,7 @@ Guarde o valor de `attachment_key`. Ele pode ser passado ao endpoint `PATCH /tas
 
 !!! note "O banco de dados"
 
-    A versão `2.0` cria automaticamente as tabelas necessárias ao iniciar — incluindo a nova tabela `images`. Se você tinha tarefas salvas com a versão `1.0`, elas continuarão lá; só o campo `img_url` estará vazio (`null`) nelas.
+    O banco é o mesmo desde a Unidade 5. As tarefas que você já criou continuam lá — apenas com o campo `img_url` vazio (`null`) até você anexar uma imagem.
 
 ## O que vamos alterar
 
@@ -80,8 +77,8 @@ Nenhuma dependência nova precisa ser instalada. Todas as mudanças são nos arq
 
 Neste passo, você:
 
-- Substituiu o container Docker pela versão `2.0` do backend
-- Verificou os novos endpoints no Swagger
+- Confirmou que o backend (imagem `:latest`) está rodando
+- Verificou o endpoint de upload no Swagger
 - Entendeu o que vai mudar ao longo do tutorial
 
 ---

@@ -8,10 +8,10 @@ Ao conectar o frontend a um backend via API REST, as tarefas passarão a ser sal
 
 ## O backend
 
-O backend já está pronto e disponível como imagem Docker. Você não precisa conhecer o código — basta rodá-lo:
+O backend já está pronto e disponível como imagem Docker. Você não precisa conhecer o código — basta rodá-lo. **O curso inteiro usa a mesma imagem `:latest`**: você cria o container uma vez agora e, nas próximas unidades, apenas o inicia de novo.
 
 ```bash
-docker run -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:1.0
+docker run -d --name registro-atividades-api -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:latest
 ```
 
 O servidor inicia na porta 8001. A documentação dos endpoints fica em:
@@ -19,6 +19,12 @@ O servidor inicia na porta 8001. A documentação dos endpoints fica em:
 ```
 http://localhost:8001/docs
 ```
+
+!!! tip "Comandos úteis do container"
+
+    - Ver os logs: `docker logs -f registro-atividades-api`
+    - Parar: `docker stop registro-atividades-api` — iniciar de novo: `docker start registro-atividades-api`
+    - Recomeçar com o banco limpo: `docker rm -f registro-atividades-api` e rode o `docker run` acima outra vez
 
 ## Estrutura do tutorial
 

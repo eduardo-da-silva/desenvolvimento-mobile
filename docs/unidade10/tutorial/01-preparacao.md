@@ -6,10 +6,10 @@ Neste passo, vamos confirmar o backend, instalar o Leaflet e preparar o ambiente
 
 ## Iniciando o backend
 
-Pare versões anteriores do container e inicie a imagem da unidade:
+Use o mesmo container de sempre (imagem `:latest`). Se não estiver rodando:
 
 ```bash
-docker run -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:5.0
+docker start registro-atividades-api
 ```
 
 Abra `http://localhost:8001/docs` e confira se `POST /tasks`, `PATCH /tasks/{task_id}` e `GET /tasks` exibem os campos de localização.

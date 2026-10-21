@@ -2,34 +2,23 @@
 
 ## Objetivo
 
-Neste passo, vamos atualizar o backend para a versão com autenticação, explorar os novos endpoints no Swagger e criar o primeiro usuário para testar o fluxo completo.
+Neste passo, vamos ativar a autenticação no frontend, explorar os endpoints de `auth` no Swagger e criar o primeiro usuário para testar o fluxo completo.
 
-## Atualizando o backend
+## Conferindo o backend
 
-A versão `2.0` do backend não possui autenticação. A versão `3.0` adiciona o módulo de usuários e protege todos os endpoints de `/tasks`.
-
-Se o container anterior ainda estiver rodando, pare-o:
-
-??? warning "Parando o container antigo"
-
-    ```bash
-    docker ps                          # anota o CONTAINER ID do container rodando
-    docker stop <CONTAINER_ID>
-    ```
-
-Inicie o novo container:
+A imagem `:latest` já tem o módulo de autenticação — não é preciso trocar de container. Se o `registro-atividades-api` não estiver rodando:
 
 ```bash
-docker run -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:3.0
+docker start registro-atividades-api
 ```
 
-!!! warning "Banco de dados zerado"
+!!! note "O que muda para os seus dados"
 
-    A versão `3.0` adiciona a tabela `users` e uma coluna `user_id` obrigatória em `tasks`. Isso é incompatível com dados criados pela versão anterior. O banco é criado do zero ao iniciar — **as tarefas salvas anteriormente não serão migradas**.
+    Até agora, sem token, a API tratava você como um usuário `demo` compartilhado — foi ele o "dono" das tarefas que você criou nas Unidades 5 e 6. A partir do momento em que o frontend enviar o token de um usuário logado, a API passa a responder com a lista **daquele** usuário. Ao criar o seu usuário e entrar pela primeira vez, sua lista de tarefas aparece vazia: as tarefas do `demo` continuam no banco, mas não pertencem a você. Isso é esperado.
 
 ## Explorando os endpoints no Swagger
 
-Acesse `http://localhost:8001/docs`. Você verá três grupos de endpoints:
+Acesse `http://localhost:8001/docs`. Entre os grupos de endpoints, três interessam a esta unidade:
 
 **auth**
 
@@ -111,7 +100,11 @@ Copie o valor de `access_token`.
 2. Cole o access token no campo **Value**
 3. Clique em **Authorize** e depois em **Close**
 
-Agora tente um `GET /tasks`. Com o token, a resposta será `200` com a lista (vazia por enquanto). Sem o token, o Swagger retorna `401 Unauthorized`.
+Agora tente um `GET /tasks`. Com o token, a resposta é `200` com a lista **do seu usuário** (vazia por enquanto). Remova a autorização (**Authorize → Logout**) e repita: a resposta continua `200`, mas agora traz as tarefas do usuário `demo` — as que você criou nas unidades anteriores. O token não libera o acesso; ele define **de quem** são os dados.
+
+!!! info "Quando o token passa a ser obrigatório"
+
+    Nesta imagem, os endpoints de `/tasks` aceitam requisições sem token (usuário `demo`) para que as Unidades 5 e 6 funcionem antes desta. Em um cenário real, a API recusaria qualquer requisição sem token — comportamento que se obtém aqui iniciando o container com a variável `AUTH_OPTIONAL=0`.
 
 ## O que vamos alterar no frontend
 
@@ -130,10 +123,10 @@ Nenhuma dependência nova precisa ser instalada. As mudanças são nos arquivos 
 
 Neste passo, você:
 
-- Substituiu o container Docker pela versão `3.0` do backend
-- Explorou os novos endpoints de autenticação no Swagger
+- Confirmou que o backend (imagem `:latest`) está rodando
+- Explorou os endpoints de autenticação no Swagger
 - Criou um usuário e obteve um token de acesso
-- Verificou que os endpoints de tarefas agora exigem autenticação
+- Viu como o token muda qual usuário os endpoints de tarefas enxergam
 
 ---
 

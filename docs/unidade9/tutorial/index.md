@@ -8,7 +8,7 @@ Neste tutorial, vamos evoluir o projeto `registro-atividades-pwa` a partir do es
 sequenceDiagram
     participant U as Usuário
     participant TF as TaskForm.vue
-    participant API as Backend (Docker 4.0)
+    participant API as Backend (Docker :latest)
     participant S as Servidor
 
     U->>TF: Clica em "Adicionar imagem"
@@ -25,12 +25,12 @@ sequenceDiagram
 
 ## O backend
 
-Nenhuma alteração no backend é necessária para esta unidade. O endpoint `POST /uploads/images/` criado na Unidade 6 continua funcionando exatamente como antes. A única diferença é que o arquivo agora vem da câmera em vez do seletor de arquivos.
+Nenhuma alteração no backend é necessária para esta unidade. O endpoint `POST /uploads/images/` continua funcionando exatamente como antes. A única diferença é que o arquivo agora vem da câmera em vez do seletor de arquivos.
 
-Caso o container não esteja rodando, inicie a versão `4.0`:
+Caso o container `registro-atividades-api` não esteja rodando, inicie-o:
 
 ```bash
-docker run -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:4.0
+docker start registro-atividades-api
 ```
 
 ## Estrutura do tutorial

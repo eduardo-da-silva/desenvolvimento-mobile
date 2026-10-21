@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aula PWA</title>
+<style>
+:root{
+  --bg:#0b0f14;--bg2:#121820;--panel:#151c26;--line:#263040;--fg:#e6edf3;--mute:#8b98a9;
+  --accent:#42d392;--accent2:#58a6ff;--warn:#f0b429;--bad:#ff6b6b;--good:#42d392;
+  --code-bg:#0f141b;--code-fg:#d6e0ee;
+  --t-kw:#ff7b9c;--t-str:#9be28f;--t-num:#f0b429;--t-com:#6b7a90;--t-fn:#79c0ff;--t-tag:#7ee0c3;--t-attr:#d2a8ff;--t-var:#ffa657;
+  --mono:'JetBrains Mono','Fira Code','Cascadia Code',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#f4f6f9;--bg2:#ffffff;--panel:#ffffff;--line:#d7dee8;--fg:#17202b;--mute:#5b6a7d;
+  --accent:#0f9d63;--accent2:#0a69da;--warn:#a86a00;--bad:#d1242f;--good:#0f9d63;
+  --code-bg:#f0f3f7;--code-fg:#24292f;
+  --t-kw:#cf222e;--t-str:#0a6b2d;--t-num:#9a5b00;--t-com:#7b8794;--t-fn:#0550ae;--t-tag:#0a7a5a;--t-attr:#8250df;--t-var:#bc4c00;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme]){
+    --bg:#f4f6f9;--bg2:#ffffff;--panel:#ffffff;--line:#d7dee8;--fg:#17202b;--mute:#5b6a7d;
+    --accent:#0f9d63;--accent2:#0a69da;--warn:#a86a00;--bad:#d1242f;--good:#0f9d63;
+    --code-bg:#f0f3f7;--code-fg:#24292f;
+    --t-kw:#cf222e;--t-str:#0a6b2d;--t-num:#9a5b00;--t-com:#7b8794;--t-fn:#0550ae;--t-tag:#0a7a5a;--t-attr:#8250df;--t-var:#bc4c00;
+    color-scheme:light;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--fg);font-family:var(--sans)}
+body{background-image:radial-gradient(circle at 1px 1px,color-mix(in srgb,var(--line) 70%,transparent) 1px,transparent 0);background-size:28px 28px}
+#viewport{position:fixed;inset:0;display:grid;place-items:center}
+#stage{width:1280px;height:720px;position:relative;transform-origin:center center;flex:none}
+.slide{position:absolute;inset:0;padding:56px 72px 64px;display:none;flex-direction:column;gap:22px;
+  background:var(--bg2);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.slide.active{display:flex;animation:in .28s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.slide::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+h1,h2,h3{font-family:var(--mono);letter-spacing:-.02em;line-height:1.15}
+h1{font-size:60px}
+h2{font-size:38px}
+h2::before{content:"## ";color:var(--accent);font-weight:400}
+h3{font-size:22px;color:var(--accent2)}
+p,li{font-size:25px;line-height:1.45}
+p.lead{font-size:29px;color:var(--mute)}
+ul{padding-left:1.1em;display:flex;flex-direction:column;gap:10px}
+li::marker{color:var(--accent)}
+.mute{color:var(--mute)}
+.small,.small li,.small p{font-size:20px}
+.xs,.xs li,.xs p{font-size:17px}
+code:not(pre code){font-family:var(--mono);font-size:.86em;background:var(--code-bg);border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--t-var)}
+kbd{font-family:var(--mono);font-size:.8em;border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:0 6px;background:var(--code-bg)}
+b,strong{color:var(--accent)}
+a{color:var(--accent2)}
+.cols{display:grid;gap:28px;flex:1;min-height:0}
+.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:repeat(3,1fr)}.c32{grid-template-columns:1.7fr 1fr}.c21{grid-template-columns:1.25fr 1fr}.c12{grid-template-columns:1fr 1.25fr}
+.col{display:flex;flex-direction:column;gap:14px;min-width:0;min-height:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px;display:flex;flex-direction:column;gap:8px}
+.card h3{font-size:21px}
+.card p,.card li{font-size:20px}
+.card.good{border-color:color-mix(in srgb,var(--good) 60%,var(--line))}
+.card.bad{border-color:color-mix(in srgb,var(--bad) 60%,var(--line))}
+.tag{display:inline-block;font-family:var(--mono);font-size:15px;padding:3px 10px;border-radius:99px;border:1px solid var(--line);color:var(--mute);width:max-content}
+.tag.good{color:var(--good);border-color:var(--good)}.tag.bad{color:var(--bad);border-color:var(--bad)}.tag.warn{color:var(--warn);border-color:var(--warn)}
+.num{font-family:var(--mono);font-size:15px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase}
+/* cover */
+.cover{justify-content:center;gap:26px;background:
+  radial-gradient(900px 400px at 85% 10%,color-mix(in srgb,var(--accent) 16%,transparent),transparent),
+  radial-gradient(700px 400px at 0% 100%,color-mix(in srgb,var(--accent2) 14%,transparent),transparent),var(--bg2)}
+.cover h1 span{color:var(--accent)}
+.prompt{font-family:var(--mono);font-size:24px;color:var(--mute)}
+.prompt::before{content:"$ ";color:var(--accent)}
+.section{justify-content:center;gap:12px}
+.section .big{font-family:var(--mono);font-size:140px;font-weight:700;color:var(--accent);line-height:1;opacity:.9}
+.section h2::before{content:""}
+.section h2{font-size:54px}
+/* code */
+.codewrap{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--code-bg);display:flex;flex-direction:column;min-height:0;position:relative}
+.codewrap.good{border-color:var(--good)}.codewrap.bad{border-color:var(--bad)}
+.codebar{display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:14px;color:var(--mute);background:color-mix(in srgb,var(--panel) 80%,transparent)}
+.codebar i{width:10px;height:10px;border-radius:50%;background:#ff5f56}.codebar i+i{background:#ffbd2e}.codebar i+i+i{background:#27c93f}
+.codebar .file{margin-left:8px}
+.codebar .badge{margin-left:auto;font-weight:700}
+.codewrap.good .badge{color:var(--good)}.codewrap.bad .badge{color:var(--bad)}
+.codebar button{margin-left:auto;background:none;border:1px solid var(--line);color:var(--mute);border-radius:6px;font:inherit;font-size:12px;padding:2px 8px;cursor:pointer}
+.codebar .badge+button{margin-left:10px}
+pre.code{font-family:var(--mono);font-size:var(--cs,18px);line-height:1.5;color:var(--code-fg);padding:12px 0;overflow:hidden;white-space:pre;tab-size:2}
+pre.code .ln{display:block;padding:0 18px 0 16px;border-left:3px solid transparent}
+pre.code .ln.mark{background:color-mix(in srgb,var(--accent) 14%,transparent);border-left-color:var(--accent)}
+pre.code .ln.del{background:color-mix(in srgb,var(--bad) 16%,transparent);border-left-color:var(--bad)}
+pre.code .ln.add{background:color-mix(in srgb,var(--good) 16%,transparent);border-left-color:var(--good)}
+.k{color:var(--t-kw)}.s{color:var(--t-str)}.n{color:var(--t-num)}.c{color:var(--t-com);font-style:italic}.f{color:var(--t-fn)}.t{color:var(--t-tag)}.a{color:var(--t-attr)}.v{color:var(--t-var)}
+pre.code .p{color:var(--accent);font-weight:700}
+.sz-xs{--cs:14px}.sz-s{--cs:15.5px}.sz-m{--cs:17px}.sz-l{--cs:20px}.sz-xl{--cs:23px}
+/* table */
+table{border-collapse:collapse;width:100%;font-size:20px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line)}
+th{font-family:var(--mono);font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--mute)}
+td code{font-size:.85em}
+/* flow diagram */
+.flow{display:flex;align-items:stretch;gap:0}
+.flow .node{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-align:center;font-family:var(--mono);font-size:19px}
+.flow .node small{display:block;font-family:var(--sans);font-size:15px;color:var(--mute);margin-top:4px}
+.flow .arr{align-self:center;padding:0 10px;color:var(--accent);font-family:var(--mono);font-size:26px}
+.node.hl{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.node.x{border-color:var(--bad);color:var(--bad)}
+.stack{display:flex;flex-direction:column;gap:0;align-items:stretch}
+.stack .node{border-radius:12px}
+.stack .down{text-align:center;color:var(--accent);font-family:var(--mono);font-size:22px;line-height:1.1;padding:4px 0}
+/* steps */
+.steps{display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.steps .st{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.steps .st::before{counter-increment:s;content:counter(s);font-family:var(--mono);font-weight:700;color:var(--bg2);background:var(--accent);width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:19px}
+.steps .st>div{font-size:22px;line-height:1.35}
+.steps .st small{display:block;color:var(--mute);font-size:17px}
+/* fragments */
+.fx{opacity:0;transform:translateY(6px);transition:.25s}
+.fx.on{opacity:1;transform:none}
+/* phone mockup */
+.phone{width:290px;height:430px;border:8px solid #222a36;border-radius:34px;background:#fff;color:#17202b;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.35);font-family:var(--sans);flex:none}
+.phone .bar{background:#42b883;color:#fff;padding:14px 16px;font-weight:700;font-size:18px}
+.phone .body{flex:1;padding:12px;display:flex;flex-direction:column;gap:8px;background:#f4f6f9;font-size:15px;overflow:hidden}
+.phone .row{background:#fff;border:1px solid #dfe5ec;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.phone .row .ck{width:18px;height:18px;border:2px solid #42b883;border-radius:5px;flex:none}
+.phone .row .ck.on{background:#42b883}
+.phone .row .done{text-decoration:line-through;color:#8a97a8}
+.phone input{border:1px solid #cdd6e0;border-radius:8px;padding:9px 10px;font:inherit;width:100%;background:#fff}
+.phone .btn{background:#42b883;color:#fff;text-align:center;border-radius:8px;padding:10px;font-weight:700}
+.phone .err{color:#c62828;font-size:13px}
+.phone .fab{align-self:flex-end;background:#42b883;color:#fff;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:24px;margin-top:auto}
+/* swagger mock */
+.sw{background:#fff;color:#3b4151;border-radius:12px;overflow:hidden;font-family:var(--sans);font-size:17px;border:1px solid #d7dee8}
+.sw .top{background:#1b1b1b;color:#fff;padding:10px 18px;display:flex;gap:12px;align-items:center}
+.sw .top b{color:#89bf04;font-size:20px}
+.sw .ttl{padding:14px 18px 6px}.sw .ttl h4{font-size:26px;font-family:var(--sans);display:flex;gap:8px;align-items:center}
+.sw .ttl small{font-size:13px;background:#7d8492;color:#fff;border-radius:4px;padding:1px 6px}.sw .ttl small.ok{background:#89bf04}
+.sw .grp{padding:4px 18px 4px;font-weight:700;font-size:19px;border-bottom:1px solid #ebebeb;margin-top:6px}
+.sw .op{display:flex;align-items:center;gap:12px;margin:8px 18px;padding:7px 10px;border-radius:5px;border:1px solid;font-size:16px}
+.sw .op b{color:#fff;border-radius:4px;min-width:72px;text-align:center;padding:4px 0;font-size:15px}
+.sw .get{background:#61affe1a;border-color:#61affe}.sw .get b{background:#61affe}
+.sw .post{background:#49cc901a;border-color:#49cc90}.sw .post b{background:#49cc90}
+.sw .patch{background:#50e3c21a;border-color:#50e3c2}.sw .patch b{background:#50e3c2}
+.sw .del{background:#f93e3e1a;border-color:#f93e3e}.sw .del b{background:#f93e3e}
+.sw .op span{font-family:var(--mono);font-weight:700}.sw .op em{margin-left:auto;font-style:normal;color:#6b7280;font-size:14px}
+.sw .tryout{margin:0 18px 10px;background:#fafafa;border:1px solid #ebebeb;border-radius:6px;padding:8px 12px;font-family:var(--mono);font-size:14px;color:#222;white-space:pre}
+/* chrome */
+#hud{position:fixed;left:0;right:0;bottom:0;height:3px;background:transparent;z-index:9}
+#bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .25s}
+#ctl{position:fixed;right:14px;top:12px;z-index:10;display:flex;gap:8px;font-family:var(--mono);font-size:13px}
+#ctl button,#ctl a{background:var(--panel);color:var(--mute);border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer;font:inherit}
+#ctl a{text-decoration:none;display:inline-block}
+#ctl button:hover,#ctl a:hover{color:var(--fg);border-color:var(--accent)}
+#count{position:fixed;left:14px;bottom:10px;font-family:var(--mono);font-size:13px;color:var(--mute);z-index:10}
+#help{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);font-family:var(--mono);font-size:12px;color:var(--mute);z-index:10;opacity:.8}
+/* overview */
+body.ov #stage{transform:none!important;width:auto;height:auto;position:static;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding:60px 24px 24px;overflow:auto;max-height:100vh;width:100vw}
+body.ov #viewport{display:block;overflow:auto}
+body.ov html,body.ov{overflow:auto}
+body.ov .slide{display:flex;position:relative;width:1280px;height:720px;zoom:.23;cursor:pointer;animation:none}
+body.ov .fx{opacity:1;transform:none}
+body.ov .slide.active{outline:6px solid var(--accent)}
+@media print{
+  @page{size:1280px 720px;margin:0}
+  html,body{overflow:visible;height:auto;background:#fff}
+  #viewport{position:static;display:block}#stage{transform:none!important;width:1280px;height:auto}
+  .slide{display:flex!important;position:relative;break-after:page;height:720px;animation:none!important;opacity:1!important;border-radius:0;border:0}
+  .fx{opacity:1!important;transform:none!important}
+  #ctl,#hud,#count,#help{display:none}
+}
+
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+<!-- 1 capa -->
+<section class="slide cover">
+  <div class="prompt">desenvolvimento-mobile / aula-01</div>
+  <h1>Do zero ao <span>PWA</span><br>até a <span>loja</span></h1>
+  <p class="lead">Criar o projeto, pacotes, manifesto, ícones, service worker, deploy e geração de APK/AAB.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag">Vue 3</span><span class="tag">Vite</span><span class="tag">vite-plugin-pwa</span><span class="tag">Workbox</span><span class="tag">PWABuilder</span><span class="tag">TWA</span></div>
+  <p class="small mute">Prof. Eduardo da Silva · IFC</p>
+</section>
+
+<!-- 2 roteiro -->
+<section class="slide">
+  <div class="num">roteiro</div>
+  <h2>O caminho completo</h2>
+  <div class="flow" style="margin-top:20px">
+    <div class="node hl">1. Criar<small>npm create vue</small></div><div class="arr">→</div>
+    <div class="node">2. Pacotes<small>vite-plugin-pwa</small></div><div class="arr">→</div>
+    <div class="node">3. Manifesto<small>+ ícones</small></div><div class="arr">→</div>
+    <div class="node">4. Service Worker<small>cache offline</small></div>
+  </div>
+  <div class="flow">
+    <div class="node">5. Testar<small>Lighthouse</small></div><div class="arr">→</div>
+    <div class="node">6. Deploy HTTPS<small>domínio público</small></div><div class="arr">→</div>
+    <div class="node">7. APK / AAB<small>TWA / PWABuilder</small></div><div class="arr">→</div>
+    <div class="node hl">8. Loja<small>Google Play</small></div>
+  </div>
+  <p class="mute" style="margin-top:14px">Um único código-fonte web. A "versão nativa" é só um empacotamento do PWA já publicado.</p>
+</section>
+
+<!-- 3 secao -->
+<section class="slide section"><div class="big">01</div><h2>Criar o projeto</h2><p class="lead">Vue 3 + Vite, o ponto de partida do curso</p></section>
+
+<!-- 4 criar -->
+<section class="slide">
+  <div class="num">01 · criar</div>
+  <h2>Gerando o esqueleto</h2>
+  <div class="cols c21">
+    <div class="col">
+      <textarea class="code" data-lang="sh" data-file="terminal" data-size="l">
+$ npm create vue@latest registro-atividades-pwa
+$ cd registro-atividades-pwa
+$ npm install
+$ npm run dev -- --host
+</textarea>
+      <p class="small">Opções do assistente (comuns para os projetos desenvolvidos em aula):</p>
+      <ul class="small"><li>TypeScript, JSX, Vitest, E2E: <b>No</b></li><li>Router: <b>Yes</b> · Pinia: <b>Yes</b></li><li>ESLint: <b>Yes</b></li></ul>
+    </div>
+    <div class="col">
+      <div class="card"><h3>Por que <code>--host</code>?</h3><p>Expõe o servidor na rede local. Abra <code>http://IP-do-PC:5173</code> no celular para testar o layout real.</p></div>
+      <div class="card"><h3>Atenção</h3><p>Service worker só funciona em <b>HTTPS</b> ou <code>localhost</code>. No IP da rede, o PWA não instala.</p></div>
+      <div class="card"><h3>Nota</h3><p><code>registro-atividades-pwa</code> é o <b>nome do projeto</b>. Pode ser outro, desde que você use o mesmo nome nos comandos seguintes.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 estrutura -->
+<section class="slide">
+  <div class="num">01 · criar</div>
+  <h2>Estrutura de pastas</h2>
+  <div class="cols c32">
+    <textarea class="code" data-lang="text" data-file="registro-atividades-pwa/" data-size="m" data-mark="3">
+├── public/
+│   ├── favicon.ico    # ícone da aba do navegador
+│   └── icons/         # ícones do PWA (slide 11)
+├── src/
+│   ├── api/
+│   ├── stores/
+│   ├── views/
+│   ├── components/
+│   ├── router/
+│   ├── assets/logo.svg  # logo do Vue (não usado)
+│   ├── App.vue
+│   └── main.js
+├── index.html
+├── vite.config.js   # config do PWA
+└── package.json
+</textarea>
+    <div class="col">
+      <div class="card"><h3><code>public/</code></h3><p>Arquivos servidos na raiz do site: ícones, <code>robots.txt</code> e, mais tarde, <code>.well-known/assetlinks.json</code>.</p></div>
+      <div class="card"><h3><code>vite.config.js</code></h3><p>Manifesto e service worker são <b>gerados no build</b> a partir daqui. Não escrevemos o SW na mão.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 secao -->
+<section class="slide section"><div class="big">02</div><h2>Pacotes</h2><p class="lead">O que instalar e para quê</p></section>
+
+<!-- 7 pacotes -->
+<section class="slide">
+  <div class="num">02 · pacotes</div>
+  <h2>Dependências do PWA</h2>
+  <table>
+    <tr><th>Pacote</th><th>Tipo</th><th>Função</th></tr>
+    <tr><td><code>vite-plugin-pwa</code></td><td>dev</td><td>Gera <code>manifest.webmanifest</code> e o service worker no build</td></tr>
+    <tr><td><code>@bubblewrap/cli</code></td><td>global</td><td><b>Opcional.</b> Empacota o PWA em APK/AAB (TWA); só para quem quiser explorar (slide 22)</td></tr>
+  </table>
+  <textarea class="code" data-lang="sh" data-file="terminal" data-size="l">
+$ npm i -D vite-plugin-pwa
+</textarea>
+  <p class="small mute">O <code>workbox-build</code> (motor que gera o SW) vem como dependência do <code>vite-plugin-pwa</code>. O registro do SW usa <code>virtual:pwa-register</code>, fornecido pelo próprio plugin.</p>
+</section>
+
+<!-- 8 vite config -->
+<section class="slide">
+  <div class="num">02 · pacotes</div>
+  <h2>vite.config.js</h2>
+  <div class="cols c32" style="align-items:start">
+    <textarea class="code" data-lang="js" data-file="vite.config.js" data-size="s" data-mark="7,10-13">
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { VitePWA } from 'vite-plugin-pwa'
+
+export default defineConfig({
+  plugins: [vue(), VitePWA({
+    registerType: 'autoUpdate',
+    manifest: {
+      name: 'Registro de Atividades',
+      short_name: 'Atividades',
+      start_url: '/',
+      display: 'standalone',
+      theme_color: '#42b883',
+      icons: [ /* próximos slides */ ],
+    },
+    workbox: { globPatterns: ['**/*.{js,css,html,svg,png}'] },
+  })],
+})
+</textarea>
+    <div class="col small">
+      <div class="card"><h3>registerType</h3><p><code>autoUpdate</code> (o nosso): atualiza sozinho.<br><code>prompt</code>: pergunta ao usuário.</p></div>
+      <div class="card"><h3>globPatterns</h3><p>O que entra no <b>precache</b>: o app inteiro fica disponível offline.</p></div>
+      <div class="card"><h3>background_color</h3><p>Cor da splash. Se omitir o campo, o plugin não inventa um valor.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 manifesto -->
+<section class="slide">
+  <div class="num">03 · manifesto</div>
+  <h2>Campos do manifesto</h2>
+  <table class="small">
+    <tr><th>Campo</th><th>Para quê</th><th>Exemplo</th></tr>
+    <tr><td><code>name</code> / <code>short_name</code></td><td>Nome na instalação / sob o ícone (≤ 12 caracteres)</td><td>Registro de Atividades / Atividades</td></tr>
+    <tr><td><code>start_url</code></td><td>Página aberta ao tocar no ícone</td><td><code>/</code></td></tr>
+    <tr><td><code>scope</code></td><td>URLs consideradas "dentro" do app</td><td><code>/</code></td></tr>
+    <tr><td><code>display</code></td><td>Aparência: sem barra do navegador</td><td><code>standalone</code></td></tr>
+    <tr><td><code>theme_color</code></td><td>Cor da barra de status</td><td><code>#42b883</code></td></tr>
+    <tr><td><code>background_color</code></td><td>Cor da splash screen</td><td><code>#ffffff</code></td></tr>
+    <tr><td><code>icons</code></td><td>Ícones em vários tamanhos (obrigatório 192 e 512)</td><td>próximos slides</td></tr>
+    <tr><td><code>orientation</code></td><td>Trava a orientação (opcional)</td><td><code>portrait</code></td></tr>
+  </table>
+  <p class="small mute">O plugin gera <code>manifest.webmanifest</code> e injeta o <code>&lt;link rel="manifest"&gt;</code> no HTML.</p>
+</section>
+
+<!-- 10 secao -->
+<section class="slide section"><div class="big">03</div><h2>Ícones</h2><p class="lead">Um SVG vira todos os tamanhos</p></section>
+
+<!-- 11 icones -->
+<section class="slide">
+  <div class="num">03 · ícones</div>
+  <h2>Gerando os ícones</h2>
+  <div class="cols c2">
+    <div class="steps">
+      <div class="st"><div>Acesse <b>pwabuilder.com/imageGenerator</b></div></div>
+      <div class="st"><div>Envie uma imagem quadrada (ideal: 512×512 ou maior)</div></div>
+      <div class="st"><div>Escolha a plataforma (Android) e gere</div></div>
+      <div class="st"><div>Baixe o <code>.zip</code> e copie os ícones de <b>192×192</b> e <b>512×512</b> para <code>public/icons/</code></div></div>
+    </div>
+    <div class="col">
+      <textarea class="code" data-lang="text" data-file="public/icons/" data-size="m">
+public/
+└── icons/
+    ├── icon-192x192.png
+    └── icon-512x512.png
+</textarea>
+      <table class="small">
+        <tr><th>Arquivo</th><th>Uso</th></tr>
+        <tr><td><code>icon-192x192.png</code></td><td>Android / Chrome, tela inicial</td></tr>
+        <tr><td><code>icon-512x512.png</code></td><td>Splash, loja e ícone maskable</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 12 manifest icons + maskable -->
+<section class="slide">
+  <div class="num">03 · ícones</div>
+  <h2>Ícone maskable e safe zone</h2>
+  <div class="cols c2">
+    <textarea class="code" data-lang="js" data-file="vite.config.js (manifest.icons)" data-size="m" data-mark="6-11">
+icons: [
+  { src: '/icons/icon-192x192.png',
+    sizes: '192x192', type: 'image/png' },
+  { src: '/icons/icon-512x512.png',
+    sizes: '512x512', type: 'image/png' },
+  {
+    src: '/icons/icon-512x512.png',
+    sizes: '512x512',
+    type: 'image/png',
+    purpose: 'maskable',
+  },
+]
+</textarea>
+    <div class="col" style="align-items:center;justify-content:center">
+      <div style="position:relative;width:250px;height:250px;background:linear-gradient(135deg,var(--accent2),var(--accent));border-radius:12px;display:grid;place-items:center">
+        <div style="width:150px;height:150px;border-radius:50%;border:3px dashed #fff;display:grid;place-items:center;color:#fff;font-family:var(--mono);font-size:24px;text-align:center;background:rgba(0,0,0,.18)">logo<br>aqui</div>
+        <span style="position:absolute;bottom:6px;font-size:14px;color:#fff;font-family:var(--mono)">fundo sangra até a borda</span>
+      </div>
+      <p class="small mute" style="text-align:center">O Android recorta em círculo, squircle, etc.<br>Mantenha o logo nos <b>80% centrais</b> (safe zone).</p>
+      <p class="xs mute">Teste em <b>maskable.app</b> antes de publicar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 13 head -->
+<section class="slide">
+  <div class="num">03 · ícones</div>
+  <h2>index.html: o que falta no &lt;head&gt;</h2>
+  <textarea class="code" data-lang="html" data-file="index.html" data-size="l" data-mark="4,5,6">
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;meta name="theme-color" content="#42b883" /&gt;
+  &lt;link rel="icon" href="/favicon.ico" sizes="any" /&gt;
+  &lt;link rel="apple-touch-icon" href="/icons/icon-192x192.png" /&gt;
+  &lt;title&gt;Registro de Atividades&lt;/title&gt;
+&lt;/head&gt;
+</textarea>
+  <div class="cols c2 small">
+    <div class="card"><h3>theme-color</h3><p>Repete a cor do manifesto para a barra do navegador antes do app instalar.</p></div>
+    <div class="card"><h3>apple-touch-icon</h3><p>O Safari/iOS <b>ignora</b> o ícone do manifesto, então precisa dessa tag.</p></div>
+  </div>
+</section>
+
+<!-- 14 SW -->
+<section class="slide">
+  <div class="num">04 · service worker</div>
+  <h2>Cache: escolha a estratégia certa</h2>
+  <div class="cols c3 small">
+    <div class="card"><span class="tag good">precache</span><h3>App shell</h3><p>JS, CSS, HTML e ícones. Baixados na instalação e servidos do cache. É o que faz o app abrir offline.</p></div>
+    <div class="card"><span class="tag warn">NetworkFirst</span><h3>Dados da API</h3><p>Tenta a rede, cai no cache se falhar. Bom para listas que mudam (<code>/tasks</code>).</p></div>
+    <div class="card"><span class="tag">StaleWhileRevalidate</span><h3>Imagens, fontes</h3><p>Responde do cache na hora e atualiza por baixo. Ótimo para recursos pouco críticos.</p></div>
+  </div>
+  <p class="mute small">Outras: <code>CacheFirst</code> (assets imutáveis), <code>NetworkOnly</code> (login, pagamentos) e <code>CacheOnly</code>.</p>
+</section>
+
+<!-- 15 runtime -->
+<section class="slide">
+  <div class="num">04 · service worker</div>
+  <h2>Runtime caching no Workbox</h2>
+  <textarea class="code" data-lang="js" data-file="vite.config.js (VitePWA → workbox)" data-size="xs" data-mark="3-10">
+workbox: {
+  runtimeCaching: [
+    {
+      urlPattern: ({ url }) => url.pathname.startsWith('/tasks'),
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'api-tasks',
+        networkTimeoutSeconds: 4,
+      },
+    },
+    {
+      urlPattern: ({ request }) => request.destination === 'image',
+      handler: 'StaleWhileRevalidate',
+      options: { cacheName: 'imagens' },
+    },
+  ],
+},
+</textarea>
+  <p class="small mute"><code>networkTimeoutSeconds: 4</code>: se a rede demorar mais de 4 s, usa o cache. É assim que o app "parece rápido" com sinal ruim.</p>
+</section>
+
+<!-- 16 update -->
+<section class="slide">
+  <div class="num">04 · service worker</div>
+  <h2>Atualização do app</h2>
+  <div class="cols c32" style="align-items:start">
+    <textarea class="code" data-lang="js" data-file="src/main.js" data-size="m" data-mark="3-12">
+import { registerSW } from 'virtual:pwa-register'
+
+registerSW({
+  immediate: true,
+  onRegisteredSW(swUrl, registration) {
+    if (registration) {
+      setInterval(() => {
+        registration.update()
+      }, 60 * 1000) // checa a cada 60 s
+    }
+  },
+})
+</textarea>
+    <div class="col small">
+      <div class="card"><h3>Com <code>autoUpdate</code></h3><p>Deploy novo → o SW novo é baixado → assume o controle e a página recarrega, <b>sem ação do usuário</b>.</p></div>
+      <div class="card"><h3>Alternativa</h3><p><code>registerType: 'prompt'</code> + componente <code>UpdatePrompt</code> (<code>useRegisterSW</code>) para perguntar antes. Indicado para formulários longos.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 17 testar -->
+<section class="slide">
+  <div class="num">05 · testar</div>
+  <h2>Testando de verdade</h2>
+  <div class="cols c2">
+    <div class="col">
+      <textarea class="code" data-lang="sh" data-file="terminal" data-size="l">
+$ npm run build
+$ npm run preview
+# abra http://localhost:4173
+</textarea>
+      <div class="card small"><h3>Por que build?</h3><p>Em dev o SW é parcial. Teste sempre o <b>build de produção</b>.</p></div>
+    </div>
+    <div class="steps small">
+      <div class="st"><div>DevTools → <b>Application → Manifest</b><small>sem avisos vermelhos, ícones carregando</small></div></div>
+      <div class="st"><div><b>Service Workers</b>: status "activated"<small>marque Offline e recarregue</small></div></div>
+      <div class="st"><div><b>Lighthouse</b> → categoria PWA/Installable<small>aprova os critérios de instalação</small></div></div>
+      <div class="st"><div>Instalar pelo ícone da barra de endereço<small>abre em janela própria, sem abas</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 18 deploy -->
+<section class="slide">
+  <div class="num">06 · deploy</div>
+  <h2>Publicar em HTTPS</h2>
+  <div class="cols c3 small">
+    <div class="card"><h3>GitHub Pages</h3><p>Gratuito. Atenção ao <code>base</code> do Vite se o site ficar em <code>/repositorio/</code>.</p></div>
+    <div class="card"><h3>Netlify / Vercel</h3><p>Conectou o repositório, publica. Domínio <code>.app</code> grátis e HTTPS automático.</p></div>
+    <div class="card"><h3>Servidor próprio</h3><p>Nginx + Let's Encrypt. Fallback de rota para <code>index.html</code>.</p></div>
+  </div>
+  <p class="small"><b>Fabroku:</b> plataforma que usamos nos projetos do IFC para publicar as aplicações.</p>
+  <div class="card bad small"><h3>Pegadinhas que quebram o PWA</h3><ul><li>Rotas do Vue Router sem fallback → 404 ao recarregar</li><li>Domínio de teste que muda a cada deploy → o APK aponta para um domínio fixo</li><li>Servir <code>manifest.webmanifest</code> e <code>sw.js</code> com cache longo → atualização não chega</li></ul></div>
+  <p class="small mute">Para a loja você precisa de uma <b>URL estável</b>. Ela será o conteúdo do aplicativo.</p>
+</section>
+
+<!-- 19 secao -->
+<section class="slide section"><div class="big">07</div><h2>APK, AAB e lojas</h2><p class="lead">Empacotando o PWA para o Android</p></section>
+
+<!-- 20 caminhos -->
+<section class="slide">
+  <div class="num">07 · empacotar</div>
+  <h2>Que tipo de artefato?</h2>
+  <div class="cols c2 small">
+    <div class="card good"><span class="tag good">caminho desta aula</span><h3>TWA: Trusted Web Activity</h3><ul><li>O Chrome abre seu site em tela cheia, sem barra</li><li>É o <b>mesmo</b> PWA: deploy web atualiza o app</li><li>APK minúsculo (~1–2 MB)</li><li>Ferramentas: <b>PWABuilder</b> (recomendado) ou Bubblewrap (opcional)</li></ul></div>
+    <div class="card"><span class="tag">alternativa</span><h3>Capacitor (WebView)</h3><ul><li>Embute o build <code>dist/</code> dentro do APK</li><li>Plugins nativos: câmera, push, arquivos</li><li>Exige Android Studio e atualiza só pela loja</li></ul></div>
+  </div>
+  <table class="small">
+    <tr><th>Artefato</th><th>Para</th></tr>
+    <tr><td><code>.apk</code></td><td>Instalar direto no celular (testes, distribuição por link)</td></tr>
+    <tr><td><code>.aab</code> (App Bundle)</td><td><b>Obrigatório</b> para novos apps na Google Play</td></tr>
+  </table>
+</section>
+
+<!-- 21 PWABuilder -->
+<section class="slide">
+  <div class="num">07 · empacotar</div>
+  <h2>Caminho recomendado: PWABuilder</h2>
+  <p class="small"><span class="tag good">recomendado</span> <b>TWA (Trusted Web Activity)</b>: um app Android mínimo que abre o <i>seu site</i> no Chrome em tela cheia, sem barra de endereço. Não há código web dentro do APK; ele só aponta para a URL publicada.</p>
+  <div class="cols c2">
+    <div class="steps">
+      <div class="st"><div>Acesse <b>pwabuilder.com</b> e informe a URL publicada</div></div>
+      <div class="st"><div>Revise o relatório (manifesto, SW, segurança)</div></div>
+      <div class="st"><div><b>Package for stores → Android</b></div></div>
+      <div class="st"><div>Preencha <i>Package ID</i>, nome, versão e <b>Signing key: New</b></div></div>
+      <div class="st"><div>Baixe o <code>.zip</code></div></div>
+    </div>
+    <div class="col">
+      <div class="card small"><h3>O zip contém</h3><ul><li><code>app-release-signed.apk</code> para testar</li><li><code>app-release-bundle.aab</code> para a Play Store</li><li><code>signing.keystore</code> + <code>signing-key-info.txt</code></li><li><code>assetlinks.json</code> pronto</li></ul></div>
+      <div class="card bad small"><h3>Guarde o keystore!</h3><p>Sem a chave de assinatura (ou sem a de upload cadastrada), você <b>não consegue publicar atualizações</b>. Faça backup fora do repositório.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 22 bubblewrap -->
+<section class="slide">
+  <div class="num">07 · empacotar</div>
+  <h2>Opcional: Bubblewrap CLI</h2>
+  <p class="small"><span class="tag warn">opcional</span> Não é necessário fazer na aula. Só para quem tiver interesse em explorar; o PWABuilder já resolve.</p>
+  <div class="cols c32" style="align-items:start">
+    <textarea class="code" data-lang="sh" data-file="terminal" data-size="s">
+$ npm i -g @bubblewrap/cli
+$ mkdir android-twa &amp;&amp; cd android-twa
+
+# pergunta applicationId, nome, cores,
+# ícone, versão e cria a keystore
+$ bubblewrap init \
+    --manifest=https://app.exemplo.com/manifest.webmanifest
+
+# compila e assina
+$ bubblewrap build
+#  → app-release-signed.apk
+#  → app-release-bundle.aab
+
+# instala no celular (depuração USB)
+$ adb install app-release-signed.apk
+</textarea>
+    <div class="col small">
+      <div class="card"><h3>1ª execução</h3><p>Oferece baixar o JDK e o Android SDK sozinho. Aceite.</p></div>
+      <div class="card"><h3>applicationId</h3><p>Identidade definitiva na loja. Ex.: <code>br.edu.ifc.atividades</code>. <b>Não muda depois.</b></p></div>
+      <div class="card"><h3>Nova versão</h3><p>Aumente <code>appVersionCode</code> no <code>twa-manifest.json</code> e rode <code>bubblewrap update</code> + <code>build</code>.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 23 assetlinks -->
+<section class="slide">
+  <div class="num">07 · empacotar</div>
+  <h2>Digital Asset Links: tirando a barra de URL</h2>
+  <div class="cols c2">
+    <div class="col">
+      <textarea class="code" data-lang="json" data-file="public/.well-known/assetlinks.json" data-size="xs" data-mark="6,7">
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "br.edu.ifc.atividades",
+    "sha256_cert_fingerprints": [
+      "AA:BB:CC:...:99"
+    ]
+  }
+}]
+</textarea>
+      <textarea class="code" data-lang="sh" data-file="terminal" data-size="s">
+$ keytool -list -v -keystore android.keystore
+# copie o "SHA256:" do certificado
+</textarea>
+    </div>
+    <div class="col small">
+      <div class="card"><span class="tag bad">sempre necessário</span><h3>O que é</h3><p>Prova de que <b>o site</b> autoriza <b>este app</b> a abrir em modo TWA. Sem ela, aparece a barra de URL. Vale para PWABuilder e Bubblewrap (não para Capacitor). O PWABuilder entrega o arquivo pronto: salve em <code>public/.well-known/</code>.</p></div>
+      <div class="card bad"><h3>Erro nº 1</h3><p>Com <b>Play App Signing</b>, a Google reassina o app. Use o SHA-256 do <i>Play Console → Integridade do app</i>, além do da sua chave.</p></div>
+      <p class="xs mute">Deve responder em <code>https://seudominio/.well-known/assetlinks.json</code> com <code>application/json</code>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 24 capacitor -->
+<section class="slide">
+  <div class="num">07 · alternativa</div>
+  <h2>Alternativa: Capacitor</h2>
+  <p class="small"><span class="tag warn">atenção</span> Este slide <b>não é um passo a passo completo</b>: faltam configurações (ícones, splash, permissões, assinatura etc.). Requer mais estudo; veja <b>capacitorjs.com/docs</b>.</p>
+  <div class="cols c21" style="align-items:start">
+    <textarea class="code" data-lang="sh" data-file="terminal" data-size="s">
+$ npm i @capacitor/core @capacitor/android
+$ npm i -D @capacitor/cli
+$ npx cap init "Atividades" br.edu.ifc.atividades --web-dir=dist
+
+$ npm run build          # gera dist/
+$ npx cap add android
+$ npx cap sync           # copia dist/ para o projeto Android
+$ npx cap open android   # abre o Android Studio
+# Build → Generate Signed Bundle / APK
+</textarea>
+    <div class="col small">
+      <div class="card good"><h3>Use quando</h3><p>Precisa de recursos nativos que o navegador não dá (Bluetooth, contatos, push nativo) ou de funcionar 100% embutido.</p></div>
+      <div class="card"><h3>Custo</h3><p>Mais peso, Android Studio na máquina e <b>cada mudança passa por nova versão na loja</b>.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 25 play -->
+<section class="slide">
+  <div class="num">07 · loja</div>
+  <h2>Google Play: o que preparar</h2>
+  <div class="cols c2 small">
+    <div class="card"><h3>Conta e app</h3><ul><li><span class="tag bad">obrigatório</span> Conta de desenvolvedor (taxa única)</li><li><span class="tag bad">obrigatório</span> Criar app e enviar o <code>.aab</code></li><li><span class="tag good">recomendado</span> Faixa de <b>teste interno</b> primeiro</li></ul></div>
+    <div class="card"><h3>Ficha da loja <span class="tag bad">obrigatório</span></h3><ul><li>Ícone 512×512</li><li>Imagem de destaque 1024×500</li><li>2+ capturas de tela (celular)</li><li>Descrição curta e completa</li></ul></div>
+    <div class="card"><h3>Conformidade <span class="tag bad">obrigatório</span></h3><ul><li><b>Política de privacidade</b> em URL pública</li><li>Declaração de segurança dos dados</li><li>Classificação etária</li></ul><p class="xs mute">Onde aprender: <b>Central de Ajuda do Play Console</b> (support.google.com/googleplay/android-developer) e <b>Políticas do Programa para Desenvolvedores</b> (play.google.com/about/developer-content-policy).</p></div>
+    <div class="card warn"><h3>Contas pessoais novas</h3><ul><li>Exigem <b>teste fechado</b> com testadores por ~14 dias antes de produção</li><li>O <i>targetSdk</i> mínimo muda todo ano</li></ul><p class="xs mute">Confira os valores atuais no Play Console.</p></div>
+  </div>
+</section>
+
+<!-- 26 ios -->
+<section class="slide">
+  <div class="num">07 · loja</div>
+  <h2>E o iOS?</h2>
+  <div class="cols c2 small">
+    <div class="card good"><span class="tag good">grátis</span><h3>Adicionar à Tela de Início</h3><p>No Safari: Compartilhar → <b>Adicionar à Tela de Início</b>. O PWA funciona com ícone e tela cheia, usando as tags <code>apple-touch-icon</code> do slide 13.</p></div>
+    <div class="card"><span class="tag warn">pago</span><h3>App Store</h3><p>Exige conta Apple Developer (anual), Mac com Xcode e um app com valor além de um "site embrulhado" (diretriz 4.2). PWABuilder gera o projeto Xcode, mas a aprovação não é garantida.</p></div>
+  </div>
+  <p class="mute">Na prática: Android via TWA na Play Store; iOS via instalação pelo Safari.</p>
+</section>
+
+<!-- 27 ciclo -->
+<section class="slide">
+  <div class="num">07 · manutenção</div>
+  <h2>Atualizações depois de publicado</h2>
+  <table>
+    <tr><th>O que mudou</th><th>TWA</th><th>Capacitor</th></tr>
+    <tr><td>Código web (Vue, CSS, API)</td><td><b>Só deploy web.</b> O app abre o site novo</td><td>Rebuild + <code>cap sync</code> + nova versão na loja</td></tr>
+    <tr><td>Nome, ícone, cor do app</td><td>Novo APK/AAB (<code>versionCode</code>+1)</td><td>Novo APK/AAB</td></tr>
+    <tr><td>Permissões, recursos nativos</td><td>Novo APK/AAB</td><td>Novo APK/AAB</td></tr>
+  </table>
+  <p class="small mute">Dica: guarde <code>appVersionCode</code> e <code>appVersionName</code> no repositório (sem o keystore!).</p>
+</section>
+
+<!-- 28 checklist -->
+<section class="slide">
+  <div class="num">resumo</div>
+  <h2>Checklist de ponta a ponta</h2>
+  <div class="cols c2 small">
+    <ul>
+      <li>☐ Projeto criado e rodando em <code>--host</code></li>
+      <li>☐ <code>vite-plugin-pwa</code> instalado e configurado</li>
+      <li>☐ Manifesto completo (nome, cores, <code>display</code>)</li>
+      <li>☐ Ícones 192 / 512 / <b>maskable</b> / apple-touch</li>
+      <li>☐ SW com precache + runtime cache da API</li>
+      <li>☐ <code>registerSW</code> (atualização automática) no <code>main.js</code></li>
+    </ul>
+    <ul>
+      <li>☐ Build testado offline + Lighthouse OK</li>
+      <li>☐ Deploy em HTTPS com URL estável</li>
+      <li>☐ <code>.aab</code> gerado (PWABuilder)</li>
+      <li>☐ <code>assetlinks.json</code> com o SHA-256 correto</li>
+      <li>☐ Keystore com backup seguro</li>
+      <li>☐ Ficha da loja + política de privacidade</li>
+    </ul>
+  </div>
+  <p class="xs mute">Referências: web.dev/learn/pwa · vite-pwa-org.netlify.app · pwabuilder.com</p>
+</section>
+
+</div></div>
+<div id="ctl"><a id="b-menu" href="index.html" title="Menu principal (M)">← menu</a><button id="b-ov" title="Visão geral (O)">▦ visão geral</button><button id="b-theme" title="Tema (T)">◐ tema</button><button id="b-fs" title="Tela cheia (F)">⛶</button></div>
+<div id="count"></div>
+<div id="help">← → navegar · M menu · O visão geral · T tema · F tela cheia</div>
+<div id="hud"><div id="bar"></div></div>
+<script>
+(function(){
+'use strict';
+var KW='const|let|var|function|return|import|from|export|default|async|await|if|else|new|true|false|null|undefined|for|of|in|try|catch|finally|throw|class|extends|this|typeof|def|None|True|False|self|FROM|RUN|COPY|CMD';
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function rules(lang){
+  var markup=(lang==='vue'||lang==='html');
+  var parts=[];
+  if(lang==='sh'||lang==='env'||lang==='yaml'){
+    parts.push(['c','(?:^|(?<=\\s))#.*$']);
+    parts.push(['s','\'(?:\\\\.|[^\'\\\\])*\'|"(?:\\\\.|[^"\\\\])*"']);
+    parts.push(['p','^\\$ ']);
+    if(lang==='sh') parts.push(['a','(?<=\\s)--?[A-Za-z][\\w-]*(?==|\\b)']);
+    if(lang==='env'||lang==='yaml') parts.push(['v','^[A-Za-z_][\\w.-]*(?==|:)']);
+    parts.push(['n','\\b\\d+(?:\\.\\d+)*\\b']);
+    return parts;
+  }
+  if(lang==='json'){
+    parts.push(['a','"(?:\\\\.|[^"\\\\])*"(?=\\s*:)']);
+    parts.push(['s','"(?:\\\\.|[^"\\\\])*"']);
+    parts.push(['n','-?\\b\\d+(?:\\.\\d+)?\\b']);
+    parts.push(['k','\\b(?:true|false|null)\\b']);
+    return parts;
+  }
+  parts.push(['c',markup?'<!--.*?-->|\\/\\/.*$':'\\/\\/.*$']);
+  parts.push(['s','\'(?:\\\\.|[^\'\\\\])*\'|"(?:\\\\.|[^"\\\\])*"|`(?:\\\\.|[^`\\\\])*`']);
+  if(markup){
+    parts.push(['t','<\\/?[A-Za-z][\\w.-]*|\\/?>']);
+    parts.push(['a','(?<=\\s)(?:[:@#]|v-)[\\w:.\\-\\[\\]]+']);
+    parts.push(['v','\\{\\{|\\}\\}']);
+  }
+  parts.push(['n','\\b\\d+(?:\\.\\d+)?\\b']);
+  parts.push(['k','\\b(?:'+KW+')\\b']);
+  parts.push(['f','\\b[A-Za-z_$][\\w$]*(?=\\()']);
+  return parts;
+}
+function hlLine(line,lang){
+  if(lang==='text'||!lang) return esc(line);
+  var r=rules(lang),src=r.map(function(x){return '('+x[1]+')';}).join('|');
+  var re=new RegExp(src,'g'),out='',last=0,m;
+  while((m=re.exec(line))){
+    if(m[0]==='') {re.lastIndex++;continue;}
+    var i=1;while(i<m.length&&m[i]===undefined)i++;
+    out+=esc(line.slice(last,m.index))+'<span class="'+r[i-1][0]+'">'+esc(m[0])+'</span>';
+    last=m.index+m[0].length;
+  }
+  return out+esc(line.slice(last));
+}
+function parseSet(v){var s={};(v||'').split(',').forEach(function(x){x=x.trim();if(!x)return;var r=x.split('-');var a=+r[0],b=+(r[1]||r[0]);for(var i=a;i<=b;i++)s[i]=1;});return s;}
+function buildCode(ta){
+  var lang=ta.dataset.lang||'text',raw=ta.value.replace(/^\n/,'').replace(/\s+$/,'');
+  var mark=parseSet(ta.dataset.mark),add=parseSet(ta.dataset.add),del=parseSet(ta.dataset.del);
+  var lines=raw.split('\n').map(function(l,i){
+    var n=i+1,cls='ln'+(mark[n]?' mark':'')+(add[n]?' add':'')+(del[n]?' del':'');
+    return '<span class="'+cls+'">'+(hlLine(l,lang)||' ')+'</span>';
+  }).join('');
+  var w=document.createElement('div');
+  w.className='codewrap'+(ta.dataset.kind?' '+ta.dataset.kind:'')+(ta.dataset.class?' '+ta.dataset.class:'');
+  var badge=ta.dataset.badge?'<span class="badge">'+esc(ta.dataset.badge)+'</span>':'';
+  w.innerHTML='<div class="codebar"><i></i><i></i><i></i><span class="file">'+esc(ta.dataset.file||lang)+'</span>'+badge+'<button type="button">copiar</button></div><pre class="code sz-'+(ta.dataset.size||'m')+'">'+lines+'</pre>';
+  w.querySelector('button').onclick=function(e){
+    var b=e.currentTarget;
+    try{navigator.clipboard.writeText(raw).then(function(){b.textContent='copiado';setTimeout(function(){b.textContent='copiar';},1200);});}catch(x){}
+  };
+  if(ta.dataset.fx!==undefined) w.classList.add('fx');
+  if(ta.style.cssText) w.style.cssText=ta.style.cssText;
+  ta.replaceWith(w);
+}
+document.querySelectorAll('textarea.code').forEach(buildCode);
+
+var slides=[].slice.call(document.querySelectorAll('.slide')),cur=0;
+var stage=document.getElementById('stage'),bar=document.getElementById('bar'),count=document.getElementById('count');
+function fit(){
+  if(document.body.classList.contains('ov')){stage.style.transform='';return;}
+  var s=Math.min(innerWidth/1280,innerHeight/720)*0.97;
+  stage.style.transform='scale('+s+')';
+}
+function fxs(i){return [].slice.call(slides[i].querySelectorAll('.fx'));}
+function show(i,all){
+  cur=Math.max(0,Math.min(slides.length-1,i));
+  slides.forEach(function(s,k){s.classList.toggle('active',k===cur);});
+  fxs(cur).forEach(function(f){f.classList.toggle('on',!!all);});
+  bar.style.width=((cur+1)/slides.length*100)+'%';
+  count.textContent=(cur+1)+' / '+slides.length;
+  try{history.replaceState(null,'','#'+(cur+1));}catch(e){}
+  document.title=document.title.replace(/ · \d+$/,'');
+}
+function next(){
+  if(document.body.classList.contains('ov'))return;
+  var f=fxs(cur).filter(function(x){return !x.classList.contains('on');});
+  if(f.length){f[0].classList.add('on');return;}
+  if(cur<slides.length-1)show(cur+1,false);
+}
+function prev(){
+  var on=fxs(cur).filter(function(x){return x.classList.contains('on');});
+  if(on.length){on[on.length-1].classList.remove('on');return;}
+  if(cur>0)show(cur-1,true);
+}
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  try{localStorage.setItem('slides-theme',t);}catch(e){}
+}
+function toggleTheme(){
+  var t=document.documentElement.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  setTheme(t==='dark'?'light':'dark');
+}
+function toggleOv(){
+  document.body.classList.toggle('ov');
+  fit();
+  if(document.body.classList.contains('ov')) setTimeout(function(){slides[cur].scrollIntoView({block:'center'});},30);
+}
+function fs(){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}
+try{var st=localStorage.getItem('slides-theme');if(st)document.documentElement.setAttribute('data-theme',st);}catch(e){}
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey||e.metaKey||e.altKey)return;
+  var k=e.key;
+  if(k==='ArrowRight'||k==='ArrowDown'||k==='PageDown'||k===' '||k==='Enter'){e.preventDefault();next();}
+  else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'||k==='Backspace'){e.preventDefault();prev();}
+  else if(k==='Home')show(0,false);
+  else if(k==='End')show(slides.length-1,true);
+  else if(k==='t'||k==='T')toggleTheme();
+  else if(k==='f'||k==='F')fs();
+  else if(k==='o'||k==='O'||k==='Escape'){if(k!=='Escape'||document.body.classList.contains('ov'))toggleOv();}
+});
+var tx=null;
+document.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',function(e){if(tx===null)return;var d=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(d)>50){d<0?next():prev();}});
+slides.forEach(function(s,k){s.addEventListener('click',function(e){
+  if(document.body.classList.contains('ov')){show(k,false);toggleOv();e.stopPropagation();}
+});});
+document.getElementById('b-theme').onclick=toggleTheme;
+document.addEventListener('keydown',function(e){if((e.key==='m'||e.key==='M')&&!e.ctrlKey&&!e.metaKey&&!e.altKey)location.href='index.html';});
+document.getElementById('b-ov').onclick=toggleOv;
+document.getElementById('b-fs').onclick=fs;
+addEventListener('resize',fit);
+var h=parseInt((location.hash||'').slice(1),10);
+fit();show(isNaN(h)?0:h-1,false);
+})();
+
+</script>
+</body>
+</html>

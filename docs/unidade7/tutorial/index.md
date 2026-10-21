@@ -8,17 +8,17 @@ Ao final, cada usuário terá seu próprio espaço de tarefas. Sem login, a apli
 
 ## O backend
 
-A versão `3.0` do backend adiciona o módulo de autenticação. Pare o container anterior e inicie com a nova versão:
+A imagem `:latest` que você usa desde a Unidade 5 já traz o módulo de autenticação. Não é preciso trocar de container — se ele não estiver rodando, inicie-o:
 
 ```bash
-docker run -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:3.0
+docker start registro-atividades-api
 ```
 
-Acesse `http://localhost:8001/docs` para confirmar que o servidor está no ar. Você verá três grupos de endpoints:
+Acesse `http://localhost:8001/docs` para confirmar que o servidor está no ar. Três grupos de endpoints interessam a esta unidade:
 
 - **auth** – endpoints de registro, login e refresh de token
-- **tasks** – os mesmos de antes, agora protegidos (exigem token)
-- **uploads** – upload de imagens, também protegido
+- **tasks** – até agora respondiam como o usuário `demo`; ao receber um token, passam a responder para o usuário logado
+- **uploads** – upload de imagens
 
 ## Estrutura do tutorial
 

@@ -89,10 +89,10 @@ Quando o frontend busca todas as tarefas com `GET /tasks`, recebe um array:
 
 ## O backend do projeto
 
-O backend que usaremos nesta unidade é uma API REST construída com FastAPI. Você não precisa conhecer o código — ele funciona como uma caixa-preta. Basta rodá-lo via Docker:
+O backend que usaremos nesta unidade é uma API REST construída com FastAPI. Você não precisa conhecer o código — ele funciona como uma caixa-preta. Basta rodá-lo via Docker (a mesma imagem `:latest` é usada em todas as unidades seguintes):
 
 ```bash
-docker run -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:1.0
+docker run -d --name registro-atividades-api -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:latest
 ```
 
 Esse comando baixa a imagem e inicia o servidor na porta 8001. As requisições serão feitas para `http://localhost:8001`.

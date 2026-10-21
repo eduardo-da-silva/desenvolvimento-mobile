@@ -456,7 +456,7 @@ Cada camada tem uma responsabilidade única. Os componentes nunca falam diretame
 
 Antes de considerar a integração completa, verifique cada ponto abaixo:
 
-- [ ] **Backend rodando**: `docker run -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:1.0` (ou `uvicorn main:app --port 8001` localmente)
+- [ ] **Backend rodando**: `docker start registro-atividades-api` (ou o `docker run` da preparação, ou `uvicorn main:app --port 8001` localmente)
 - [ ] **Frontend rodando**: `npm run dev` no diretório `registro-atividades-pwa`
 - [ ] **Carregamento inicial**: ao abrir o app, as tarefas existentes no banco aparecem na tela
 - [ ] **Adicionar tarefa**: digitar um título e clicar "Adicionar" → tarefa aparece na lista "Pendentes"
@@ -465,7 +465,7 @@ Antes de considerar a integração completa, verifique cada ponto abaixo:
 - [ ] **Cancelar edição**: clicar "Editar" → clicar "Cancelar" → formulário volta ao estado normal
 - [ ] **Remover tarefa**: clicar "Remover" → tarefa some da lista
 - [ ] **Persistência**: recarregar a página → tarefas continuam aparecendo (dados vêm do banco, não do localStorage)
-- [ ] **Swagger**: acessar [http://localhost:8001/docs](http://localhost:8001/docs) → confirmar os 4 endpoints
+- [ ] **Swagger**: acessar [http://localhost:8001/docs](http://localhost:8001/docs) → confirmar que os endpoints de `/tasks` respondem
 
 ---
 

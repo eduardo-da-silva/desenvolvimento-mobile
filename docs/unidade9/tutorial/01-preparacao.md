@@ -6,7 +6,7 @@ Neste passo, vamos verificar que o backend está no ar, confirmar que o endpoint
 
 ## Verificando o backend
 
-A versão do backend para esta unidade é a mesma da Unidade 8 (`4.0`). Se o container ainda estiver rodando da unidade anterior, ele continua funcionando — não é necessário trocar de imagem.
+O backend é o mesmo container `registro-atividades-api` (imagem `:latest`) que você usa desde a Unidade 5.
 
 ```bash
 docker ps
@@ -15,7 +15,7 @@ docker ps
 Se o container não estiver listado, inicie-o:
 
 ```bash
-docker run -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:4.0
+docker start registro-atividades-api
 ```
 
 Acesse `http://localhost:8001/docs` e confirme que o endpoint `POST /uploads/images/` está presente no grupo **uploads**.
@@ -28,7 +28,7 @@ Antes de começar as alterações, abra o projeto no navegador e verifique o com
    ```bash
    npm run dev
    ```
-2. Faça login (se a autenticação estiver ativa) e clique em "Editar" em uma tarefa
+2. Faça login e clique em "Editar" em uma tarefa
 3. Clique em "Adicionar imagem" — observe que o seletor de arquivos é aberto
 4. Selecione uma imagem da máquina e confirme o upload
 
@@ -86,7 +86,7 @@ Nesta unidade, as mudanças são todas no `TaskForm.vue`:
 
 Neste passo, você:
 
-- Verificou que o backend `4.0` está rodando
+- Verificou que o backend (imagem `:latest`) está rodando
 - Testou o fluxo atual e identificou a ausência do `capture`
 - Entendeu os pontos que serão alterados no `TaskForm.vue`
 

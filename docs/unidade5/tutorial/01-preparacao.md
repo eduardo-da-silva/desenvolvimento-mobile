@@ -9,12 +9,18 @@ Neste passo, vamos subir o backend, instalar as dependências necessárias no fr
 Com o Docker instalado, execute:
 
 ```bash
-docker run -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:1.0
+docker run -d --name registro-atividades-api -p 8001:8001 eduardosilvasc/gerenciamento-tarefas-2026:latest
 ```
 
 Na primeira execução, o Docker baixa a imagem automaticamente. Nas próximas, ela já estará disponível localmente.
 
-Para verificar que o servidor está rodando, acesse `http://localhost:8001/docs` no navegador. Você verá a documentação interativa com os quatro endpoints disponíveis.
+Todas as unidades a partir daqui usam **essa mesma imagem** (`:latest`). Você cria o container agora, com o nome `registro-atividades-api`, e nas próximas unidades apenas o inicia de novo com `docker start registro-atividades-api` — seus dados continuam lá.
+
+Para verificar que o servidor está rodando, acesse `http://localhost:8001/docs` no navegador. Você verá a documentação interativa da API.
+
+!!! note "A autenticação só entra na Unidade 7"
+
+    A API aceita um token de autenticação, mas ele só passa a ser necessário na Unidade 7. Até lá, as requisições sem token são tratadas como um usuário `demo` compartilhado — é por isso que este tutorial funciona sem tela de login. Quando você implementar o login na Unidade 7, cada usuário passa a ter a sua própria lista de tarefas.
 
 ## Instalando as dependências
 
