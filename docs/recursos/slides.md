@@ -4,19 +4,19 @@ Os slides usados em sala estão publicados como páginas HTML. Eles abrem em uma
 
 <div class="grid cards" markdown>
 
-- **[Menu dos slides](../../slides/index.html){ target=_blank }**
+- **[Menu dos slides](https://eduardo-da-silva.github.io/desenvolvimento-mobile/slides/index.html){ target=_blank }**
 
     Página inicial com todas as aulas disponíveis.
 
-- **[Aula 1 · Do projeto PWA à loja](../../slides/aula-pwa.html){ target=_blank }**
+- **[Aula 1 · Do projeto PWA à loja](https://eduardo-da-silva.github.io/desenvolvimento-mobile/slides/aula-pwa.html){ target=_blank }**
 
     Projeto, manifesto, ícones, service worker, deploy e publicação (TWA/PWABuilder).
 
-- **[Aula 1 em PDF](../../slides/aula-01-pwa.pdf){ target=_blank }**
+- **[Aula 1 em PDF](https://eduardo-da-silva.github.io/desenvolvimento-mobile/slides/aula-01-pwa.pdf){ target=_blank }**
 
     Versão em modo claro, para imprimir ou estudar offline.
 
-- **[Aula 2 · Integrando com o backend](../../slides/aula-backend.html){ target=_blank }**
+- **[Aula 2 · Integrando com o backend](https://eduardo-da-silva.github.io/desenvolvimento-mobile/slides/aula-backend.html){ target=_blank }**
 
     Swagger, axios, plugin com `baseURL`, store e telas de listagem e cadastro.
 
